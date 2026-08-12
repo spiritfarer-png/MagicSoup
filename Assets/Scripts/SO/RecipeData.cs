@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RecipeData", menuName = "ScriptableObject/ºÏ³É½ÇÉ«Êı¾İ", order = 0)]
+[CreateAssetMenu(fileName = "RecipeData", menuName = "ScriptableObject/åˆæˆè§’è‰²æ•°æ®", order = 0)]
 public class RecipeData : ScriptableObject
 {
      public string recipeId;
-     public List<SingleBeiBao> requiredMaterials; // ËùĞèËØ²Ä¼°ÊıÁ¿
-     public MinionData resultMinion;           // ºÏ³É³öµÄËæ´Ó/½ÇÉ«ÅäÖÃ 
+     public List<SingleBeiBao> requiredMaterials; // æ‰€éœ€ç´ æåŠæ•°é‡
+     public MinionData resultMinion;           // åˆæˆå‡ºçš„éšä»/è§’è‰²é…ç½® 
 }

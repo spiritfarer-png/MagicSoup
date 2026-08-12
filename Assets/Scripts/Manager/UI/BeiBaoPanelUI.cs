@@ -7,24 +7,24 @@ public class BeiBaoPanelUI : MonoBehaviour
 {
     public static BeiBaoPanelUI Instance { get; private set; }
 
-    [Header("¸ñ×ÓÔ¤ÖÆÌå")]
-    public GameObject slotPrefab; // ¹ÒÔØÁË ItemSlotUI µÄÔ¤ÖÆÌå
+    [Header("æ ¼å­é¢„åˆ¶ä½“")]
+    public GameObject slotPrefab; // æŒ‚è½½äº† ItemSlotUI çš„é¢„åˆ¶ä½“
 
-    [Header("Èı¸öÇøÓòµÄ Content (Ìí¼ÓÁË Grid Layout Group ×é¼ş)")]
-    public Transform materialGridContent; // ËØ²ÄÇø UI ¸¸½Úµã
-    public Transform craftingGridContent; // ºÏ³ÉÇø UI ¸¸½Úµã
-    public Transform minionGridContent;   // Ëæ´ÓÇø UI ¸¸½Úµã
-    public Transform deployedGridContent; // ÉÏÕóÇø UI ¸¸½Úµã
+    [Header("ä¸‰ä¸ªåŒºåŸŸçš„ Content (æ·»åŠ äº† Grid Layout Group ç»„ä»¶)")]
+    public Transform materialGridContent; // ç´ æåŒº UI çˆ¶èŠ‚ç‚¹
+    public Transform craftingGridContent; // åˆæˆåŒº UI çˆ¶èŠ‚ç‚¹
+    public Transform minionGridContent;   // éšä»åŒº UI çˆ¶èŠ‚ç‚¹
+    public Transform deployedGridContent; // ä¸Šé˜µåŒº UI çˆ¶èŠ‚ç‚¹
 
-    [Header("ºÏ³É¿ØÖÆ")]
-    public Button btnCraft;               // ºÏ³É½ÇÉ«°´Å¥
-    public List<RecipeData> recipeList;   // ËùÓĞµÄºÏ³ÉÅä·½
+    [Header("åˆæˆæ§åˆ¶")]
+    public Button btnCraft;               // åˆæˆè§’è‰²æŒ‰é’®
+    public List<RecipeData> recipeList;   // æ‰€æœ‰çš„åˆæˆé…æ–¹
     
-    [Header("¹Ø±Õ°´Å¥")]
+    [Header("å…³é—­æŒ‰é’®")]
     public Button btnClose;
     
 
-    // ÄÚ²¿±£´æÉú³ÉµÄ UI ¸ñ×ÓÊµÀı
+    // å†…éƒ¨ä¿å­˜ç”Ÿæˆçš„ UI æ ¼å­å®ä¾‹
     private List<ItemSlotUI> materialUIList = new List<ItemSlotUI>();
     private List<ItemSlotUI> craftingUIList = new List<ItemSlotUI>();
     private List<ItemSlotUI> minionUIList = new List<ItemSlotUI>();
@@ -50,12 +50,12 @@ public class BeiBaoPanelUI : MonoBehaviour
 
     }
 
-    // 1. ÊµÀı»¯Éú³ÉÈ«²¿ UI ¸ñ×Ó½Úµã
+    // 1. å®ä¾‹åŒ–ç”Ÿæˆå…¨éƒ¨ UI æ ¼å­èŠ‚ç‚¹
     private void SpawnAllSlotsUI()
     {
         var mgr = BeiBaoMgr.Instance;
 
-        // ÊµÀıËØ²ÄÇø¸ñ×Ó
+        // å®ä¾‹ç´ æåŒºæ ¼å­
         for (int i = 0; i < mgr.maxMaterialSlots; i++)
         {
             GameObject obj = Instantiate(slotPrefab, materialGridContent);
@@ -63,7 +63,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             materialUIList.Add(slotUI);
         }
 
-        // ÊµÀı»¯ºÏ³ÉÇø¸ñ×Ó
+        // å®ä¾‹åŒ–åˆæˆåŒºæ ¼å­
         for (int i = 0; i < mgr.maxCraftingSlots; i++)
         {
             GameObject obj = Instantiate(slotPrefab, craftingGridContent);
@@ -71,7 +71,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             craftingUIList.Add(slotUI);
         }
 
-        // ÊµÀı»¯Ëæ´ÓÇø¸ñ×Ó
+        // å®ä¾‹åŒ–éšä»åŒºæ ¼å­
         for (int i = 0; i < mgr.maxMinionSlots; i++)
         {
             GameObject obj = Instantiate(slotPrefab, minionGridContent);
@@ -79,7 +79,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             minionUIList.Add(slotUI);
         }
 
-        // ÊµÀı»¯ÉÏÕóÇø¸ñ×Ó
+        // å®ä¾‹åŒ–ä¸Šé˜µåŒºæ ¼å­
         for (int i = 0; i < mgr.maxDeployedSlots; i++)
         {
             GameObject obj = Instantiate(slotPrefab, deployedGridContent);
@@ -87,12 +87,12 @@ public class BeiBaoPanelUI : MonoBehaviour
         }
     }
 
-    // 2. Ë¢ĞÂÕû¸ö±³°ü UI£¨½« Êı¾İ Öğ¸öĞ´Èë UI ¸ñ×Ó£©
+    // 2. åˆ·æ–°æ•´ä¸ªèƒŒåŒ… UIï¼ˆå°† æ•°æ® é€ä¸ªå†™å…¥ UI æ ¼å­ï¼‰
     public void RefreshAllUI()
     {
         var mgr = BeiBaoMgr.Instance;
 
-        // Ë¢ĞÂËØ²ÄÇø UI
+        // åˆ·æ–°ç´ æåŒº UI
         for (int i = 0; i < materialUIList.Count; i++)
         {
             materialUIList[i].UpdateMaterialSlot(
@@ -102,7 +102,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             );
         }
 
-        // Ë¢ĞÂºÏ³ÉÇø UI
+        // åˆ·æ–°åˆæˆåŒº UI
         for (int i = 0; i < craftingUIList.Count; i++)
         {
             craftingUIList[i].UpdateMaterialSlot(
@@ -112,7 +112,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             );
         }
 
-        // Ë¢ĞÂËæ´ÓÇø UI
+        // åˆ·æ–°éšä»åŒº UI
         for (int i = 0; i < minionUIList.Count; i++)
         {
             minionUIList[i].UpdateMinionSlot(
@@ -121,7 +121,7 @@ public class BeiBaoPanelUI : MonoBehaviour
             );
         }
 
-        // Ë¢ĞÂÉÏÕóÇø UI
+        // åˆ·æ–°ä¸Šé˜µåŒº UI
         for (int i = 0; i < deployedUIList.Count; i++)
         {
             deployedUIList[i].UpdateMinionSlot(
@@ -129,7 +129,7 @@ public class BeiBaoPanelUI : MonoBehaviour
         }
     }
 
-    // 3. µã»÷Ä³¸ö¸ñ×ÓµÄ»Øµ÷´¦Àí
+    // 3. ç‚¹å‡»æŸä¸ªæ ¼å­çš„å›è°ƒå¤„ç†
     public void OnSlotClicked(ItemSlotUI.SlotType slotType, int index)
     {
         var mgr = BeiBaoMgr.Instance;
@@ -137,35 +137,35 @@ public class BeiBaoPanelUI : MonoBehaviour
         switch (slotType)
         {
             case ItemSlotUI.SlotType.MaterialArea:
-                // µã»÷ËØ²ÄÇø -> °ÑËØ²Ä·ÅÈëºÏ³ÉÇø
+                // ç‚¹å‡»ç´ æåŒº -> æŠŠç´ ææ”¾å…¥åˆæˆåŒº
                 mgr.MoveMaterialToCrafting(index);
                 break;
 
             case ItemSlotUI.SlotType.CraftingArea:
-                // µã»÷ºÏ³ÉÇø -> °ÑËØ²Ä·Å»ØËØ²ÄÇø
+                // ç‚¹å‡»åˆæˆåŒº -> æŠŠç´ ææ”¾å›ç´ æåŒº
                 mgr.MoveCraftingToMaterial(index);
                 break;
 
             case ItemSlotUI.SlotType.MinionArea:
-                // µã»÷Ëæ´ÓÇø -> ¿ÉÒÔ×ö×¼±¸ÉÏÕóÑ¡ÖĞµÈ
-                Debug.Log($"µã»÷ÁËËæ´Ó¸ñ [{index}]£¬Ëæ´ÓÃû£º{mgr.minionSlots[index]?.minionName}");
+                // ç‚¹å‡»éšä»åŒº -> å¯ä»¥åšå‡†å¤‡ä¸Šé˜µé€‰ä¸­ç­‰
+                Debug.Log($"ç‚¹å‡»äº†éšä»æ ¼ [{index}]ï¼Œéšä»åï¼š{mgr.minionSlots[index]?.minionName}");
                 break;
         }
 
-        // ĞŞ¸ÄÍêÊı¾İºó£¬ÖØĞÂäÖÈ¾ UI
+        // ä¿®æ”¹å®Œæ•°æ®åï¼Œé‡æ–°æ¸²æŸ“ UI
         RefreshAllUI();
     }
 
-    // µã»÷ºÏ³É°´Å¥ÊÂ¼ş
+    // ç‚¹å‡»åˆæˆæŒ‰é’®äº‹ä»¶
     private void OnCraftButtonClicked()
     {
-        // Æ¥Åä RecipeData£¬ºÏ³ÉËæ´ÓÂß¼­...
+        // åŒ¹é… RecipeDataï¼Œåˆæˆéšä»é€»è¾‘...
         for (int i = 0; i < recipeList.Count; i++)
         {
             BeiBaoMgr.Instance.TryCraftMinion(recipeList[i]);
 
         }
-        Debug.Log("µã»÷ÁËºÏ³ÉËæ´Ó°´Å¥");
+        Debug.Log("ç‚¹å‡»äº†åˆæˆéšä»æŒ‰é’®");
         RefreshAllUI();
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BattleClock : MonoBehaviour
 {
-    //当前时钟时刻
+    //褰撳墠鏃堕挓鏃跺埢
     public int currentTime = 0;
-    //每回合时针走多少
+    //姣忓洖鍚堟椂閽堣蛋澶氬皯
     public int stepPerTurn = 0;
 
-    //时针运动规则
+    //鏃堕拡杩愬姩瑙勫垯
     public void AdvanceClock()
     {
         currentTime = currentTime + stepPerTurn;

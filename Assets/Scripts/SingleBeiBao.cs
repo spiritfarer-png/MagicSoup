@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class SingleBeiBao
 {
-    //ÒıÓÃµÄËØ²ÄÅäÖÃ
+    //å¼•ç”¨çš„ç´ æé…ç½®
     public MaterialData materialData; 
-    // µ±Ç°¶ÑµşÊıÁ¿     
+    // å½“å‰å †å æ•°é‡     
     public int count;                 
 }

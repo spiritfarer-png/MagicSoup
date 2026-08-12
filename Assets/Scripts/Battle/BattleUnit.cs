@@ -5,21 +5,21 @@ using UnityEngine.EventSystems;
 
 public class BattleUnit : MonoBehaviour ,IPointerClickHandler
 {
-    public MinionData baseData;            // ÒıÓÃµÄ½ÇÉ«»ù´¡ÅäÖÃ
+    public MinionData baseData;            // å¼•ç”¨çš„è§’è‰²åŸºç¡€é…ç½®
 
-    // ÔËĞĞÊ±ÊôĞÔ
+    // è¿è¡Œæ—¶å±æ€§
     public int currentHp;
-    public bool isEnemy;                   // ÊÇ·ñÊÇµĞ·½½ÇÉ«
-    public bool isDead;                    // ÊÇ·ñËÀÍö
+    public bool isEnemy;                   // æ˜¯å¦æ˜¯æ•Œæ–¹è§’è‰²
+    public bool isDead;                    // æ˜¯å¦æ­»äº¡
 
-    // UI Ñ¡ÖĞÌáÊ¾ Ñ¡ÖĞµÄ½ÇÉ«½ÅÏÂ·Å¸ö¹âÈ¦
+    // UI é€‰ä¸­æç¤º é€‰ä¸­çš„è§’è‰²è„šä¸‹æ”¾ä¸ªå…‰åœˆ
     public GameObject focusIndicator;
 
-    // ×´Ì¬¼ì²â true¿ÉĞĞ¶¯
+    // çŠ¶æ€æ£€æµ‹ trueå¯è¡ŒåŠ¨
     public bool CanAct(int currentClockTime)
     {
         if (isDead) return false;
-        // Ğ£Ñéµ±Ç°Ê±¿ÌÊÇ·ñÂú×ã minionData ÖĞµÄ validClockTimes »ò clockModulo Ìõ¼ş
+        // æ ¡éªŒå½“å‰æ—¶åˆ»æ˜¯å¦æ»¡è¶³ minionData ä¸­çš„ validClockTimes æˆ– clockModulo æ¡ä»¶
         return CheckActionCondition(currentClockTime);
     }
 
@@ -28,7 +28,7 @@ public class BattleUnit : MonoBehaviour ,IPointerClickHandler
         InitUnit(baseData, isEnemy);
     }
 
-    ///³õÊ¼»¯µ¥Î»
+    ///åˆå§‹åŒ–å•ä½
     public void InitUnit(MinionData data, bool enemyStatus)
     {
         baseData = data;
@@ -38,41 +38,41 @@ public class BattleUnit : MonoBehaviour ,IPointerClickHandler
         SetFocusIndicator(false);
     }
 
-    // ÄÚ²¿ĞĞ¶¯¹æÔòÅĞ¶¨
+    // å†…éƒ¨è¡ŒåŠ¨è§„åˆ™åˆ¤å®š
     private bool CheckActionCondition(int currentClockTime)
     {
         if (baseData == null) return false;
 
-        //ÂäÔÚÖ¸¶¨Ê±¿ÌÁĞ±íÄÚĞĞ¶¯ (ÀıÈç 2, 5, 8 µã)
+        //è½åœ¨æŒ‡å®šæ—¶åˆ»åˆ—è¡¨å†…è¡ŒåŠ¨ (ä¾‹å¦‚ 2, 5, 8 ç‚¹)
         if (baseData.validClockTimes != null && baseData.validClockTimes.Contains(currentClockTime))
         {
             return true;
         }
 
-        //°´ÖÜÆÚÕû³ı (ÀıÈçÃ¿ 3 ²½´¥·¢Ò»´Î)
+        //æŒ‰å‘¨æœŸæ•´é™¤ (ä¾‹å¦‚æ¯ 3 æ­¥è§¦å‘ä¸€æ¬¡)
         if (baseData.clockModulo > 0 && (currentClockTime % baseData.clockModulo == 0))
         {
             return true;
         }
-        //ÆäËüµÄºóĞø¿ÉÒÔÔÙ¼Ó
+        //å…¶å®ƒçš„åç»­å¯ä»¥å†åŠ 
 
 
         return false;
     }
 
-    // Ö´ĞĞĞĞ¶¯£¨¹¥»÷/¼¼ÄÜ£©
+    // æ‰§è¡Œè¡ŒåŠ¨ï¼ˆæ”»å‡»/æŠ€èƒ½ï¼‰
     public void ExecuteAction(BattleUnit target)
     {
         if (isDead || target == null) return;
 
-        // ¾ßÌåµÄÉËº¦¼ÆËãÂß¼­ (Ô¤Áô)
+        // å…·ä½“çš„ä¼¤å®³è®¡ç®—é€»è¾‘ (é¢„ç•™)
         int damage = CalculateDamage(target);
         target.TakeDamage(damage);
     }
 
     private int CalculateDamage(BattleUnit target)
     {
-        // ÉËº¦¼ÆËã¹«Ê½£¬ºóĞø¿ÉĞŞ¸Ä
+        // ä¼¤å®³è®¡ç®—å…¬å¼ï¼Œåç»­å¯ä¿®æ”¹
         return Mathf.Max(1, baseData.attack - target.baseData.defense);
     }
 
@@ -89,7 +89,7 @@ public class BattleUnit : MonoBehaviour ,IPointerClickHandler
 
     private void OnDeath()
     {
-        // ²¥·ÅËÀÍö¶¯»­/ÇåÀí½Úµã
+        // æ’­æ”¾æ­»äº¡åŠ¨ç”»/æ¸…ç†èŠ‚ç‚¹
     }
 
     public void SetFocusIndicator(bool active)
@@ -100,10 +100,10 @@ public class BattleUnit : MonoBehaviour ,IPointerClickHandler
         }
     }
 
-    //´¦ÀíUIµã»÷Âß¼­
+    //å¤„ç†UIç‚¹å‡»é€»è¾‘
     public void OnPointerClick(PointerEventData eventData)
     {
-       // ½«µã»÷ÊÂ¼ş´«¸ø½»»¥¹ÜÀíÆ÷Í³Ò»´¦Àí
+       // å°†ç‚¹å‡»äº‹ä»¶ä¼ ç»™äº¤äº’ç®¡ç†å™¨ç»Ÿä¸€å¤„ç†
         PlayerTurnController.Instance.OnUnitClicked(this);
     }
 }

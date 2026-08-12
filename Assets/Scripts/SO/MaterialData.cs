@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MaterialData", menuName = "ScriptableObject/ËØ²ÄÊı¾İ", order = 0)]
+[CreateAssetMenu(fileName = "MaterialData", menuName = "ScriptableObject/ç´ ææ•°æ®", order = 0)]
 public class MaterialData : ScriptableObject
 {
-    //ËØ²ÄÎ¨Ò»ID
+    //ç´ æå”¯ä¸€ID
     public string materialID; 
-    //ËØ²ÄÃû³Æ
+    //ç´ æåç§°
     public string materialName;
-    //ËØ²ÄĞÇ¼¶
+    //ç´ ææ˜Ÿçº§
     public int Level;
-    //Í¼±ê
+    //å›¾æ ‡
     public Sprite icon;
 }

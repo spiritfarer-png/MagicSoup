@@ -11,24 +11,24 @@ public class PlayerTurnController : MonoBehaviour
         get { return instance; }
     }
 
-    // Ã¿»ØºÏÏŞÖÆ±ê¼Ç
-    public bool isUseForceAction;     // ±¾»ØºÏÊÇ·ñÒÑÎŞÊÓÌõ¼şÈÃ½ÇÉ«ĞĞ¶¯
-    public bool isUsePotion;          // ±¾»ØºÏÊÇ·ñÒÑÊ¹ÓÃÒ©Ë®
+    // æ¯å›åˆé™åˆ¶æ ‡è®°
+    public bool isUseForceAction;     // æœ¬å›åˆæ˜¯å¦å·²æ— è§†æ¡ä»¶è®©è§’è‰²è¡ŒåŠ¨
+    public bool isUsePotion;          // æœ¬å›åˆæ˜¯å¦å·²ä½¿ç”¨è¯æ°´
 
-    // Ò©Ë®×ÊÔ´
+    // è¯æ°´èµ„æº
     public List<PotionData> potionMgrs;
-    public PotionData selectedPotion; // µ±Ç°Ñ¡ÖĞµÄÒ©Ë®
+    public PotionData selectedPotion; // å½“å‰é€‰ä¸­çš„è¯æ°´
 
-    // Íæ¼Òµ±Ç°½»»¥Ä£Ê½
+    // ç©å®¶å½“å‰äº¤äº’æ¨¡å¼
     public enum InteractionMode
     {
-        Normal,                     // Õı³£Ä£Ê½£¨µã»÷µĞÈË¿ÉÇĞ»»¼¯»ğ£©
-        SelectingAllyForPotion,     // ÕıÔÚÑ¡ÔñÒ©Ë®Ê¹ÓÃ¶ÔÏó£¨µÈ´ıµã»÷¼º·½½ÇÉ«£©
-        SelectingAllyForForceAction // ÕıÔÚÑ¡ÔñÇ¿ÖÆĞĞ¶¯¶ÔÏó£¨µÈ´ıµã»÷¼º·½½ÇÉ«£©
+        Normal,                     // æ­£å¸¸æ¨¡å¼ï¼ˆç‚¹å‡»æ•Œäººå¯åˆ‡æ¢é›†ç«ï¼‰
+        SelectingAllyForPotion,     // æ­£åœ¨é€‰æ‹©è¯æ°´ä½¿ç”¨å¯¹è±¡ï¼ˆç­‰å¾…ç‚¹å‡»å·±æ–¹è§’è‰²ï¼‰
+        SelectingAllyForForceAction // æ­£åœ¨é€‰æ‹©å¼ºåˆ¶è¡ŒåŠ¨å¯¹è±¡ï¼ˆç­‰å¾…ç‚¹å‡»å·±æ–¹è§’è‰²ï¼‰
     }
     public InteractionMode currentMode = InteractionMode.Normal;
 
-    // µ±Ç°Ñ¡ÖĞµÄ¼º·½½ÇÉ«ÏÂ±ê/Ë÷Òı
+    // å½“å‰é€‰ä¸­çš„å·±æ–¹è§’è‰²ä¸‹æ ‡/ç´¢å¼•
     private int currentSelectedIndex = 0;
 
     private void Awake()
@@ -38,7 +38,7 @@ public class PlayerTurnController : MonoBehaviour
 
     private void Update()
     {
-        // Ö»ÓĞ´¦ÓÚÑ¡Ôñ¼º·½½ÇÉ«µÄÄ£Ê½Ê±£¬²Å³ÖĞøÕìÌı¼üÅÌÊäÈë
+        // åªæœ‰å¤„äºé€‰æ‹©å·±æ–¹è§’è‰²çš„æ¨¡å¼æ—¶ï¼Œæ‰æŒç»­ä¾¦å¬é”®ç›˜è¾“å…¥
         if (currentMode == InteractionMode.SelectingAllyForPotion ||
             currentMode == InteractionMode.SelectingAllyForForceAction)
         {
@@ -52,10 +52,10 @@ public class PlayerTurnController : MonoBehaviour
         isUsePotion = false;
     }
 
-    //Ç¿ĞĞÈÃÖ¸¶¨µ¥Î»ĞĞ¶¯
+    //å¼ºè¡Œè®©æŒ‡å®šå•ä½è¡ŒåŠ¨
     //public bool ForceUnitAct(BattleUnit targetUnit, BattleUnit targetEnemy)
     //{
-    //    if (isUseForceAction) return false; // ±¾»ØºÏÒÑÓÃ¹ı
+    //    if (isUseForceAction) return false; // æœ¬å›åˆå·²ç”¨è¿‡
     //    if (targetUnit == null || targetUnit.isDead) return false;
 
     //    targetUnit.ExecuteAction(targetEnemy);
@@ -63,15 +63,15 @@ public class PlayerTurnController : MonoBehaviour
     //    return true;
     //}
 
-    //È·ÈÏÊ¹ÓÃÒ©Ë®
+    //ç¡®è®¤ä½¿ç”¨è¯æ°´
     //public bool UsePotion(PotionData potion, BattleUnit targetUnit)
     //{
-    //    print("Ê¹ÓÃÁËÒ©Ë® ÊıÁ¿¼õ1");
+    //    print("ä½¿ç”¨äº†è¯æ°´ æ•°é‡å‡1");
 
-    //    if (isUsePotion) return false; // ±¾»ØºÏÒÑÓÃ¹ı
+    //    if (isUsePotion) return false; // æœ¬å›åˆå·²ç”¨è¿‡
     //    if (potion == null || potion.potionCount <= 0) return false;
 
-    //    Ó¦ÓÃÒ©Ë®Ğ§¹û
+    //    åº”ç”¨è¯æ°´æ•ˆæœ
     //    ApplyPotionEffect(potion, targetUnit);
 
     //    potion.potionCount--;
@@ -81,24 +81,24 @@ public class PlayerTurnController : MonoBehaviour
 
     private void ApplyPotionEffect(PotionData potion, BattleUnit targetUnit)
     {
-        print("Ê¹ÓÃÒ©Ë®" + potion + "¸ø" + targetUnit);
-        // Ò©Ë®Ğ§¹û¾ßÌåÊıÖµ¼ÆËã£ºÖÎÁÆ¡¢¼Ó¹¥»÷µÈ
+        print("ä½¿ç”¨è¯æ°´" + potion + "ç»™" + targetUnit);
+        // è¯æ°´æ•ˆæœå…·ä½“æ•°å€¼è®¡ç®—ï¼šæ²»ç–—ã€åŠ æ”»å‡»ç­‰
     }
 
-    // µã»÷ UI °´Å¥£ºÊ¹ÓÃÒ©Ë®
+    // ç‚¹å‡» UI æŒ‰é’®ï¼šä½¿ç”¨è¯æ°´
     public void RequestUsePotion(PotionData potion)
     {
         if (BattleMgr.Instance.currentPhase != BattleMgr.BattlePhase.PlayerAction) return;
 
         if (isUsePotion)
         {
-            Debug.Log("±¾»ØºÏÒÑÊ¹ÓÃ¹ıÒ©Ë®");
+            Debug.Log("æœ¬å›åˆå·²ä½¿ç”¨è¿‡è¯æ°´");
             return;
         }
 
         if (potion == null || potion.potionCount <= 0)
         {
-            Debug.Log("Ò©Ë®ÊıÁ¿²»×ã");
+            Debug.Log("è¯æ°´æ•°é‡ä¸è¶³");
             return;
         }
 
@@ -107,65 +107,65 @@ public class PlayerTurnController : MonoBehaviour
 
 
 
-        // Ä¬ÈÏ½«ÏÂ±êÖ¸ÏòË÷Òı 0 µÄ½ÇÉ«£¬²¢¿ªÆô¹âÈ¦/ÏÂ±ê
+        // é»˜è®¤å°†ä¸‹æ ‡æŒ‡å‘ç´¢å¼• 0 çš„è§’è‰²ï¼Œå¹¶å¼€å¯å…‰åœˆ/ä¸‹æ ‡
         currentSelectedIndex = 0;
         UpdateAllySelectionIndicators();
 
-       // Debug.Log("°´ÏÂ A/D ÇĞ»»½ÇÉ«£¬Space È·ÈÏ£»»òµã»÷½ÇÉ«Ñ¡Ôñ/ÔÙ´Îµã»÷È·ÈÏ");
+       // Debug.Log("æŒ‰ä¸‹ A/D åˆ‡æ¢è§’è‰²ï¼ŒSpace ç¡®è®¤ï¼›æˆ–ç‚¹å‡»è§’è‰²é€‰æ‹©/å†æ¬¡ç‚¹å‡»ç¡®è®¤");
 
-        //Debug.Log("µã»÷Ñ¡ÔñÒ»¸ö ¼º·½½ÇÉ« Ê¹ÓÃÒ©Ë® (ÔÙ´Îµã»÷°´Å¥¿ÉÈ¡Ïû)");
+        //Debug.Log("ç‚¹å‡»é€‰æ‹©ä¸€ä¸ª å·±æ–¹è§’è‰² ä½¿ç”¨è¯æ°´ (å†æ¬¡ç‚¹å‡»æŒ‰é’®å¯å–æ¶ˆ)");
     }
 
-    // µã»÷ UI °´Å¥£ºÇëÇóÇ¿ÖÆĞĞ¶¯
+    // ç‚¹å‡» UI æŒ‰é’®ï¼šè¯·æ±‚å¼ºåˆ¶è¡ŒåŠ¨
     public void RequestForceAction()
     {
         if (BattleMgr.Instance.currentPhase != BattleMgr.BattlePhase.PlayerAction) return;
 
         if (isUseForceAction)
         {
-            Debug.Log("±¾»ØºÏÒÑÊ¹ÓÃ¹ıÇ¿ÖÆĞĞ¶¯");
+            Debug.Log("æœ¬å›åˆå·²ä½¿ç”¨è¿‡å¼ºåˆ¶è¡ŒåŠ¨");
             return;
         }
 
         currentMode = InteractionMode.SelectingAllyForForceAction;
 
-        // Ä¬ÈÏ½«ÏÂ±êÖ¸ÏòË÷Òı 0 µÄ½ÇÉ«£¬²¢¿ªÆô¹âÈ¦/ÏÂ±ê
+        // é»˜è®¤å°†ä¸‹æ ‡æŒ‡å‘ç´¢å¼• 0 çš„è§’è‰²ï¼Œå¹¶å¼€å¯å…‰åœˆ/ä¸‹æ ‡
         currentSelectedIndex = 0;
         UpdateAllySelectionIndicators();
 
-        Debug.Log("°´ÏÂ A/D ÇĞ»»½ÇÉ«£¬Space È·ÈÏ£»»òµã»÷½ÇÉ«Ñ¡Ôñ/ÔÙ´Îµã»÷È·ÈÏ");
+        Debug.Log("æŒ‰ä¸‹ A/D åˆ‡æ¢è§’è‰²ï¼ŒSpace ç¡®è®¤ï¼›æˆ–ç‚¹å‡»è§’è‰²é€‰æ‹©/å†æ¬¡ç‚¹å‡»ç¡®è®¤");
     }
 
-    // È¡Ïûµ±Ç°Ñ¡ÔñÄ£Ê½
+    // å–æ¶ˆå½“å‰é€‰æ‹©æ¨¡å¼
     public void CancelSelectionMode()
     {
         currentMode = InteractionMode.Normal;
         selectedPotion = null;
         ClearAllAllyIndicators();
-        Debug.Log("ÒÑÈ¡ÏûÑ¡ÔñÄ£Ê½");
+        Debug.Log("å·²å–æ¶ˆé€‰æ‹©æ¨¡å¼");
     }
 
-    // Í³Ò»´¦Àí³¡¾°ÖĞµ¥Î»µÄµã»÷»Øµ÷
+    // ç»Ÿä¸€å¤„ç†åœºæ™¯ä¸­å•ä½çš„ç‚¹å‡»å›è°ƒ
     public void OnUnitClicked(BattleUnit clickedUnit)
     {
         if (BattleMgr.Instance.currentPhase != BattleMgr.BattlePhase.PlayerAction) return;
 
-        // 1. Èç¹ûµã»÷µÄÊÇ µĞ·½½ÇÉ«
+        // 1. å¦‚æœç‚¹å‡»çš„æ˜¯ æ•Œæ–¹è§’è‰²
         if (clickedUnit.isEnemy)
         {
-            // ÔÚÆÕÍ¨Ä£Ê½ÏÂµã»÷µĞÈË  ÇĞ»»¼¯»ğÄ¿±ê
+            // åœ¨æ™®é€šæ¨¡å¼ä¸‹ç‚¹å‡»æ•Œäºº  åˆ‡æ¢é›†ç«ç›®æ ‡
             if (currentMode == InteractionMode.Normal)
             {
                 BattleMgr.Instance.ToggleFocusEnemy(clickedUnit);
             }
             else
             {
-                Debug.Log("µ±Ç°´¦ÓÚ¼¼ÄÜ/Ò©Ë®Ñ¡ÔñÄ£Ê½£¬ÇëÑ¡Ôñ¼º·½½ÇÉ«");
+                Debug.Log("å½“å‰å¤„äºæŠ€èƒ½/è¯æ°´é€‰æ‹©æ¨¡å¼ï¼Œè¯·é€‰æ‹©å·±æ–¹è§’è‰²");
             }
             return;
         }
 
-        // 2. Èç¹ûµã»÷µÄÊÇ ¼º·½½ÇÉ«
+        // 2. å¦‚æœç‚¹å‡»çš„æ˜¯ å·±æ–¹è§’è‰²
         if (!clickedUnit.isEnemy)
         {
             if (currentMode == InteractionMode.SelectingAllyForPotion ||
@@ -174,12 +174,12 @@ public class PlayerTurnController : MonoBehaviour
                 int clickedIndex = BattleMgr.Instance.playerDeployedUnits.IndexOf(clickedUnit);
                 if (clickedIndex < 0) return;
 
-                // Èç¹ûµã»÷µÄ¾ÍÊÇµ±Ç°ÒÑ¾­Ñ¡ÖĞµÄ½ÇÉ« -> ÔÙ´Îµã»÷È·ÈÏÊ¹ÓÃ
+                // å¦‚æœç‚¹å‡»çš„å°±æ˜¯å½“å‰å·²ç»é€‰ä¸­çš„è§’è‰² -> å†æ¬¡ç‚¹å‡»ç¡®è®¤ä½¿ç”¨
                 if (clickedIndex == currentSelectedIndex)
                 {
                     ConfirmCurrentSelection();
                 }
-                // Èç¹ûµã»÷µÄÊÇÆäËû½ÇÉ« -> ½«ÏÂ±êÒÆ¶¯µ½¸Ã½ÇÉ«
+                // å¦‚æœç‚¹å‡»çš„æ˜¯å…¶ä»–è§’è‰² -> å°†ä¸‹æ ‡ç§»åŠ¨åˆ°è¯¥è§’è‰²
                 else
                 {
                     currentSelectedIndex = clickedIndex;
@@ -188,7 +188,7 @@ public class PlayerTurnController : MonoBehaviour
             }
             else
             {
-                Debug.Log($"µã»÷ÁË¼º·½½ÇÉ«: {clickedUnit.baseData.minionName}");
+                Debug.Log($"ç‚¹å‡»äº†å·±æ–¹è§’è‰²: {clickedUnit.baseData.minionName}");
             }
         }
 
@@ -197,14 +197,14 @@ public class PlayerTurnController : MonoBehaviour
     {
         if (selectedPotion == null || targetAlly.isDead) return;
 
-        // Ó¦ÓÃĞ§¹û²¢¿Û³ıÊıÁ¿
+        // åº”ç”¨æ•ˆæœå¹¶æ‰£é™¤æ•°é‡
         ApplyPotionEffect(selectedPotion, targetAlly);
         selectedPotion.potionCount--;
         isUsePotion = true;
 
-        Debug.Log($"³É¹¦¶Ô {targetAlly.baseData.minionName} Ê¹ÓÃÁËÒ©Ë®£¡");
+        Debug.Log($"æˆåŠŸå¯¹ {targetAlly.baseData.minionName} ä½¿ç”¨äº†è¯æ°´ï¼");
 
-        // ÖØÖÃ½»»¥Ä£Ê½²¢¹Ø±Õ¹âÈ¦
+        // é‡ç½®äº¤äº’æ¨¡å¼å¹¶å…³é—­å…‰åœˆ
         CancelSelectionMode();
     }
 
@@ -219,14 +219,14 @@ public class PlayerTurnController : MonoBehaviour
             targetAlly.ExecuteAction(targetEnemy);
             isUseForceAction = true;
 
-            Debug.Log($"³É¹¦Ç¿ÖÆ {targetAlly.baseData.minionName} ·¢¶¯¹¥»÷£¡");
+            Debug.Log($"æˆåŠŸå¼ºåˆ¶ {targetAlly.baseData.minionName} å‘åŠ¨æ”»å‡»ï¼");
 
-            // ÖØÖÃ½»»¥Ä£Ê½²¢¹Ø±Õ¹âÈ¦
+            // é‡ç½®äº¤äº’æ¨¡å¼å¹¶å…³é—­å…‰åœˆ
             CancelSelectionMode();
         }
         else
         {
-            Debug.Log("³¡ÉÏÃ»ÓĞ¿É¹¥»÷µÄµĞ·½Ä¿±ê£¡");
+            Debug.Log("åœºä¸Šæ²¡æœ‰å¯æ”»å‡»çš„æ•Œæ–¹ç›®æ ‡ï¼");
         }
     }
 
@@ -235,7 +235,7 @@ public class PlayerTurnController : MonoBehaviour
         var units = BattleMgr.Instance.playerDeployedUnits;
         if (units == null || units.Count == 0) return;
 
-        // A ¼ü£ºÏÂ±ê×óÒÆ
+        // A é”®ï¼šä¸‹æ ‡å·¦ç§»
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (currentSelectedIndex > 0)
@@ -244,7 +244,7 @@ public class PlayerTurnController : MonoBehaviour
                 UpdateAllySelectionIndicators();
             }
         }
-        // D ¼ü£ºÏÂ±êÓÒÒÆ
+        // D é”®ï¼šä¸‹æ ‡å³ç§»
         else if (Input.GetKeyDown(KeyCode.D))
         {
             if (currentSelectedIndex < units.Count - 1)
@@ -253,19 +253,19 @@ public class PlayerTurnController : MonoBehaviour
                 UpdateAllySelectionIndicators();
             }
         }
-        // Space ¼ü£ºÈ·ÈÏÊ¹ÓÃ
+        // Space é”®ï¼šç¡®è®¤ä½¿ç”¨
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             ConfirmCurrentSelection();
         }
-        // Esc ¼ü£ºÈ¡ÏûÑ¡Ôñ
+        // Esc é”®ï¼šå–æ¶ˆé€‰æ‹©
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             CancelSelectionMode();
         }
     }
 
-    // È·ÈÏÑ¡ÖĞµÄÄ¿±ê²¢Ö´ĞĞ¶ÔÓ¦Âß¼­
+    // ç¡®è®¤é€‰ä¸­çš„ç›®æ ‡å¹¶æ‰§è¡Œå¯¹åº”é€»è¾‘
     private void ConfirmCurrentSelection()
     {
         var units = BattleMgr.Instance.playerDeployedUnits;
@@ -295,7 +295,7 @@ public class PlayerTurnController : MonoBehaviour
         }
     }
 
-    // Çå³ıËùÓĞ¼º·½½ÇÉ«µÄÏÂ±ê¹âÈ¦
+    // æ¸…é™¤æ‰€æœ‰å·±æ–¹è§’è‰²çš„ä¸‹æ ‡å…‰åœˆ
     private void ClearAllAllyIndicators()
     {
         var units = BattleMgr.Instance.playerDeployedUnits;

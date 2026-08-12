@@ -2,30 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MinionData", menuName = "ScriptableObject/½ÇÉ«Êı¾İ", order = 0)]
+[CreateAssetMenu(fileName = "MinionData", menuName = "ScriptableObject/è§’è‰²æ•°æ®", order = 0)]
 public class MinionData : ScriptableObject
 {
-    //Ëæ´ÓID
+    //éšä»ID
     public string minionId;
-    //Ëæ´ÓÃû×Ö
+    //éšä»åå­—
     public string minionName;
-    //Ëæ´ÓĞÇ¼¶
+    //éšä»æ˜Ÿçº§
     public int starLevel;
-    //Ëæ´Ó±³°üÖĞÍ¼±ê
+    //éšä»èƒŒåŒ…ä¸­å›¾æ ‡
     public Sprite portrait;
-    // Õ½¶·ÖĞµÄ 2D Ä£ĞÍ
+    // æˆ˜æ–—ä¸­çš„ 2D æ¨¡å‹
     public GameObject prefab;              
 
-    // »ù´¡ÊôĞÔ
+    // åŸºç¡€å±æ€§
     public int maxHp;
     public int attack;
     public int defense;
 
-    // ĞĞ¶¯Ìõ¼şÅäÖÃ
-    //public ActionTriggerType triggerType;  // ´¥·¢ÀàĞÍ (Èç: Ê±ÖÓÖ¸¶¨Ê±¿Ì¡¢Õû³ıÖÜÆÚ¡¢ÆæÅ¼ÊıµÈ)
+    // è¡ŒåŠ¨æ¡ä»¶é…ç½®
+    //public ActionTriggerType triggerType;  // è§¦å‘ç±»å‹ (å¦‚: æ—¶é’ŸæŒ‡å®šæ—¶åˆ»ã€æ•´é™¤å‘¨æœŸã€å¥‡å¶æ•°ç­‰)
     
-    // ÔÊĞíĞĞ¶¯µÄ¾ßÌåÊ±ÖÓÊıÖµ (ÀıÈç [2, 5, 8])
+    // å…è®¸è¡ŒåŠ¨çš„å…·ä½“æ—¶é’Ÿæ•°å€¼ (ä¾‹å¦‚ [2, 5, 8])
     public List<int> validClockTimes;      
-    // ÖÜÆÚ´¥·¢ (ÀıÈç Ã¿ 3 ²½ĞĞ¶¯Ò»´Î)
+    // å‘¨æœŸè§¦å‘ (ä¾‹å¦‚ æ¯ 3 æ­¥è¡ŒåŠ¨ä¸€æ¬¡)
     public int clockModulo;                
 }

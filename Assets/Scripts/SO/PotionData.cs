@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "potionMgr", menuName = "ScriptableObject/ҩˮ����", order = 0)]
+[CreateAssetMenu(fileName = "potionMgr", menuName = "ScriptableObject/药水数据", order = 0)]
 public class PotionData : ScriptableObject
 {
-    //ҩˮΨһID
+    //药水唯一ID
     public string potionID;
-    //ҩˮ����
+    //药水名称
     public string potionName;
-    //ҩˮͼ��
+    //药水图标
     public Sprite icon;
-    //ҩˮ������
+    //药水持有量
     public int potionCount;
 }

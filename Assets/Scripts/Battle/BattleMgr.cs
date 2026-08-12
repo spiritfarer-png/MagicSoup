@@ -10,31 +10,31 @@ public class BattleMgr : MonoBehaviour
         get { return instance; }
     }
 
-    // Õ½¶·½×¶ÎÃ¶¾Ù Õ½¶·×¼±¸£¨¿ªÊ¼Ç°£©  Ã¿»ØºÏ¿ªÊ¼µÄË²¼ä  Íæ¼ÒĞĞ¶¯½×¶Î  Õ½¶·½×¶Î¹ı³¡  »ØºÏ½áÊøË²¼ä Õ½¶·½áÊø 
+    // æˆ˜æ–—é˜¶æ®µæšä¸¾ æˆ˜æ–—å‡†å¤‡ï¼ˆå¼€å§‹å‰ï¼‰  æ¯å›åˆå¼€å§‹çš„ç¬é—´  ç©å®¶è¡ŒåŠ¨é˜¶æ®µ  æˆ˜æ–—é˜¶æ®µè¿‡åœº  å›åˆç»“æŸç¬é—´ æˆ˜æ–—ç»“æŸ 
     public enum BattlePhase { Prep, TurnStart, PlayerAction, AutoAction, TurnEnd, BattleOver }
 
     public BattlePhase currentPhase;
 
-    // ÕóÈİ¹ÜÀí
-    public int maxDeployCount = 4;              // ×î´óÉÏÕóÈËÊı
-    public List<BattleUnit> playerDeployedUnits; // ÎÒ·½ÉÏÕó½ÇÉ«ÁĞ±í
-    public List<BattleUnit> enemyDeployedUnits;  // µĞ·½ÉÏÕó½ÇÉ«ÁĞ±í
+    // é˜µå®¹ç®¡ç†
+    public int maxDeployCount = 4;              // æœ€å¤§ä¸Šé˜µäººæ•°
+    public List<BattleUnit> playerDeployedUnits; // æˆ‘æ–¹ä¸Šé˜µè§’è‰²åˆ—è¡¨
+    public List<BattleUnit> enemyDeployedUnits;  // æ•Œæ–¹ä¸Šé˜µè§’è‰²åˆ—è¡¨
 
-    // Õ½¶·½á¹û
+    // æˆ˜æ–—ç»“æœ
     public bool isBattleOver;
     public bool isPlayerWin;
 
-    //Ö¸¶¨¹¥»÷µÄµĞ·½Ä¿±ê
+    //æŒ‡å®šæ”»å‡»çš„æ•Œæ–¹ç›®æ ‡
     public BattleUnit focusedEnemyTarget;
-    //Ö¸¶¨Ç¿ÖÆĞĞ¶¯µÄÍæ¼Ò¶ÔÏó
+    //æŒ‡å®šå¼ºåˆ¶è¡ŒåŠ¨çš„ç©å®¶å¯¹è±¡
     public BattleUnit focusPlayerTarget;
 
-    [Header("ĞèÒªÍÏÈë×é¼şÒıÓÃ")]
+    [Header("éœ€è¦æ‹–å…¥ç»„ä»¶å¼•ç”¨")]
     public BattleClock battleClock;
     public PlayerTurnController playerController;
 
-    [Header("Õ¾Î»ÅäÖÃ")]
-    public Transform[] playerSpawnPoints; // ¼º·½½ÇÉ«µÄ³¡¾°Éú³Éµã (ÔÚ Inspector ÖĞÍÏ×§ 4 ¸ö¿ÕÎïÌå)
+    [Header("ç«™ä½é…ç½®")]
+    public Transform[] playerSpawnPoints; // å·±æ–¹è§’è‰²çš„åœºæ™¯ç”Ÿæˆç‚¹ (åœ¨ Inspector ä¸­æ‹–æ‹½ 4 ä¸ªç©ºç‰©ä½“)
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class BattleMgr : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    // ½×¶ÎÇĞ»»×´Ì¬»ú
+    // é˜¶æ®µåˆ‡æ¢çŠ¶æ€æœº
     public void ChangePhase(BattlePhase newPhase)
     {
         currentPhase = newPhase;
@@ -50,8 +50,8 @@ public class BattleMgr : MonoBehaviour
         switch (currentPhase)
         {
             case BattlePhase.Prep:
-                // Õ½¶·×¼±¸£ºµÈ´ıÍæ¼ÒÉÏÕóËæ´Ó
-                //Ò»¸ö¼ì²â°´Å¥µÄ·½·¨ °´ÁËÇĞ»»µ½»ØºÏ¿ªÊ¼
+                // æˆ˜æ–—å‡†å¤‡ï¼šç­‰å¾…ç©å®¶ä¸Šé˜µéšä»
+                //ä¸€ä¸ªæ£€æµ‹æŒ‰é’®çš„æ–¹æ³• æŒ‰äº†åˆ‡æ¢åˆ°å›åˆå¼€å§‹
                  SyncDeployedUnitsFromInventory();
                 ChangePhase(BattlePhase.TurnStart);
                 break;
@@ -61,31 +61,31 @@ public class BattleMgr : MonoBehaviour
                 {
                     SyncDeployedUnitsFromInventory();
                 }
-                // ÖØÖÃÍæ¼ÒÊÖ¶¯²Ù×÷±ê¼Ç
+                // é‡ç½®ç©å®¶æ‰‹åŠ¨æ“ä½œæ ‡è®°
                 playerController.ResetTurnFlags();
-                //  Ê±ÖÓÏòÇ°×ß²½
+                //  æ—¶é’Ÿå‘å‰èµ°æ­¥
                 battleClock.AdvanceClock();
-                //  ×ªÈëÍæ¼ÒÊÖ¶¯²Ù×÷½×¶Î
+                //  è½¬å…¥ç©å®¶æ‰‹åŠ¨æ“ä½œé˜¶æ®µ
                 ChangePhase(BattlePhase.PlayerAction);
                 break;
 
             case BattlePhase.PlayerAction:
-                // µÈ´ı UI ²Ù×÷£¬Íæ¼Òµã»÷¡°½áÊø»ØºÏ¡±°´Å¥ºó×ªÈë AutoAction
-                print("Íæ¼Ò²Ù×÷½×¶Î");
+                // ç­‰å¾… UI æ“ä½œï¼Œç©å®¶ç‚¹å‡»â€œç»“æŸå›åˆâ€æŒ‰é’®åè½¬å…¥ AutoAction
+                print("ç©å®¶æ“ä½œé˜¶æ®µ");
                 break;
 
             case BattlePhase.AutoAction:
-                // Ö´ĞĞ·ûºÏÊ±ÖÓÌõ¼şµÄ×Ô¶¯ĞĞ¶¯
+                // æ‰§è¡Œç¬¦åˆæ—¶é’Ÿæ¡ä»¶çš„è‡ªåŠ¨è¡ŒåŠ¨
                 ProcessAutoActions();
                 ChangePhase(BattlePhase.TurnEnd);
                 break;
 
             case BattlePhase.TurnEnd:
-                // ¼ì²âÊ¤¸º×´Ì¬
+                // æ£€æµ‹èƒœè´ŸçŠ¶æ€
                 CheckBattleOverCondition();
                 if (!isBattleOver)
                 {
-                    ChangePhase(BattlePhase.TurnStart); // ¿ªÆôÏÂÒ»»ØºÏ
+                    ChangePhase(BattlePhase.TurnStart); // å¼€å¯ä¸‹ä¸€å›åˆ
                 }
                 else
                 {
@@ -94,17 +94,17 @@ public class BattleMgr : MonoBehaviour
                 break;
 
             case BattlePhase.BattleOver:
-                // ´¦Àí½áËã½±Àø»òÊ§°ÜUI
+                // å¤„ç†ç»“ç®—å¥–åŠ±æˆ–å¤±è´¥UI
                 break;
         }
     }
 
-    // ×Ô¶¯¼ì²â²¢Ö´ĞĞ¿ÉĞĞ¶¯µ¥Î»µÄÂß¼­
+    // è‡ªåŠ¨æ£€æµ‹å¹¶æ‰§è¡Œå¯è¡ŒåŠ¨å•ä½çš„é€»è¾‘
     private void ProcessAutoActions()
     {
         int currentTime = battleClock.currentTime;
 
-        // ¼º·½ĞĞ¶¯¼ì²â
+        // å·±æ–¹è¡ŒåŠ¨æ£€æµ‹
         foreach (var unit in playerDeployedUnits)
         {
             if (unit.CanAct(currentTime))
@@ -114,7 +114,7 @@ public class BattleMgr : MonoBehaviour
             }
         }
 
-        // µĞ·½ĞĞ¶¯¼ì²â
+        // æ•Œæ–¹è¡ŒåŠ¨æ£€æµ‹
         foreach (var unit in enemyDeployedUnits)
         {
             if (unit.CanAct(currentTime))
@@ -125,7 +125,7 @@ public class BattleMgr : MonoBehaviour
         }
     }
 
-    //¼ì²âÓÎÏ·ÊÇ·ñ½áÊø
+    //æ£€æµ‹æ¸¸æˆæ˜¯å¦ç»“æŸ
     private void CheckBattleOverCondition()
     {
         bool allPlayerDead = playerDeployedUnits.TrueForAll(u => u.isDead);
@@ -147,48 +147,48 @@ public class BattleMgr : MonoBehaviour
         return units.Find(u => !u.isDead);
     }
 
-    // ÉèÖÃ»òÈ¡Ïû¼¯»ğÄ¿±ê
+    // è®¾ç½®æˆ–å–æ¶ˆé›†ç«ç›®æ ‡
     public void ToggleFocusEnemy(BattleUnit enemy)
     {
         if (enemy == null || !enemy.isEnemy || enemy.isDead) return;
 
-        // ÖØ¸´µã»÷Í¬Ò»¸öµĞÈË  È¡Ïû
+        // é‡å¤ç‚¹å‡»åŒä¸€ä¸ªæ•Œäºº  å–æ¶ˆ
         if (focusedEnemyTarget == enemy)
         {
             focusedEnemyTarget.SetFocusIndicator(false);
             focusedEnemyTarget = null;
-            Debug.Log("È¡Ïû¼¯»ğÄ¿±ê");
+            Debug.Log("å–æ¶ˆé›†ç«ç›®æ ‡");
         }
         else
         {
-            // È¡ÏûÉÏÒ»¸öµĞÈËµÄ¸ßÁÁ
+            // å–æ¶ˆä¸Šä¸€ä¸ªæ•Œäººçš„é«˜äº®
             if (focusedEnemyTarget != null)
             {
                 focusedEnemyTarget.SetFocusIndicator(false);
             }
 
-            // ÉèÎªĞÂ¼¯»ğÄ¿±ê
+            // è®¾ä¸ºæ–°é›†ç«ç›®æ ‡
             focusedEnemyTarget = enemy;
             focusedEnemyTarget.SetFocusIndicator(true);
-            Debug.Log($"ÉèÖÃ¼¯»ğÄ¿±êÎª: {enemy.baseData.minionName}");
+            Debug.Log($"è®¾ç½®é›†ç«ç›®æ ‡ä¸º: {enemy.baseData.minionName}");
         }
     }
 
 
-    // »ñÈ¡¼º·½½ÇÉ«µÄ¹¥»÷Ä¿±ê£ºÓĞ¼¯»ğÄ¿±êÇÒ´æ»îÔòÓÅÏÈ¼¯»ğ£¬·ñÔòËæ»ú¹¥»÷
+    // è·å–å·±æ–¹è§’è‰²çš„æ”»å‡»ç›®æ ‡ï¼šæœ‰é›†ç«ç›®æ ‡ä¸”å­˜æ´»åˆ™ä¼˜å…ˆé›†ç«ï¼Œå¦åˆ™éšæœºæ”»å‡»
     public BattleUnit GetPlayerTarget()
     {
         if (focusedEnemyTarget != null && !focusedEnemyTarget.isDead)
         {
             return focusedEnemyTarget;
         }
-        // Ã»µãµĞÈË»ò¼¯»ğÄ¿±êÒÑËÀ  Ëæ»ú¹¥»÷ÈÎÒâ»î×ÅµÄµĞÈË
+        // æ²¡ç‚¹æ•Œäººæˆ–é›†ç«ç›®æ ‡å·²æ­»  éšæœºæ”»å‡»ä»»æ„æ´»ç€çš„æ•Œäºº
         return GetRandomAliveUnit(enemyDeployedUnits);
     }
-    //ÊµÏÖËæ»ú¹¥»÷·½·¨
+    //å®ç°éšæœºæ”»å‡»æ–¹æ³•
     private BattleUnit GetRandomAliveUnit(List<BattleUnit> units)
     {
-        //È¥³ıËÀÍöµ¥Î»
+        //å»é™¤æ­»äº¡å•ä½
         List<BattleUnit> aliveUnits = units.FindAll(u => u != null && !u.isDead);
         if (aliveUnits.Count == 0) return null;
         int randomIndex = Random.Range(0, aliveUnits.Count);
@@ -206,10 +206,10 @@ public class BattleMgr : MonoBehaviour
         playerDeployedUnits.Add(new BattleUnit());
     }
 
-    // Í¬²½±³°üÖĞµÄÉÏÕóËæ´ÓÊı¾İµ½Õ½¶·³¡¾°ÖĞ
+    // åŒæ­¥èƒŒåŒ…ä¸­çš„ä¸Šé˜µéšä»æ•°æ®åˆ°æˆ˜æ–—åœºæ™¯ä¸­
     public void SyncDeployedUnitsFromInventory()
     {
-        // 1. Ïú»Ù²¢ÇåÀíÉÏÒ»´ÎÉú³ÉµÄ¼º·½ÊµÌå
+        // 1. é”€æ¯å¹¶æ¸…ç†ä¸Šä¸€æ¬¡ç”Ÿæˆçš„å·±æ–¹å®ä½“
         foreach (var unit in playerDeployedUnits)
         {
             if (unit != null)
@@ -221,38 +221,38 @@ public class BattleMgr : MonoBehaviour
 
         if (BeiBaoMgr.Instance == null) return;
 
-        // 2. »ñÈ¡±³°üÖĞµÄÉÏÕóÊı¾İ
+        // 2. è·å–èƒŒåŒ…ä¸­çš„ä¸Šé˜µæ•°æ®
         var deployedDataList = BeiBaoMgr.Instance.deployedMinionSlots;
 
         for (int i = 0; i < deployedDataList.Count; i++)
         {
             MinionData minionData = deployedDataList[i];
 
-            // µ±Ç°ÉÏÕóÎ»ÖÃÓĞ½ÇÉ«Êı¾İÇÒÅäÖÃÁË Prefab
+            // å½“å‰ä¸Šé˜µä½ç½®æœ‰è§’è‰²æ•°æ®ä¸”é…ç½®äº† Prefab
             if (minionData != null && minionData.prefab != null)
             {
-                // È·¶¨Éú³ÉÎ»ÖÃ£¨Èô³¬¹ıÕ¾Î»µãÊıÁ¿ÔòÄ¬ÈÏÉú³ÉÔÚ BattleMgr Î»ÖÃ£©
+                // ç¡®å®šç”Ÿæˆä½ç½®ï¼ˆè‹¥è¶…è¿‡ç«™ä½ç‚¹æ•°é‡åˆ™é»˜è®¤ç”Ÿæˆåœ¨ BattleMgr ä½ç½®ï¼‰
                 Transform spawnPoint = (playerSpawnPoints != null && i < playerSpawnPoints.Length)
                     ? playerSpawnPoints[i]
                     : transform;
 
-                // 3. ÊµÀı»¯½ÇÉ«Ä£ĞÍÔ¤ÖÆÌå
+                // 3. å®ä¾‹åŒ–è§’è‰²æ¨¡å‹é¢„åˆ¶ä½“
                 GameObject unitObj = Instantiate(minionData.prefab, spawnPoint.position, spawnPoint.rotation, spawnPoint);
 
-                // 4. »ñÈ¡»ò×Ô¶¯Ìí¼Ó BattleUnit ×é¼ş
+                // 4. è·å–æˆ–è‡ªåŠ¨æ·»åŠ  BattleUnit ç»„ä»¶
                 BattleUnit unitComponent = unitObj.GetComponent<BattleUnit>();
                 if (unitComponent == null)
                 {
                     unitComponent = unitObj.AddComponent<BattleUnit>();
                 }
 
-                // 5. ³õÊ¼»¯½ÇÉ«ÔËĞĞÊ±ÊôĞÔ²¢¼ÓÈë playerDeployedUnits ÁĞ±í
+                // 5. åˆå§‹åŒ–è§’è‰²è¿è¡Œæ—¶å±æ€§å¹¶åŠ å…¥ playerDeployedUnits åˆ—è¡¨
                 unitComponent.InitUnit(minionData, enemyStatus: false);
                 playerDeployedUnits.Add(unitComponent);
             }
         }
 
-        Debug.Log($"¼º·½Õ½¶·ÕóÈİÍ¬²½Íê³É£¬µ±Ç°Êµ¼ÊÉÏÕóÈËÊı£º{playerDeployedUnits.Count}");
+        Debug.Log($"å·±æ–¹æˆ˜æ–—é˜µå®¹åŒæ­¥å®Œæˆï¼Œå½“å‰å®é™…ä¸Šé˜µäººæ•°ï¼š{playerDeployedUnits.Count}");
     }
 }
 

@@ -16,30 +16,30 @@ public class BeiBaoMgr : MonoBehaviour
         InitListCapacity();
     }
 
-    // Í¬ĞÇ¼¶ËØ²ÄºÏ³ÉËùĞèÊıÁ¿ n (ÀıÈç3¸ö1ĞÇºÏ³É1¸ö2ĞÇ)
+    // åŒæ˜Ÿçº§ç´ æåˆæˆæ‰€éœ€æ•°é‡ n (ä¾‹å¦‚3ä¸ª1æ˜Ÿåˆæˆ1ä¸ª2æ˜Ÿ)
     public int synthesisN = 3;                  
 
-    // ±³°üÈıÇøÓòÊı¾İ
-    // ·ÅËØ²ÄÇøÓò
+    // èƒŒåŒ…ä¸‰åŒºåŸŸæ•°æ®
+    // æ”¾ç´ æåŒºåŸŸ
     public List<SingleBeiBao> materialSlots;        
-    // ·ÅËæ´ÓÇøÓò
+    // æ”¾éšä»åŒºåŸŸ
     public List<MinionData> minionSlots;         
-    // ºÏ³ÉÇøÓò (×î¶àÖ§³Ö·Å¼¸¸ñËØ²Ä)
+    // åˆæˆåŒºåŸŸ (æœ€å¤šæ”¯æŒæ”¾å‡ æ ¼ç´ æ)
     public List<SingleBeiBao> craftingSlots;
-    //ÒÑÉÏÕó½ÇÉ«
+    //å·²ä¸Šé˜µè§’è‰²
     public List<MinionData> deployedMinionSlots;
 
-    public int maxMaterialSlots = 20;            // ËØ²ÄÇøÈİÁ¿ÉÏÏŞ
-    public int maxMinionSlots = 10;              // Ëæ´ÓÇøÈİÁ¿ÉÏÏŞ
-    public int maxCraftingSlots = 3;             // ºÏ³ÉÇø´óĞ¡
-    public int maxDeployedSlots = 4;             //×î´óÉÏÕó½ÇÉ«Êı (»¹ÓĞ¸öÕ½¶·¶ÓÎéÉÏÏŞ)
+    public int maxMaterialSlots = 20;            // ç´ æåŒºå®¹é‡ä¸Šé™
+    public int maxMinionSlots = 10;              // éšä»åŒºå®¹é‡ä¸Šé™
+    public int maxCraftingSlots = 3;             // åˆæˆåŒºå¤§å°
+    public int maxDeployedSlots = 4;             //æœ€å¤§ä¸Šé˜µè§’è‰²æ•° (è¿˜æœ‰ä¸ªæˆ˜æ–—é˜Ÿä¼ä¸Šé™)
 
 
 
-    // ËØ²ÄÒ»¼üÕûÀíÓëÅÅĞò
+    // ç´ æä¸€é”®æ•´ç†ä¸æ’åº
     public void SortMaterialSlots()
     {
-        // ÓÅÏÈ°´ĞÇ¼¶ÅÅ£¨Ô½´óÔ½¿¿Ç°£©£¬ÔÙ°´ ID ÅÅ£¨Ô½Ğ¡Ô½¿¿Ç°£©
+        // ä¼˜å…ˆæŒ‰æ˜Ÿçº§æ’ï¼ˆè¶Šå¤§è¶Šé å‰ï¼‰ï¼Œå†æŒ‰ ID æ’ï¼ˆè¶Šå°è¶Šé å‰ï¼‰
         materialSlots = materialSlots
             .Where(slot => slot.materialData != null && slot.count > 0)
             .OrderByDescending(slot => slot.materialData.Level)
@@ -47,50 +47,50 @@ public class BeiBaoMgr : MonoBehaviour
             .ToList();
     }
 
-    //Í¬ĞÇ¼¶ NºÏ1 ÉıĞÇÅĞ¶¨£¨ÓÃÓÚÍ¬Ò»ËØ²ÄÉı¼¶£© ÔİÊ±»¹Ã»ÓÃ
+    //åŒæ˜Ÿçº§ Nåˆ1 å‡æ˜Ÿåˆ¤å®šï¼ˆç”¨äºåŒä¸€ç´ æå‡çº§ï¼‰ æš‚æ—¶è¿˜æ²¡ç”¨
     public bool TryAutoUpgradeMaterial(SingleBeiBao targetSlot, MaterialData nextLevelMaterialConfig)
     {
         if (targetSlot.count >= synthesisN)
         {
-            //ÄÜºÏ³É³ö¶àÉÙ¸ß¼¶µÄËØ²Ä
+            //èƒ½åˆæˆå‡ºå¤šå°‘é«˜çº§çš„ç´ æ
             int upgradedCount = targetSlot.count / synthesisN;
             int remainCount = targetSlot.count % synthesisN;
 
-            targetSlot.count = remainCount; // ÏûºÄºóÊ£ÏÂ¶àÉÙ
+            targetSlot.count = remainCount; // æ¶ˆè€—åå‰©ä¸‹å¤šå°‘
 
-            // ½« upgradedCount ¸öÉı¼¶ºóµÄËØ²Ä¼ÓÈë±³°ü/ºÏ³ÉÇø
+            // å°† upgradedCount ä¸ªå‡çº§åçš„ç´ æåŠ å…¥èƒŒåŒ…/åˆæˆåŒº
             // AddMaterialToSlot(nextLevelMaterialConfig, upgradedCount);
             return true;
         }
         return false;
     }
 
-    //Ëæ´ÓºÏ³É¼ì²âÓëÖ´ĞĞ
+    //éšä»åˆæˆæ£€æµ‹ä¸æ‰§è¡Œ
     public bool TryCraftMinion(RecipeData recipe)
     {
-        // Ğ£ÑéËæ´Ó±³°ü¿Õ¼ä
+        // æ ¡éªŒéšä»èƒŒåŒ…ç©ºé—´
         if (minionSlots.Count >= maxMinionSlots + 1) return false;
 
-        // Ğ£ÑéºÏ³ÉÇøµÄËØ²ÄÊÇ·ñÂú×ã RecipeData ÒªÇó
+        // æ ¡éªŒåˆæˆåŒºçš„ç´ ææ˜¯å¦æ»¡è¶³ RecipeData è¦æ±‚
         foreach (var req in recipe.requiredMaterials)
         {
             var matched = craftingSlots.Find(s => s.materialData == req.materialData);
             if (matched == null || matched.count < req.count)
             {
-                print("ËØ²Ä²»×ã");
-                return false; // ËØ²Ä²»Âú×ã
+                print("ç´ æä¸è¶³");
+                return false; // ç´ æä¸æ»¡è¶³
             }
         }
 
-        // ¿Û³ıºÏ³ÉÇøËØ²Ä
+        // æ‰£é™¤åˆæˆåŒºç´ æ
         foreach (var req in recipe.requiredMaterials)
         {
-            print("ÓĞ¶ÔÓ¦Åä·½");
+            print("æœ‰å¯¹åº”é…æ–¹");
             var matched = craftingSlots.Find(s => s.materialData == req.materialData);
             matched.count -= req.count;
         }
 
-        //// ÇåÀí count <= 0 µÄ¸ñ×Ó ÒıÈëÁËUIÖ±½ÓÇå³ş»á±¨´í ĞèÒªÈ¥µôÍ¼±ê
+        //// æ¸…ç† count <= 0 çš„æ ¼å­ å¼•å…¥äº†UIç›´æ¥æ¸…æ¥šä¼šæŠ¥é”™ éœ€è¦å»æ‰å›¾æ ‡
         //craftingSlots.RemoveAll(s => s.count <= 0);
         for (int i = 0; i < craftingSlots.Count; i++)
         {
@@ -102,11 +102,11 @@ public class BeiBaoMgr : MonoBehaviour
         }
 
 
-        // Éú³ÉĞÂËæ´Ó·ÅÈëËæ´Ó±³°ü
-        // Ñ­»·ÕÒÒ»¸öÃ»ÓĞËæ´ÓµÄµØ·½·ÅÈëĞÂËæ´Ó
+        // ç”Ÿæˆæ–°éšä»æ”¾å…¥éšä»èƒŒåŒ…
+        // å¾ªç¯æ‰¾ä¸€ä¸ªæ²¡æœ‰éšä»çš„åœ°æ–¹æ”¾å…¥æ–°éšä»
         for (int i = 0; i < minionSlots.Count; i++)
         {
-            //ÏÈÅĞ¶Ï minionSlots[i] ÊÇ·ñÎª null£¬±ÜÃâ null ÒıÓÃÒì³£
+            //å…ˆåˆ¤æ–­ minionSlots[i] æ˜¯å¦ä¸º nullï¼Œé¿å… null å¼•ç”¨å¼‚å¸¸
             if (minionSlots[i] == null)
             {
                 minionSlots[i] = recipe.resultMinion;
@@ -116,7 +116,7 @@ public class BeiBaoMgr : MonoBehaviour
         return true;
     }
 
-    // ÌîÂúÕ¼Î»£¬Ê¹µÃ List[i] ²»»á±¨ OutOfRange ´íÎó
+    // å¡«æ»¡å ä½ï¼Œä½¿å¾— List[i] ä¸ä¼šæŠ¥ OutOfRange é”™è¯¯
     private void InitListCapacity()
     {
         while (materialSlots.Count < maxMaterialSlots) materialSlots.Add(new SingleBeiBao());
@@ -125,14 +125,14 @@ public class BeiBaoMgr : MonoBehaviour
         while (deployedMinionSlots.Count < maxDeployedSlots) deployedMinionSlots.Add(null);
     }
 
-    // ²Ù×÷1£º½«ËØ²Ä´ÓËØ²ÄÇøÒÆ¶¯µ½ºÏ³ÉÇø
+    // æ“ä½œ1ï¼šå°†ç´ æä»ç´ æåŒºç§»åŠ¨åˆ°åˆæˆåŒº
     public void MoveMaterialToCrafting(int materialIndex)
     {
-        //ËØ²ÄÇøÓòµÄÒ»¸öËØ²ÄÌáÈ¡³öÀ´
+        //ç´ æåŒºåŸŸçš„ä¸€ä¸ªç´ ææå–å‡ºæ¥
         var sourceSlot = materialSlots[materialIndex];
         if (sourceSlot == null || sourceSlot.materialData == null || sourceSlot.count <= 0) return;
 
-        // Ñ°ÕÒºÏ³ÉÇøÊÇ·ñÓĞÏàÍ¬ËØ²Ä¿É¶Ñµş£¬»òÕß¿ÕÎ»
+        // å¯»æ‰¾åˆæˆåŒºæ˜¯å¦æœ‰ç›¸åŒç´ æå¯å †å ï¼Œæˆ–è€…ç©ºä½
         for (int i = 0; i < craftingSlots.Count; i++)
         {
             if (craftingSlots[i].materialData == sourceSlot.materialData)
@@ -150,16 +150,16 @@ public class BeiBaoMgr : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("ºÏ³ÉÇøÒÑÂú£¡");
+        Debug.Log("åˆæˆåŒºå·²æ»¡ï¼");
     }
 
-    // ²Ù×÷2£º½«ËØ²Ä´ÓºÏ³ÉÇøÄÃ»ØËØ²ÄÇø
+    // æ“ä½œ2ï¼šå°†ç´ æä»åˆæˆåŒºæ‹¿å›ç´ æåŒº
     public void MoveCraftingToMaterial(int craftingIndex)
     {
         var craftSlot = craftingSlots[craftingIndex];
         if (craftSlot == null || craftSlot.materialData == null || craftSlot.count <= 0) return;
 
-        // ¹é»¹µ½ËØ²ÄÇø
+        // å½’è¿˜åˆ°ç´ æåŒº
         for (int i = 0; i < materialSlots.Count; i++)
         {
             if (materialSlots[i].materialData == craftSlot.materialData)
@@ -180,22 +180,22 @@ public class BeiBaoMgr : MonoBehaviour
         }
     }
 
-    // ºËĞÄ£º´¦ÀíËæ´ÓÇø <-> ÉÏÕóÇøµÄÍÏ×§ÓëÎ»ÖÃ»¥»»Âß¼­
+    // æ ¸å¿ƒï¼šå¤„ç†éšä»åŒº <-> ä¸Šé˜µåŒºçš„æ‹–æ‹½ä¸ä½ç½®äº’æ¢é€»è¾‘
     public void SwapOrMoveMinion(ItemSlotUI.SlotType srcType, int srcIndex, ItemSlotUI.SlotType dstType, int dstIndex)
     {
-        // Ö»ÄÜÔÚ Ëæ´ÓÇø(MinionArea) ºÍ ÉÏÕóÇø(DeployedArea) Ö®¼ä²Ù×÷
+        // åªèƒ½åœ¨ éšä»åŒº(MinionArea) å’Œ ä¸Šé˜µåŒº(DeployedArea) ä¹‹é—´æ“ä½œ
         if (!IsMinionSlot(srcType) || !IsMinionSlot(dstType)) return;
 
-        // »ñÈ¡Ô´Î»ÖÃºÍÄ¿±êÎ»ÖÃµÄÊı¾İÒıÓÃ
+        // è·å–æºä½ç½®å’Œç›®æ ‡ä½ç½®çš„æ•°æ®å¼•ç”¨
         MinionData startMinion = GetMinionData(srcType, srcIndex);
         MinionData endMinion = GetMinionData(dstType, dstIndex);
 
-        // Èç¹ûÍÏ×§µÄÊÇ¿Õ¸ñ×Ó£¬²»×ö´¦Àí
+        // å¦‚æœæ‹–æ‹½çš„æ˜¯ç©ºæ ¼å­ï¼Œä¸åšå¤„ç†
         if (startMinion == null) return;
         
-        // »¥»»Êı¾İ (²»ÂÛÄ¿±êÎ»ÖÃÊÇ·ñÓĞ½ÇÉ«£¬Ö±½Ó»¥»»ÒıÓÃ)
-        SetMinionData(srcType, srcIndex, endMinion); // ½«Ä¿±êÎ»ÖÃµÄËæ´Ó£¨¿ÉÄÜÎª null£©·Åµ½Ô´Î»ÖÃ
-        SetMinionData(dstType, dstIndex, startMinion); // ½«Ô´Î»ÖÃµÄËæ´Ó·Åµ½Ä¿±êÎ»ÖÃ
+        // äº’æ¢æ•°æ® (ä¸è®ºç›®æ ‡ä½ç½®æ˜¯å¦æœ‰è§’è‰²ï¼Œç›´æ¥äº’æ¢å¼•ç”¨)
+        SetMinionData(srcType, srcIndex, endMinion); // å°†ç›®æ ‡ä½ç½®çš„éšä»ï¼ˆå¯èƒ½ä¸º nullï¼‰æ”¾åˆ°æºä½ç½®
+        SetMinionData(dstType, dstIndex, startMinion); // å°†æºä½ç½®çš„éšä»æ”¾åˆ°ç›®æ ‡ä½ç½®
     }
 
     private bool IsMinionSlot(ItemSlotUI.SlotType type)
@@ -210,7 +210,7 @@ public class BeiBaoMgr : MonoBehaviour
         return null;
     }
    
-    // ÉèÖÃËæ´ÓÊı¾İµ½Ö¸¶¨Î»ÖÃ
+    // è®¾ç½®éšä»æ•°æ®åˆ°æŒ‡å®šä½ç½®
     private void SetMinionData(ItemSlotUI.SlotType type, int index, MinionData data)
     {
         if (type == ItemSlotUI.SlotType.MinionArea)
@@ -221,7 +221,7 @@ public class BeiBaoMgr : MonoBehaviour
         else if (type == ItemSlotUI.SlotType.DeployedArea)
         {
             deployedMinionSlots[index] = data;
-            BattleMgr.Instance.UpdateDeployedMinions(deployedMinionSlots[index] ,index); // ¸üĞÂÕ½¶·¹ÜÀíÆ÷ÖĞµÄÉÏÕóËæ´ÓÁĞ±í
+            BattleMgr.Instance.UpdateDeployedMinions(deployedMinionSlots[index] ,index); // æ›´æ–°æˆ˜æ–—ç®¡ç†å™¨ä¸­çš„ä¸Šé˜µéšä»åˆ—è¡¨
         }
     }
 }

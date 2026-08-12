@@ -7,41 +7,41 @@ using UnityEngine.UI;
 public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
 
-    [Header("UI ×é¼şÒıÓÃ")]
-    public Image imgIcon;           // Í¼±ê Image
-    public Text txtCount;           // ÊıÁ¿ Text (ËØ²ÄÓÃ)
-    public Text txtLevel;           // ĞÇ¼¶ Text
-    public GameObject emptyBg;      // ¿Õ¸ñ×Ó±³¾°/ÕÚÕÖ (¿ÉÑ¡)
+    [Header("UI ç»„ä»¶å¼•ç”¨")]
+    public Image imgIcon;           // å›¾æ ‡ Image
+    public Text txtCount;           // æ•°é‡ Text (ç´ æç”¨)
+    public Text txtLevel;           // æ˜Ÿçº§ Text
+    public GameObject emptyBg;      // ç©ºæ ¼å­èƒŒæ™¯/é®ç½© (å¯é€‰)
 
-    // ¸ñ×ÓËùÊôÇøÓòÀàĞÍ
+    // æ ¼å­æ‰€å±åŒºåŸŸç±»å‹
     public enum SlotType
     {
-        MaterialArea,   // ËØ²ÄÇø
-        CraftingArea,   // ºÏ³ÉÇø
-        MinionArea ,     // Ëæ´ÓÇø
-        DeployedArea    // ÉÏÕóÇø
+        MaterialArea,   // ç´ æåŒº
+        CraftingArea,   // åˆæˆåŒº
+        MinionArea ,     // éšä»åŒº
+        DeployedArea    // ä¸Šé˜µåŒº
     }
 
     public SlotType currentSlotType;
-    public int slotIndex; // µ±Ç°¸ñ×Ó¶ÔÓ¦ List Êı¾İÀïµÄË÷Òı(ÏÂ±ê)
+    public int slotIndex; // å½“å‰æ ¼å­å¯¹åº” List æ•°æ®é‡Œçš„ç´¢å¼•(ä¸‹æ ‡)
 
-    // ÍÏ×§¹ı³ÌÖĞÉú³ÉµÄÍ¼±ê¸úËæ¾µÏñ
+    // æ‹–æ‹½è¿‡ç¨‹ä¸­ç”Ÿæˆçš„å›¾æ ‡è·Ÿéšé•œåƒ
     private static GameObject dragIconObj;
     private Canvas parentCanvas;
 
     private void Awake()
     {
-        // ÌáÇ°»ñÈ¡¸¸¼¶ Canvas ÒıÓÃ
+        // æå‰è·å–çˆ¶çº§ Canvas å¼•ç”¨
         parentCanvas = GetComponentInParent<Canvas>();
     }
 
-    // 1. äÖÈ¾ËØ²ÄÊı¾İ (ÓÃÓÚËØ²ÄÇø / ºÏ³ÉÇø)
+    // 1. æ¸²æŸ“ç´ ææ•°æ® (ç”¨äºç´ æåŒº / åˆæˆåŒº)
     public void UpdateMaterialSlot(SingleBeiBao slotData, int index, SlotType type)
     {
         this.slotIndex = index;
         this.currentSlotType = type;
 
-        // Èç¹û¸ñ×ÓÖĞÓĞÓĞĞ§ËØ²Ä
+        // å¦‚æœæ ¼å­ä¸­æœ‰æœ‰æ•ˆç´ æ
         if (slotData != null && slotData.materialData != null && slotData.count > 0)
         {
             imgIcon.gameObject.SetActive(true);
@@ -50,14 +50,14 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
             if (txtCount != null)
             {
                 txtCount.gameObject.SetActive(true);
-                // ÊıÁ¿´óÓÚ 1 ²ÅÏÔÊ¾Êı×Ö£¬µÈÓÚ 1 ²»ÏÔÊ¾»òÖ»ÏÔÊ¾ 1
+                // æ•°é‡å¤§äº 1 æ‰æ˜¾ç¤ºæ•°å­—ï¼Œç­‰äº 1 ä¸æ˜¾ç¤ºæˆ–åªæ˜¾ç¤º 1
                 txtCount.text = slotData.count > 1 ? slotData.count.ToString() : "";
             }
 
             if (txtLevel != null)
             {
                 txtLevel.gameObject.SetActive(true);
-                txtLevel.text = $"{slotData.materialData.Level}ĞÇ";
+                txtLevel.text = $"{slotData.materialData.Level}æ˜Ÿ";
             }
 
             if (emptyBg != null) emptyBg.SetActive(false);
@@ -68,7 +68,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         }
     }
 
-    // 2. äÖÈ¾Ëæ´ÓÊı¾İ (ÓÃÓÚËæ´ÓÇø)
+    // 2. æ¸²æŸ“éšä»æ•°æ® (ç”¨äºéšä»åŒº)
     public void UpdateMinionSlot(MinionData minionData, int index, SlotType type)
     {
         this.slotIndex = index;
@@ -79,12 +79,12 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
             imgIcon.gameObject.SetActive(true);
             imgIcon.sprite = minionData.portrait;
 
-            if (txtCount != null) txtCount.gameObject.SetActive(false); // Ëæ´ÓÃ»ÓĞ¶ÑµşÊıÁ¿
+            if (txtCount != null) txtCount.gameObject.SetActive(false); // éšä»æ²¡æœ‰å †å æ•°é‡
 
             if (txtLevel != null)
             {
                 txtLevel.gameObject.SetActive(true);
-                txtLevel.text = $"{minionData.starLevel}ĞÇ";
+                txtLevel.text = $"{minionData.starLevel}æ˜Ÿ";
             }
 
             if (emptyBg != null) emptyBg.SetActive(false);
@@ -95,7 +95,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         }
     }
 
-    // Çå¿Õ¸ñ×ÓÏÔÊ¾
+    // æ¸…ç©ºæ ¼å­æ˜¾ç¤º
     public void ClearSlot()
     {
         if (imgIcon != null) imgIcon.gameObject.SetActive(false);
@@ -104,29 +104,29 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         if (emptyBg != null) emptyBg.SetActive(true);
     }
 
-    // ÏìÓ¦Íæ¼Òµã»÷¸ñ×Ó
+    // å“åº”ç©å®¶ç‚¹å‡»æ ¼å­
     public void OnPointerClick(PointerEventData eventData)
     {
-        // µã»÷Ê±£¬°Ñ×Ô¼ºµÄ¡°ÇøÓòÀàĞÍ¡±ºÍ¡°ÏÂ±ê¡±Í¨Öª¸ø UI ×Ü¿Ø¹ÜÀíÆ÷
+        // ç‚¹å‡»æ—¶ï¼ŒæŠŠè‡ªå·±çš„â€œåŒºåŸŸç±»å‹â€å’Œâ€œä¸‹æ ‡â€é€šçŸ¥ç»™ UI æ€»æ§ç®¡ç†å™¨
         BeiBaoPanelUI.Instance.OnSlotClicked(currentSlotType, slotIndex);
     }
 
-    //  UGUI ÍÏ×§½Ó¿ÚÊµÏÖ 
-    // 1. ¿ªÊ¼ÍÏ×§
+    //  UGUI æ‹–æ‹½æ¥å£å®ç° 
+    // 1. å¼€å§‹æ‹–æ‹½
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Ö»ÓĞËæ´ÓÇøºÍÉÏÕóÇøÓĞÍ¼±êÊ±²ÅÄÜÍÏ×§
+        // åªæœ‰éšä»åŒºå’Œä¸Šé˜µåŒºæœ‰å›¾æ ‡æ—¶æ‰èƒ½æ‹–æ‹½
         if (currentSlotType != SlotType.MinionArea && currentSlotType != SlotType.DeployedArea) return;
         if (imgIcon == null || !imgIcon.gameObject.activeSelf) return;
 
-        // ´´½¨ÁÙÊ±Éú³ÉµÄ¸úËæ UI Í¼±ê (ÍÏµ½ Canvas ×îÍâ²ã±ÜÃâ±»¸¸¼¶ Mask ÕÚµ²)
+        // åˆ›å»ºä¸´æ—¶ç”Ÿæˆçš„è·Ÿéš UI å›¾æ ‡ (æ‹–åˆ° Canvas æœ€å¤–å±‚é¿å…è¢«çˆ¶çº§ Mask é®æŒ¡)
        
         if (parentCanvas == null) parentCanvas = GetComponentInParent<Canvas>();
         Canvas rootCanvas = parentCanvas.rootCanvas;
 
         dragIconObj = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
         dragIconObj.transform.SetParent(rootCanvas.transform, false);
-        dragIconObj.transform.SetAsLastSibling(); // ±£Ö¤×îÉÏ²ãäÖÈ¾
+        dragIconObj.transform.SetAsLastSibling(); // ä¿è¯æœ€ä¸Šå±‚æ¸²æŸ“
 
         Image dragImage = dragIconObj.GetComponent<Image>();
         dragImage.sprite = imgIcon.sprite;
@@ -134,24 +134,24 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
 
         //RectTransform dragRect = dragIconObj.GetComponent<RectTransform>();
         //RectTransform srcRect = imgIcon.GetComponent<RectTransform>();
-        //dragRect.sizeDelta = srcRect.sizeDelta; // Ç¿ĞĞÍ¬²½Ô´Í¼±ê´óĞ¡
+        //dragRect.sizeDelta = srcRect.sizeDelta; // å¼ºè¡ŒåŒæ­¥æºå›¾æ ‡å¤§å°
         //dragRect.localScale = Vector3.one;
 
-        // 3. ´©Í¸ÉèÖÃ
+        // 3. ç©¿é€è®¾ç½®
         CanvasGroup cg = dragIconObj.GetComponent<CanvasGroup>();
         cg.blocksRaycasts = false;
 
-        // 4. ³õÊ¼»¯Ò»´Î×ø±ê
+        // 4. åˆå§‹åŒ–ä¸€æ¬¡åæ ‡
         UpdateDragPosition(eventData);
 
 
-        // ÍÏ×§Ê±Ô­¸ñ×ÓÍ¼±ê°ëÍ¸Ã÷
+        // æ‹–æ‹½æ—¶åŸæ ¼å­å›¾æ ‡åŠé€æ˜
         Color color = imgIcon.color;
         color.a = 0.5f;
         imgIcon.color = color;
     }
 
-    // 2. ÍÏ×§½øĞĞÖĞ (Í¼±ê¸úËæÊó±êÒÆ¶¯)
+    // 2. æ‹–æ‹½è¿›è¡Œä¸­ (å›¾æ ‡è·Ÿéšé¼ æ ‡ç§»åŠ¨)
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Break();
@@ -165,7 +165,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         }
     }
 
-    // 3. ½áÊøÍÏ×§
+    // 3. ç»“æŸæ‹–æ‹½
     public void OnEndDrag(PointerEventData eventData)
     {
         if (dragIconObj != null)
@@ -174,7 +174,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
             dragIconObj = null;
         }
 
-        // »Ö¸´Ô­¸ñ×ÓÍ¸Ã÷¶È
+        // æ¢å¤åŸæ ¼å­é€æ˜åº¦
         if (imgIcon != null)
         {
             Color color = imgIcon.color;
@@ -183,15 +183,15 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         }
     }
 
-    // 4. µ±ÓĞÎïÌåÍÏ×§²¢ÊÍ·Åµ½ÁË¡¾µ±Ç°¸ñ×Ó¡¿ÉÏ
+    // 4. å½“æœ‰ç‰©ä½“æ‹–æ‹½å¹¶é‡Šæ”¾åˆ°äº†ã€å½“å‰æ ¼å­ã€‘ä¸Š
     public void OnDrop(PointerEventData eventData)
     {
-        // È¡µÃÍÏ×§Ô´Í·£¨Æğµã¸ñ×Ó£©µÄ ItemSlotUI ½Å±¾
+        // å–å¾—æ‹–æ‹½æºå¤´ï¼ˆèµ·ç‚¹æ ¼å­ï¼‰çš„ ItemSlotUI è„šæœ¬
         ItemSlotUI sourceSlot = eventData.pointerDrag != null ? eventData.pointerDrag.GetComponent<ItemSlotUI>() : null;
 
         if (sourceSlot != null)
         {
-            // µ÷ÓÃÊı¾İ²ã£¬¶Ô¡¾Ô´¸ñ×Ó¡¿Óë¡¾µ±Ç°Ä¿±ê¸ñ×Ó¡¿½øĞĞÊı¾İÒÆ¶¯/»¥»»
+            // è°ƒç”¨æ•°æ®å±‚ï¼Œå¯¹ã€æºæ ¼å­ã€‘ä¸ã€å½“å‰ç›®æ ‡æ ¼å­ã€‘è¿›è¡Œæ•°æ®ç§»åŠ¨/äº’æ¢
             BeiBaoMgr.Instance.SwapOrMoveMinion(
                 sourceSlot.currentSlotType,
                 sourceSlot.slotIndex,
@@ -199,20 +199,20 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
                 this.slotIndex
             );
 
-            // ÖØĞÂË¢ĞÂÈ«½çÃæ UI
+            // é‡æ–°åˆ·æ–°å…¨ç•Œé¢ UI
             BeiBaoPanelUI.Instance.RefreshAllUI();
         }
     }
 
     
-    private void UpdateDragPosition(PointerEventData eventData)//ÓÎÏ·³¡¾°Êó±ê×ø±ê
+    private void UpdateDragPosition(PointerEventData eventData)//æ¸¸æˆåœºæ™¯é¼ æ ‡åæ ‡
     {
-        //³öÏÖÎ»ÖÃÓ¦¸ÃÏÔÊ¾µÄÓÎÏ·Î»ÖÃ
+        //å‡ºç°ä½ç½®åº”è¯¥æ˜¾ç¤ºçš„æ¸¸æˆä½ç½®
         Canvas rootCanvas = parentCanvas.rootCanvas;
 
         if (rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
         {
-            // Overlay Ä£Ê½Ö±½Ó¸³ÆÁÄ»×ø±ê
+            // Overlay æ¨¡å¼ç›´æ¥èµ‹å±å¹•åæ ‡
             dragIconObj.transform.position = eventData.position;
         }
         else

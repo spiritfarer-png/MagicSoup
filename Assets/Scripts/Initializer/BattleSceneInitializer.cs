@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class BattleSceneInitializer : MonoBehaviour
 {
-    [Header("Õ½¶·³¡¾°×¨ÊôÉú³Éµã")]
-    public Transform[] playerSpawnPoints; // ¼º·½Éú³Éµã
-    public Transform[] enemySpawnPoints;  // µĞ·½Éú³Éµã (Ô¤Áô)
+    [Header("æˆ˜æ–—åœºæ™¯ä¸“å±ç”Ÿæˆç‚¹")]
+    public Transform[] playerSpawnPoints; // å·±æ–¹ç”Ÿæˆç‚¹
+    public Transform[] enemySpawnPoints;  // æ•Œæ–¹ç”Ÿæˆç‚¹ (é¢„ç•™)
     
-    public List<BattleUnit> enemyUnits; // µĞ·½½ÇÉ«µ¥Î»
+    public List<BattleUnit> enemyUnits; // æ•Œæ–¹è§’è‰²å•ä½
 
     private void Start()
     {
         if (BattleMgr.Instance != null)
         {
-            // 1. ½«µ±Ç°Õ½¶·³¡¾°ÀïÓĞĞ§µÄÉú³Éµã°ó¶¨¸øµ¥Àı BattleMgr
+            // 1. å°†å½“å‰æˆ˜æ–—åœºæ™¯é‡Œæœ‰æ•ˆçš„ç”Ÿæˆç‚¹ç»‘å®šç»™å•ä¾‹ BattleMgr
             BattleMgr.Instance.playerSpawnPoints = playerSpawnPoints;
 
 
             BattleMgr.Instance.enemyDeployedUnits = enemyUnits;
 
-            // 2. ´¥·¢½øÈë×¼±¸½×¶Î£¬×Ô¶¯ÊµÀı»¯Éú³É½ÇÉ«Ä£ĞÍ
+            // 2. è§¦å‘è¿›å…¥å‡†å¤‡é˜¶æ®µï¼Œè‡ªåŠ¨å®ä¾‹åŒ–ç”Ÿæˆè§’è‰²æ¨¡å‹
             BattleMgr.Instance.ChangePhase(BattleMgr.BattlePhase.Prep);
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½ BattleMgr ÊµÀı£¬Çë¼ì²éÆô¶¯Á÷³Ì£¡");
+            Debug.LogError("æœªæ‰¾åˆ° BattleMgr å®ä¾‹ï¼Œè¯·æ£€æŸ¥å¯åŠ¨æµç¨‹ï¼");
         }
     }
 }
