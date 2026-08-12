@@ -7,18 +7,15 @@ using UnityEngine.UI;
 public class BeginBattle : MonoBehaviour
 {
     public Button btnBeginBattle;
-    public Button btnBeiBao;
+    public Button btnInventory;
     
     public GameObject panelBeiBao;
 
 
     private void Start()
     {
-        btnBeginBattle.onClick.AddListener(() => {
-            SceneManager.LoadScene("BattleScene");
-
-        });
-        btnBeiBao.onClick.AddListener(() => {
+        if (btnBeginBattle != null) btnBeginBattle.gameObject.SetActive(false);
+        btnInventory.onClick.AddListener(() => {
           panelBeiBao.SetActive(true);
         });
     }
