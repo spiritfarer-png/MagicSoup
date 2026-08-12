@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 534d50b321cf34a48a2f7faba0b31b17
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - baseData: {fileID: 11400000, guid: 398611f30b7ed044b96ae6358fa09717, type: 2}
+  - focusIndicator: {fileID: 288664005344515760, guid: c4307c34e344b4f4eb8b520b877b6d2e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
