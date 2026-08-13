@@ -1364,7 +1364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnBeginBattle: {fileID: 873252796}
-  btnBeiBao: {fileID: 2010006533}
+  btnInventory: {fileID: 2010006533}
   panelBeiBao: {fileID: 141433769}
 --- !u!4 &1887395528
 Transform:

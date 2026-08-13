@@ -9,10 +9,8 @@ public class CardMaterialData : ScriptableObject
     public Sprite icon;
     public Color color;
 
-    public int iniattack;
     public int iniHealth;
 
-    public int ascendedIniAttack;
     public int ascendedIniHealth;
 
     /// <summary>
@@ -33,6 +31,18 @@ public struct Intent
     public int conditionValue;
     public MaterialAction action;
 
+    public bool Match(int time)
+    {
+        switch (condition)
+        {
+            case IntentConditionType.None: return true;
+            case IntentConditionType.Less: return time < conditionValue;
+            case IntentConditionType.Greater: return time > conditionValue;
+            case IntentConditionType.Equal: return time == conditionValue;
+            case IntentConditionType.NotEqual: return time != conditionValue;
+            default: return false;
+        }
+    }
 }
 
 public enum IntentConditionType

@@ -9,7 +9,7 @@ public class CardViewUI : MonoBehaviour
     [SerializeField] private Image[] materialIcons;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text healthText;
-    [SerializeField] private TMP_Text attackText;
+    [SerializeField] private TMP_Text defenceText;
 
     public void Bind(CardInfo cardInfo)
     {
@@ -28,17 +28,17 @@ public class CardViewUI : MonoBehaviour
         if (materialCount > 0) { soupColor /= materialCount; soupColor.a = 1f; }
         if (soup != null) soup.color = soupColor;
         if (nameText != null) nameText.text = cardInfo.CardName;
-        if (healthText != null) healthText.text = cardInfo.currentHealth.ToString();
-        if (attackText != null) attackText.text = cardInfo.currentAttack.ToString();
+        if (healthText != null) healthText.text = cardInfo.iniHealth.ToString();
+        if (defenceText != null) defenceText.text = "";
     }
 
-    public void Configure(Image background, Image soupImage, Image[] icons, TMP_Text cardName, TMP_Text health, TMP_Text attack)
+    public void Configure(Image background, Image soupImage, Image[] icons, TMP_Text cardName, TMP_Text health, TMP_Text defence)
     {
         cardBackground = background;
         soup = soupImage;
         materialIcons = icons;
         nameText = cardName;
         healthText = health;
-        attackText = attack;
+        defenceText = defence;
     }
 }

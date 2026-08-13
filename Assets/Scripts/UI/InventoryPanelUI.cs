@@ -108,10 +108,10 @@ public class InventoryPanelUI : MonoBehaviour
         Image[] icons = new Image[3];
         for (int i = 0; i < icons.Length; i++) icons[i] = CreateImage($"Material{i + 1}", card.transform, new Vector2(0.5f, 0.5f), new Vector2(58f, 58f), new Vector2((i - 1) * 8f, 4f + i * 2f), Color.white);
         TMP_Text name = CreateText("Name", card.transform, new Vector2(0.5f, 1f), new Vector2(94f, 25f), new Vector2(0f, -15f), 10f, TextAlignmentOptions.Center);
-        TMP_Text attack = CreateText("Attack", card.transform, new Vector2(0f, 0f), new Vector2(28f, 22f), new Vector2(16f, 13f), 14f, TextAlignmentOptions.Center);
+        TMP_Text defence = CreateText("Defence", card.transform, new Vector2(0f, 0f), new Vector2(28f, 22f), new Vector2(16f, 13f), 14f, TextAlignmentOptions.Center);
         TMP_Text health = CreateText("Health", card.transform, new Vector2(1f, 0f), new Vector2(28f, 22f), new Vector2(-16f, 13f), 14f, TextAlignmentOptions.Center);
         CardViewUI cardView = card.GetComponent<CardViewUI>();
-        cardView.Configure(background, soup, icons, name, health, attack);
+        cardView.Configure(background, soup, icons, name, health, defence);
         CardSlotUI cardSlot = slotObject.AddComponent<CardSlotUI>();
         cardSlot.Configure(cardView, empty);
         return cardSlot;
