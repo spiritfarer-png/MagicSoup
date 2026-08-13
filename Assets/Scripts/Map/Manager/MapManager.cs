@@ -1,0 +1,163 @@
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+
+public sealed class MapManager : MonoBehaviour
+{
+    public static MapManager Instance { get; private set; }
+    [SerializeField]
+    private MapGenerationConfig generationConfig;
+    public MapData CurrentMap { get; private set; }
+    private readonly Dictionary<int, MapNodeData> nodeById = new Dictionary<int, MapNodeData>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public MapData GenerateNewMap(int seed)
+    {
+        MapGenerator generator = new MapGenerator();
+        CurrentMap = generator.Generate(generationConfig, seed);
+        BuildNodeIndex();
+        return CurrentMap;
+    }
+
+    /// <summary>
+    /// 获取指定节点
+    /// </summary>
+    public MapNodeData GetNode(int nodeId)
+    {
+        nodeById.TryGetValue(nodeId, out MapNodeData node);
+        return node;
+    }
+
+    /// <summary>
+    /// 玩家选择一个当前可用节点
+    /// </summary>
+    public bool SelectNode(int nodeId)
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId >= 0)
+        {
+            return false;
+        }
+        MapNodeData node = GetNode(nodeId);
+        if (node == null || node.State != MapNodeState.Available)
+        {
+            return false;
+        }
+        node.State = MapNodeState.Current;
+        CurrentMap.CurrentNodeId = node.Id;
+
+        return true;
+    }
+
+    /// <summary>
+    /// 完成当前节点，并解锁它连接的下一层节点
+    /// </summary>
+    public void CompleteCurrentNode()
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId < 0)
+        {
+            return;
+        }
+
+        MapNodeData current = GetNode(CurrentMap.CurrentNodeId);
+
+        // 当前层其他路线不能再选择。
+        foreach (MapFloorData floor in CurrentMap.Floors)
+        {
+            foreach (MapNodeData node in floor.Nodes)
+            {
+                if (node.State == MapNodeState.Available)
+                {
+                    node.State = MapNodeState.Locked;
+                }
+            }
+        }
+        current.State = MapNodeState.Completed;
+        foreach (MapEdgeData edge in CurrentMap.Edges)
+        {
+            if (edge.FromNodeId == current.Id)
+            {
+                GetNode(edge.ToNodeId).State = MapNodeState.Available;
+            }
+        }
+        CurrentMap.CurrentNodeId = -1;
+    }
+
+    /// <summary>
+    /// 取消当前节点的选择，将其状态恢复为可选状态，并将当前节点 ID 重置为 -1。
+    /// </summary>
+    public void CancelCurrentNode()
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId < 0)
+        {
+            return;
+        }
+
+        MapNodeData current = GetNode(CurrentMap.CurrentNodeId);
+
+        current.State = MapNodeState.Available;
+        CurrentMap.CurrentNodeId = -1;
+    }
+
+
+    /// <summary>
+    /// 构建节点索引
+    /// </summary>
+    private void BuildNodeIndex()
+    {
+        nodeById.Clear();
+        foreach (MapFloorData floor in CurrentMap.Floors)
+        {
+            foreach (MapNodeData node in floor.Nodes)
+            {
+                nodeById.Add(node.Id, node);
+            }
+        }
+    }
+
+    public void OpenMap()
+    {
+        if (CurrentMap == null)
+        {
+            return;
+        }
+        UIManager.instance.Open<MapView>(CurrentMap);
+    }
+
+    public void OnNodeClicked(int nodeId)
+    {
+        if (!SelectNode(nodeId))
+        {
+            return;
+        }
+
+        MapNodeData node = GetNode(nodeId);
+        Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
+
+        // switch (node.NodeType)
+        // {
+        //     case MapNodeType.NormalBattle:
+        //     case MapNodeType.EliteBattle:
+        //     case MapNodeType.Boss:
+        //         UIManager.instance.Open<BattleView>(node);
+        //         break;
+
+        //     case MapNodeType.RandomEvent:
+        //         UIManager.instance.Open<EventView>(node);
+        //         break;
+
+        //     case MapNodeType.Treasure:
+        //         UIManager.instance.Open<TreasureView>(node);
+        //         break;
+        // }
+    }
+
+    public void StartNewMap(int seed)
+    {
+        GenerateNewMap(seed);
+        OpenMap();
+    }
+}

@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c547ca9cc9466c4d8634bd82238e729, type: 3}
+  m_Name: MapGenerationConfig
+  m_EditorClassIdentifier: 
+  TotalFloorCount: 9
+  FloorRules:
+  - FloorIndex: 0
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes: []
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1.5
+    - NodeType: 2
+      Weight: 1
+  - FloorIndex: 1
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes: []
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1.5
+    - NodeType: 2
+      Weight: 1
+  - FloorIndex: 2
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes: []
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1.5
+    - NodeType: 2
+      Weight: 1
+  - FloorIndex: 3
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes:
+    - NodeType: 1
+      Count: 1
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1
+    - NodeType: 2
+      Weight: 0.5
+  - FloorIndex: 4
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes:
+    - NodeType: 1
+      Count: 1
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1
+    - NodeType: 2
+      Weight: 0.5
+  - FloorIndex: 5
+    MinNodeCount: 1
+    MaxNodeCount: 1
+    FixedNodes:
+    - NodeType: 3
+      Count: 1
+    RandomWeights: []
+  - FloorIndex: 6
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes:
+    - NodeType: 1
+      Count: 1
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1
+    - NodeType: 2
+      Weight: 0.5
+  - FloorIndex: 7
+    MinNodeCount: 3
+    MaxNodeCount: 4
+    FixedNodes:
+    - NodeType: 1
+      Count: 1
+    RandomWeights:
+    - NodeType: 0
+      Weight: 1
+    - NodeType: 2
+      Weight: 0.5
+  - FloorIndex: 8
+    MinNodeCount: 1
+    MaxNodeCount: 1
+    FixedNodes:
+    - NodeType: 4
+      Count: 1
+    RandomWeights: []
+  InDegreeRules:
+  - NodeType: 0
+    Degree1Weight: 1
+    Degree2Weight: 1
+    Degree3Weight: 1
+  - NodeType: 1
+    Degree1Weight: 5
+    Degree2Weight: 2
+    Degree3Weight: 1
+  - NodeType: 2
+    Degree1Weight: 1
+    Degree2Weight: 4
+    Degree3Weight: 4
