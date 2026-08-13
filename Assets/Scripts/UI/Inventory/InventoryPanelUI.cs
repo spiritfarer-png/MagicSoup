@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class InventoryPanelUI : MonoBehaviour
+public class InventoryPanelUI : UIView
 {
     public static InventoryPanelUI Instance { get; private set; }
 
@@ -30,22 +30,24 @@ public class InventoryPanelUI : MonoBehaviour
     private readonly List<MaterialSlotUI> craftingSlotViews = new List<MaterialSlotUI>();
     private readonly List<CardSlotUI> cardSlotViews = new List<CardSlotUI>();
     private readonly List<CardSlotUI> deployedSlotViews = new List<CardSlotUI>();
+    private bool initialized;
 
     private void Awake() { Instance = this; }
 
-    private void Start()
+    protected override void OnOpen(object param)
     {
-        if (InventoryManager.Instance == null) { Debug.LogError("InventoryManager is missing."); return; }
-        SpawnAllSlots();
-        if (craftButton != null) craftButton.onClick.AddListener(CraftCard);
-        if (closeButton != null) closeButton.onClick.AddListener(() => gameObject.SetActive(false));
+        if (!initialized)
+        {
+            if (InventoryManager.Instance == null) { Debug.LogError("InventoryManager is missing."); return; }
+            SpawnAllSlots();
+            if (craftButton != null) craftButton.onClick.AddListener(CraftCard);
+            if (closeButton != null) closeButton.onClick.AddListener(CloseSelf);
+            initialized = true;
+        }
         RefreshAllUI();
     }
 
-    private void OnEnable()
-    {
-        if (materialSlotViews.Count > 0) RefreshAllUI();
-    }
+    private void OnDestroy() { if (Instance == this) Instance = null; }
 
     public void RefreshAllUI()
     {

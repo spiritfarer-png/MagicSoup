@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Dynamic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardEntity : MonoBehaviour
+public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
 {
     public static event Action<CardEntity> OnCardEntityDead;
 
@@ -78,10 +79,6 @@ public class CardEntity : MonoBehaviour
             OnCardEntityDead?.Invoke(this);
             gameObject.SetActive(false);
         }
-        if (BattleManager.instance.IsBattleOver())
-        {
-            Debug.Log("战斗结束");
-        }
     }
 
     public void Heal(int amount)
@@ -96,6 +93,21 @@ public class CardEntity : MonoBehaviour
         cardState.Defence(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}获得{1}护盾", cardInfo.CardName, amount));
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        BattleManager.instance.HandleCardClicked(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        BattleManager.instance.HandlePointerEnterCard(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // 关闭高亮等动效
     }
 }
 

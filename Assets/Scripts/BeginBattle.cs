@@ -9,14 +9,9 @@ public class BeginBattle : MonoBehaviour
     public Button btnBeginBattle;
     public Button btnInventory;
     
-    public GameObject panelBeiBao;
-
-
     private void Start()
     {
-        if (btnBeginBattle != null) btnBeginBattle.gameObject.SetActive(false);
-        btnInventory.onClick.AddListener(() => {
-          panelBeiBao.SetActive(true);
-        });
+        btnBeginBattle.onClick.AddListener(()=>SceneManager.LoadScene("TestBattleScene"));
+        if (btnInventory != null) btnInventory.onClick.AddListener(() => UIManager.instance.Open<InventoryPanelUI>());
     }
 }

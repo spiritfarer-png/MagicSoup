@@ -12,13 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca38b0d21f4b174dbe81a52853fc91d, type: 3}
   m_Name: CardMaterialData 1
   m_EditorClassIdentifier: 
-  materialID: 
-  materialName: 
+  materialID: AAA
+  materialName: AAA
   icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
   color: {r: 1, g: 0.1305631, b: 0, a: 0}
-  iniattack: 1
   iniHealth: 1
-  ascendedIniAttack: 2
   ascendedIniHealth: 2
-  normalIntents: []
-  ascendedIntents: []
+  normalIntents:
+  - condition: 0
+    conditionValue: 0
+    action:
+      type: 1
+      value: 2
+  - condition: 0
+    conditionValue: 0
+    action:
+      type: 2
+      value: 1
+  ascendedIntents:
+  - condition: 0
+    conditionValue: 0
+    action:
+      type: 1
+      value: 4
+  - condition: 0
+    conditionValue: 0
+    action:
+      type: 2
+      value: 2
