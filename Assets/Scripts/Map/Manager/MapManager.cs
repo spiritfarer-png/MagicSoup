@@ -1,9 +1,13 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public sealed class MapManager : MonoBehaviour
 {
+    private const string SelectSceneName = "SelectScene";
+    private const string BattleSceneName = "TestBattleScene";
+
     public static MapManager Instance { get; private set; }
     [SerializeField]
     private MapGenerationConfig generationConfig;
@@ -12,7 +16,23 @@ public sealed class MapManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnReturnSceneLoaded;
+            Instance = null;
+        }
     }
 
     public MapData GenerateNewMap(int seed)
@@ -133,6 +153,25 @@ public sealed class MapManager : MonoBehaviour
         OpenMap();
     }
 
+    public void OnTreasureRoomFinished()
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId < 0)
+        {
+            return;
+        }
+
+        MapNodeData node = GetNode(CurrentMap.CurrentNodeId);
+
+        if (node == null || node.NodeType != MapNodeType.Treasure)
+        {
+            Debug.LogError("当前地图节点不是 Treasure 节点。");
+            return;
+        }
+        CompleteCurrentNode();
+        UIManager.instance.Close<TreasureView>();
+        OpenMap();
+    }
+
     // public void OnNodeClicked(int nodeId)
     // {
     //     if (!SelectNode(nodeId))
@@ -170,18 +209,31 @@ public sealed class MapManager : MonoBehaviour
         }
 
         MapNodeData node = GetNode(nodeId);
-
-        Debug.Log(
-            $"进入地图节点：{node.Id}，" +
-            $"节点类型：{node.NodeType}");
-
+        Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
         UIManager.instance.Close<MapView>();
-        UIManager.instance.Open<TestBattleView>(node);
+        switch (node.NodeType)
+        {
+            case MapNodeType.Treasure:
+                UIManager.instance.Open<TreasureView>(node);
+                break;
+
+            default:
+                SceneManager.LoadScene(BattleSceneName);
+                break;
+        }
     }
 
 
     // 接收虚拟战斗结果并返回地图
     public void OnTestBattleFinished(bool playerWin)
+    {
+        OnBattleFinished(playerWin);
+    }
+
+    /// <summary>
+    /// 接收测试战斗场景的结果，返回选卡场景并重新打开当前地图。
+    /// </summary>
+    public void OnBattleFinished(bool playerWin)
     {
         if (playerWin)
         {
@@ -192,7 +244,19 @@ public sealed class MapManager : MonoBehaviour
             CancelCurrentNode();
         }
 
-        UIManager.instance.Close<TestBattleView>();
+        SceneManager.sceneLoaded -= OnReturnSceneLoaded;
+        SceneManager.sceneLoaded += OnReturnSceneLoaded;
+        SceneManager.LoadScene(SelectSceneName);
+    }
+
+    private void OnReturnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != SelectSceneName)
+        {
+            return;
+        }
+
+        SceneManager.sceneLoaded -= OnReturnSceneLoaded;
         OpenMap();
     }
 

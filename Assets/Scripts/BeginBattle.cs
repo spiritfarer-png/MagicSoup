@@ -9,21 +9,23 @@ public class BeginBattle : MonoBehaviour
 
     private void Start()
     {
-        btnBeginBattle.onClick.AddListener(() =>
-        {
-            if (MapManager.Instance.CurrentMap == null)
-            {
-                int seed = DateTime.Now.Millisecond;
-                MapManager.Instance.GenerateNewMap(seed);
-            }
-
-            MapManager.Instance.OpenMap();
-        });
+        btnBeginBattle.onClick.AddListener(OnBeginBattleClicked);
 
         if (btnInventory != null)
         {
             btnInventory.onClick.AddListener(() =>
                 UIManager.instance.Open<InventoryPanelUI>());
         }
+    }
+
+    private void OnBeginBattleClicked()
+    {
+        if (MapManager.Instance.CurrentMap == null)
+        {
+            MapManager.Instance.StartNewMap(Environment.TickCount);
+            return;
+        }
+
+        MapManager.Instance.OpenMap();
     }
 }

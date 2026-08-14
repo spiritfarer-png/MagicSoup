@@ -24,6 +24,7 @@ public class UnknowEventData : ScriptableObject
 [System.Serializable]
 public class UnknowEventOptionData
 {
+    public int OptionID;
     public string optionName; //选项文字
 
     public UnknowEventActionType actionType;  //选项点击执行逻辑类型

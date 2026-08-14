@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class BattleUnitUI : MonoBehaviour
 {
-    [Header("UI ×é¼ş")]
-    public Slider hpSlider;          // ÑªÌõ»¬¶¯Ìõ
-    public Text txtHp;               // ÑªÁ¿Êı×Ö (ÀıÈç: 80/100)
-    public Transform statusContainer;// ×´Ì¬Í¼±êµÄ¸¸½Úµã (¼ÓÁË Horizontal Layout Group)
-    public GameObject statusIconPrefab; // ×´Ì¬Í¼±êÔ¤ÖÆÌå (ÓÃÓÚ¶¯Ì¬Éú³É×´Ì¬)
+    [Header("UI ç»„ä»¶")]
+    public Slider hpSlider;          // è¡€æ¡æ»‘åŠ¨æ¡
+    public Text txtHp;               // è¡€é‡æ•°å­— (ä¾‹å¦‚: 80/100)
+    public Transform statusContainer;// çŠ¶æ€å›¾æ ‡çš„çˆ¶èŠ‚ç‚¹ (åŠ äº† Horizontal Layout Group)
+    public GameObject statusIconPrefab; // çŠ¶æ€å›¾æ ‡é¢„åˆ¶ä½“ (ç”¨äºåŠ¨æ€ç”ŸæˆçŠ¶æ€)
 
-    // 1. ¸üĞÂÑªÌõÏÔÊ¾ µ±Ç°ÑªÁ¿ºÍ×î´óÑªÁ¿
+    // 1. æ›´æ–°è¡€æ¡æ˜¾ç¤º å½“å‰è¡€é‡å’Œæœ€å¤§è¡€é‡
     public void UpdateHP(int currentHp, int maxHp)
     {
         if (hpSlider != null)
@@ -26,18 +26,18 @@ public class BattleUnitUI : MonoBehaviour
         }
     }
 
-    // 2. Ë¢ĞÂ×´Ì¬À¸Í¼±ê£¨Ô¤Áô×´Ì¬ÏµÍ³½Ó¿Ú£©
+    // 2. åˆ·æ–°çŠ¶æ€æ å›¾æ ‡ï¼ˆé¢„ç•™çŠ¶æ€ç³»ç»Ÿæ¥å£ï¼‰
     public void UpdateStatusIcons(List<Sprite> statusSprites)
     {
         if (statusContainer == null || statusIconPrefab == null) return;
 
-        // Çå³ı¾É×´Ì¬Í¼±ê
+        // æ¸…é™¤æ—§çŠ¶æ€å›¾æ ‡
         foreach (Transform child in statusContainer)
         {
             Destroy(child.gameObject);
         }
 
-        // Éú³ÉĞÂ×´Ì¬Í¼±ê
+        // ç”Ÿæˆæ–°çŠ¶æ€å›¾æ ‡
         if (statusSprites != null)
         {
             foreach (var sprite in statusSprites)

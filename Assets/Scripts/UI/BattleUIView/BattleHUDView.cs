@@ -10,6 +10,8 @@ public class BattleHUDView : UIView
     [SerializeField] private Button extraActionButton;
     [SerializeField] private Button endRoundButton;
     [SerializeField] private Button cancelButton;
+    [SerializeField] private Button winButton;
+    [SerializeField] private Button loseButton;
 
     private BattleManager battle;
     protected override void OnOpen(object param)
@@ -19,6 +21,8 @@ public class BattleHUDView : UIView
         extraActionButton.onClick.AddListener(battle.RequestExtraAction);
         endRoundButton.onClick.AddListener(battle.EndPlayerTurn);
         cancelButton.onClick.AddListener(battle.CancelExtraAction);
+        winButton.onClick.AddListener(OnWinClicked);
+        loseButton.onClick.AddListener(OnLoseClicked);
         battle.PhaseChanged += Refresh;
         BattleClock.OnClockChanged += OnClockChanged;
         clockText.text = BattleClock.currentTime.ToString();
@@ -65,7 +69,30 @@ public class BattleHUDView : UIView
         extraActionButton.onClick.RemoveAllListeners();
         endRoundButton.onClick.RemoveAllListeners();
         cancelButton.onClick.RemoveAllListeners();
+        winButton.onClick.RemoveAllListeners();
+        loseButton.onClick.RemoveAllListeners();
         base.OnClose();
+    }
+
+    private void OnWinClicked()
+    {
+        FinishTestBattle(true);
+    }
+
+    private void OnLoseClicked()
+    {
+        FinishTestBattle(false);
+    }
+
+    private void FinishTestBattle(bool playerWin)
+    {
+        if (MapManager.Instance == null)
+        {
+            Debug.LogError("当前没有地图流程，无法提交测试战斗结果。", this);
+            return;
+        }
+
+        MapManager.Instance.OnBattleFinished(playerWin);
     }
 
 }

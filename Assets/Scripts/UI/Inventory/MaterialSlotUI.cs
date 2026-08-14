@@ -1,9 +1,17 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class MaterialSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class MaterialSlotUI : MonoBehaviour, 
+    IBeginDragHandler, 
+    IDragHandler, 
+    IEndDragHandler, 
+    IDropHandler,
+    IPointerExitHandler,
+    IPointerEnterHandler,
+    ITooltipSource
 {
     private static MaterialSlotUI activeDragSource;
     [FormerlySerializedAs("imgIcon")]
@@ -112,5 +120,34 @@ public class MaterialSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         canvasGroup.blocksRaycasts = true;
         draggedRect = null;
         originalParent = null;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.instance.Close<TooltipView>();
+
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.instance.Open<TooltipView>(this);
+
+    }
+
+    public string GetToolTip()
+    {
+        var manager = InventoryManager.Instance;
+        var slots = Area == InventoryManager.MaterialArea.Inventory
+            ? manager.materialSlots
+            : manager.craftingSlots;
+        MaterialSlotData data = slots[SlotIndex];
+        if (data == null || !data.IsOccupied) return null;
+        StringBuilder sb = new();
+        sb.Append("素材:").Append(data.materialData.materialName);
+        foreach(var intent in data.materialData.normalIntents)
+        {
+            sb.AppendLine(intent.ToString());
+        }
+        return sb.ToString();
     }
 }
