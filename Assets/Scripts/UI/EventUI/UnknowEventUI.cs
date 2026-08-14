@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,42 +12,85 @@ public class UnknowEventUI : UIView
     public List<Button> optionButtons = new List<Button>();
     public List<Text> optionButtonsName = new List<Text>();
 
-    //public Button btnOption1;
-    //public Button btnOption2;
-    //public Button btnOption3;
+    private UnknowEventData _currentEventData;
 
     protected override void OnOpen(object param)
     {
         if (param is UnknowEventData data)
         {
-            eventName = data.UnknowEventName;
-            eventIntroduct = data.UnknowEventIntroduct;
+            RefreshUI(data);
+        }
+    }
 
-            for (int i = 0; i < optionButtons.Count; i++)
-            {
-                if(i < data.UnknowEventOptions.Count)
-                {
-                    optionButtons[i].gameObject.SetActive(true);
-                    optionButtonsName[i].text = data.UnknowEventOptions[i].optionName;
+    private void RefreshUI(UnknowEventData data)
+    {
+        _currentEventData = data;
 
-                    optionButtons[i].onClick.RemoveAllListeners();
+        eventName.text = data.UnknowEventName;
+        eventIntroduct.text = data.UnknowEventContent;
 
-                    Action onClickAction = data.UnknowEventOptions[i].optionClicked;
-                    optionButtons[i].onClick.AddListener(() => {
-                        onClickAction?.Invoke();
-                        }
-                        );
-                }
-                else
-                {
-                    optionButtons[i].gameObject.SetActive(false);
-                }
-                optionButtons[i].onClick.AddListener(() => { });
-            }
+        if (data.UnknowEventIcon != null)
+        {
+            icon.gameObject.SetActive(true);
+            icon.sprite = data.UnknowEventIcon;
+        }
+        else
+        {
+            icon.gameObject.SetActive(false);
         }
 
 
+        //刷新选项列表
+        for (int i = 0; i < optionButtons.Count; i++)
+        {
+            if (i < data.UnknowEventOptions.Count)
+            {
+                UnknowEventOptionData optionData = data.UnknowEventOptions[i];
+                optionButtons[i].gameObject.SetActive(true);
+                optionButtonsName[i].text = optionData.optionName;
+
+                optionButtons[i].onClick.RemoveAllListeners();
+                optionButtons[i].onClick.AddListener(() => {
+                    OnOptionSelect(optionData);
+                });
+
+            }
+            else
+            {
+                optionButtons[i].gameObject.SetActive(false);
+            }
+        }
+
     }
+
+    //选项点击后响应
+    private void OnOptionSelect(UnknowEventOptionData option)
+    {
+        ExecuteOptionAction(option.actionType, option.actionValue, option.actionText);
+        
+        if(option.nextEventData != null)
+        {
+            RefreshUI(option.nextEventData);
+        }
+        else
+        {
+            CloseSelf();
+        }
+
+    }
+
+    //不同选项具体逻辑，后续如果要写单例，可以换到新写的单例里
+    private void ExecuteOptionAction(UnknowEventActionType type, int value, string param)
+    {
+        switch (type)
+        {
+             case UnknowEventActionType.None:
+                break;
+                //....
+        }
+    }
+
+
 
     override protected void OnClose()
     {
