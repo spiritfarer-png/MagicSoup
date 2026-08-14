@@ -133,6 +133,25 @@ public sealed class MapManager : MonoBehaviour
         OpenMap();
     }
 
+    public void OnTreasureRoomFinished()
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId < 0)
+        {
+            return;
+        }
+
+        MapNodeData node = GetNode(CurrentMap.CurrentNodeId);
+
+        if (node == null || node.NodeType != MapNodeType.Treasure)
+        {
+            Debug.LogError("当前地图节点不是 Treasure 节点。");
+            return;
+        }
+        CompleteCurrentNode();
+        UIManager.instance.Close<TreasureView>();
+        OpenMap();
+    }
+
     // public void OnNodeClicked(int nodeId)
     // {
     //     if (!SelectNode(nodeId))
@@ -170,13 +189,18 @@ public sealed class MapManager : MonoBehaviour
         }
 
         MapNodeData node = GetNode(nodeId);
-
-        Debug.Log(
-            $"进入地图节点：{node.Id}，" +
-            $"节点类型：{node.NodeType}");
-
+        Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
         UIManager.instance.Close<MapView>();
-        UIManager.instance.Open<TestBattleView>(node);
+        switch (node.NodeType)
+        {
+            case MapNodeType.Treasure:
+                UIManager.instance.Open<TreasureView>(node);
+                break;
+
+            default:
+                UIManager.instance.Open<TestBattleView>(node);
+                break;
+        }
     }
 
 
