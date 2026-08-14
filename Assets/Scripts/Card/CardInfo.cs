@@ -67,5 +67,17 @@ public class CardInfo
         }
         isAscended = true;
     }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new();
+        sb.Append("名称: ");
+        sb.AppendLine(CardName);
+        foreach (var intent in intents)
+        {
+            sb.AppendLine(intent.ToString());
+        }
+        return sb.ToString();
+    }
 }
 

@@ -308,7 +308,7 @@ Canvas:
   m_GameObject: {fileID: 852089478}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -316,8 +316,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -339,6 +339,7 @@ MonoBehaviour:
   systemRoot: {fileID: 900000013}
   viewPrefabs:
   - {fileID: 141433771, guid: c318db504ec443b98db711cfbc841f7d, type: 3}
+  - {fileID: 3751934276014442757, guid: 6a4b019fa9ea95a489e55d96465a2e7b, type: 3}
 --- !u!1 &873252795
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +700,9 @@ MonoBehaviour:
   craftingSlots: []
   cardSlots: []
   deployedCardSlots: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1952196884
 GameObject:
   m_ObjectHideFlags: 0

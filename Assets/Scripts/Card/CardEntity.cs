@@ -1,10 +1,11 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
+public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,ITooltipSource
 {
     public static event Action<CardEntity> OnCardEntityDead;
 
@@ -101,11 +102,18 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         BattleManager.instance.HandlePointerEnterCard(this);
+        UIManager.instance.Open<TooltipView>(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // 关闭高亮等动效
+        UIManager.instance.Close<TooltipView>();
+    }
+
+    public string GetToolTip()
+    {
+        return cardInfo.ToString();
     }
 }
 
