@@ -1,8 +1,10 @@
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardViewUI : MonoBehaviour
+public class CardViewUI : MonoBehaviour,ITooltipSource,IPointerEnterHandler,IPointerExitHandler
 {
     [SerializeField] private Image cardBackground;
     [SerializeField] private Image soup;
@@ -10,10 +12,12 @@ public class CardViewUI : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text defenceText;
+    private CardInfo cardInfo;
 
     public void Bind(CardInfo cardInfo)
     {
         gameObject.SetActive(cardInfo != null);
+        this.cardInfo = cardInfo;
         if (cardInfo == null) return;
         CardMaterialInfo[] materials = cardInfo.materialInfoArray;
         Color soupColor = Color.clear;
@@ -40,5 +44,24 @@ public class CardViewUI : MonoBehaviour
         nameText = cardName;
         healthText = health;
         defenceText = defence;
+    }
+
+    public string GetToolTip()
+    {
+        if(cardInfo != null)
+        {
+            return cardInfo.ToString();
+        }
+        return null;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.instance.Open<TooltipView>(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.instance.Close<TooltipView>();
     }
 }
