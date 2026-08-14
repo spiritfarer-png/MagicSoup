@@ -1,16 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BeginBattle : MonoBehaviour
 {
     public Button btnBeginBattle;
-    public Button btnBeiBao;
-
-    public GameObject panelBeiBao;
+    public Button btnInventory;
 
     private void Start()
     {
@@ -24,9 +19,11 @@ public class BeginBattle : MonoBehaviour
 
             MapManager.Instance.OpenMap();
         });
-        btnBeiBao.onClick.AddListener(() =>
+
+        if (btnInventory != null)
         {
-            panelBeiBao.SetActive(true);
-        });
+            btnInventory.onClick.AddListener(() =>
+                UIManager.instance.Open<InventoryPanelUI>());
+        }
     }
 }
