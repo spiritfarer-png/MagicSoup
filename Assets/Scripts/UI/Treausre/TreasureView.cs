@@ -37,8 +37,6 @@ public sealed class TreasureView : UIView
     private MapNodeData currentNode;
     private TreasureState state;
     private Coroutine revealCoroutine;
-    private Vector3 relicStartWorldPosition;
-    private Vector3 relicEndWorldPosition;
 
     private void Awake()
     {
