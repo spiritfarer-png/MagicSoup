@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Dynamic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
 {
@@ -17,8 +15,8 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     }
     [SerializeField] CardInfo cardInfo;
     public BattleCardState cardState;
-    [SerializeField] private SpriteRenderer soup;
-    [SerializeField] private SpriteRenderer[] materialIcons;
+    [SerializeField] private Image soup;
+    [SerializeField] private Image[] materialIcons;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private TextMeshProUGUI nameText;

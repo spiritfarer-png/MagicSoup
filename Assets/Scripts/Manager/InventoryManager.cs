@@ -14,13 +14,13 @@ public class InventoryManager : MonoBehaviour
     [Header("Runtime Slots")]
     public List<MaterialSlotData> materialSlots = new List<MaterialSlotData>();
     public List<MaterialSlotData> craftingSlots = new List<MaterialSlotData>();
-    public List<CardInfo> cardSlots = new List<CardInfo>();
-    public List<CardInfo> deployedCardSlots = new List<CardInfo>();
+    [SerializeReference] public List<CardInfo> cardSlots = new List<CardInfo>();
+    [SerializeReference] public List<CardInfo> deployedCardSlots = new List<CardInfo>();
     public int MaxMaterialSlots => MaterialSlotCapacity;
     public int MaxCraftingSlots => CraftingSlotCapacity;
     public int MaxCardSlots => CardSlotCapacity;
     public int MaxDeployedCardSlots => DeployedCardSlotCapacity;
-    public bool CanCraftCard => craftingSlots.Exists(slot => slot != null && slot.IsOccupied) && cardSlots.Exists(card => card == null);
+    public bool CanCraftCard => craftingSlots.Exists(slot => slot != null && slot.IsOccupied) && cardSlots.Exists(IsEmptyCard);
 
     private void Awake()
     {
@@ -48,7 +48,7 @@ public class InventoryManager : MonoBehaviour
         List<CardInfo> targetSlots = GetCardSlots(targetArea);
         if (!IsValidIndex(sourceSlots, sourceIndex) || !IsValidIndex(targetSlots, targetIndex)) return;
         CardInfo source = sourceSlots[sourceIndex];
-        if (source == null) return;
+        if (IsEmptyCard(source)) return;
         CardInfo target = targetSlots[targetIndex];
         targetSlots[targetIndex] = source;
         sourceSlots[sourceIndex] = target;
@@ -56,7 +56,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool TryCraftCard()
     {
-        int emptyCardIndex = cardSlots.FindIndex(card => card == null);
+        int emptyCardIndex = cardSlots.FindIndex(IsEmptyCard);
         if (emptyCardIndex < 0) return false;
         List<CardMaterialInfo> materials = new List<CardMaterialInfo>(CraftingSlotCapacity);
         for (int i = 0; i < craftingSlots.Count; i++)
@@ -105,5 +105,13 @@ public class InventoryManager : MonoBehaviour
     {
         while (slots.Count < size) slots.Add(null);
         if (slots.Count > size) slots.RemoveRange(size, slots.Count - size);
+        for (int i = 0; i < slots.Count; i++) if (IsEmptyCard(slots[i])) slots[i] = null;
+    }
+
+    private static bool IsEmptyCard(CardInfo card)
+    {
+        if (card == null || card.materialInfoArray == null) return true;
+        foreach (CardMaterialInfo material in card.materialInfoArray) if (material != null && material.Data != null) return false;
+        return true;
     }
 }

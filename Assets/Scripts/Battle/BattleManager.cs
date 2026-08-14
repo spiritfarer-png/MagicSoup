@@ -12,7 +12,8 @@ public class BattleManager : MonoBehaviour
     public bool ExtraActionAvailable => !extraActed;
     public event Action<BattlePhase> PhaseChanged;
     public event Action<bool> BattleEnded;
-
+    public CardEntity[] EnemyEntities { get { return enemyEntities; } }
+    public CardEntity[] PlayerEntities { get { return playerEntities; } }
     [SerializeField] private CardEntity[] enemyEntities;
     [SerializeField] private CardEntity[] playerEntities;
     [SerializeField] private Transform[] playerCardEntitySpawnRoots;
@@ -93,9 +94,9 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void ClearDefence()
+    private void ClearDefence(CardEntity[] cards)
     {
-        foreach (var cardEntity in playerEntities) 
+        foreach (var cardEntity in cards) 
         {
             if( cardEntity != null && !cardEntity.cardState.isDead)
             {
@@ -103,21 +104,9 @@ public class BattleManager : MonoBehaviour
                 cardEntity.UpdateVisual();
             }
         }
-
-        foreach(var cardEntity in enemyEntities)
-        {
-            if(cardEntity != null && !cardEntity.cardState.isDead)
-            {
-                cardEntity.cardState.defence = 0;
-                cardEntity.UpdateVisual();
-            }
-        }
     }
 
-    private void TriggerRelic()
-    {
-        // 依次触发双方遗物的效果。
-    }
+
 
     public void TryInvokeIntent(CardEntity card)
     {
@@ -179,17 +168,10 @@ public class BattleManager : MonoBehaviour
         // 如果是选择阶段，就设置高亮等动效
     }
 
-    private void InvokeAllIntents()
+    private void InvokeIntents(CardEntity[] cards)
     {
         
-        foreach(var card in playerEntities)
-        {
-            TryInvokeIntent(card);
-            if (Phase == BattlePhase.BattleOver) return;
-            // todo:卡片动效
-        }
-
-        foreach(var card in enemyEntities)
+        foreach(var card in cards)
         {
             TryInvokeIntent(card);
             if (Phase == BattlePhase.BattleOver) return;
@@ -244,9 +226,9 @@ public class BattleManager : MonoBehaviour
 
     private void StartRound()
     {
-        ClearDefence();
         BattleClock.AdvanceClock();
-        TriggerRelic();
+        ClearDefence(playerEntities);
+        // todo:触发玩家遗物
         extraActed = false;
         Phase = BattlePhase.PlayerDecision;
         PhaseChanged?.Invoke(Phase);
@@ -290,8 +272,17 @@ public class BattleManager : MonoBehaviour
         if (Phase != BattlePhase.PlayerDecision && Phase != BattlePhase.SelectingExtraAction) return;
         Phase = BattlePhase.Resolving;
         PhaseChanged?.Invoke(Phase);
-        InvokeAllIntents();
-        if (Phase != BattlePhase.BattleOver) StartRound();
+        InvokeIntents(playerEntities);
+        if (Phase == BattlePhase.BattleOver) 
+            return;
+        ClearDefence(enemyEntities);
+        // todo:触发敌方遗物效果
+        if (Phase == BattlePhase.BattleOver)
+            return;
+        InvokeIntents(enemyEntities);
+        if (Phase == BattlePhase.BattleOver)
+            return;
+        StartRound();
     }
 
     private void Awake()
@@ -308,6 +299,37 @@ public class BattleManager : MonoBehaviour
     private void OnDestroy()
     {
         CardEntity.OnCardEntityDead -= OnCardEntityDead;
+    }
+
+
+    public CardEntity GetRandomLivingCard(bool isEnemy)
+    {
+        CardEntity[] entities = isEnemy ? enemyEntities : playerEntities;
+        int livingCount = 0;
+
+        foreach (CardEntity entity in entities)
+        {
+            if (entity != null && !entity.cardState.isDead)
+                livingCount++;
+        }
+
+        if (livingCount == 0)
+            return null;
+
+        int targetIndex = UnityEngine.Random.Range(0, livingCount);
+
+        foreach (CardEntity entity in entities)
+        {
+            if (entity == null || entity.cardState.isDead)
+                continue;
+
+            if (targetIndex == 0)
+                return entity;
+
+            targetIndex--;
+        }
+
+        return null;
     }
 
 }
