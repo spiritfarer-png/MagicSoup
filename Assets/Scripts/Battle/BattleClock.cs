@@ -10,7 +10,7 @@ public static class BattleClock
 
     public static Action<int> OnClockChanged;
 
-    //时针运动规则
+    //鏃堕拡杩愬姩瑙勫垯
     public static void AdvanceClock()
     {
         currentTime = (currentTime+1) % maxTime;

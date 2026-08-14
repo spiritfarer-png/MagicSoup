@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardMaterialData", menuName = "ScriptableObject/ËØ²ÄÊı¾İ", order = 0)]
+[CreateAssetMenu(fileName = "CardMaterialData", menuName = "ScriptableObject/ç´ ææ•°æ®", order = 0)]
 public class CardMaterialData : ScriptableObject
 {
     public string materialID;
@@ -15,12 +15,12 @@ public class CardMaterialData : ScriptableObject
     public int ascendedIniHealth;
 
     /// <summary>
-    /// ÒâÍ¼ÁĞ±í
+    /// æ„å›¾åˆ—è¡¨
     /// </summary>
     public Intent[] normalIntents;
 
     /// <summary>
-    /// ÇÃÅÆºóµÄÒâÍ¼ÁĞ±í
+    /// æ•²ç‰Œåçš„æ„å›¾åˆ—è¡¨
     /// </summary>
     public Intent[] ascendedIntents;
 }
@@ -48,26 +48,26 @@ public struct Intent
     public override string ToString()
     {
         StringBuilder sb = new();
-        sb.Append("ÒâÍ¼: ");
+        sb.Append("æ„å›¾: ");
         switch (condition)
         {
-            case IntentConditionType.None: sb.Append("ÎŞÌõ¼ş"); break;
-            case IntentConditionType.Less: sb.Append("¼ÆÊ±Æ÷Ğ¡ÓÚ"); break;
-            case IntentConditionType.Greater: sb.Append("¼ÆÊ±Æ÷´óÓÚ"); break;
-            case IntentConditionType.NotEqual: sb.Append("¼ÆÊ±Æ÷²»µÈÓÚ"); break;
-            case IntentConditionType.Equal: sb.Append("¼ÆÊ±Æ÷µÈÓÚ"); break;
+            case IntentConditionType.None: sb.Append("æ— æ¡ä»¶"); break;
+            case IntentConditionType.Less: sb.Append("è®¡æ—¶å™¨å°äº"); break;
+            case IntentConditionType.Greater: sb.Append("è®¡æ—¶å™¨å¤§äº"); break;
+            case IntentConditionType.NotEqual: sb.Append("è®¡æ—¶å™¨ä¸ç­‰äº"); break;
+            case IntentConditionType.Equal: sb.Append("è®¡æ—¶å™¨ç­‰äº"); break;
         }
         if(condition != IntentConditionType.None)
         {
             sb.Append(conditionValue);
-            sb.Append("Ê± ");
+            sb.Append("æ—¶ ");
         }
 
         switch (action.type)
         {
-            case MaterialAction.ActionType.Heal: sb.Append(string.Format("Ôì³É{0}ÖÎÁÆ",action.value)); break;
-            case MaterialAction.ActionType.Defend: sb.Append(string.Format("Ôì³É{0}·ÀÓù", action.value)); break;
-            case MaterialAction.ActionType.Attack: sb.Append(string.Format("Ôì³É{0}ÉËº¦", action.value)); break;
+            case MaterialAction.ActionType.Heal: sb.Append(string.Format("é€ æˆ{0}æ²»ç–—",action.value)); break;
+            case MaterialAction.ActionType.Defend: sb.Append(string.Format("é€ æˆ{0}é˜²å¾¡", action.value)); break;
+            case MaterialAction.ActionType.Attack: sb.Append(string.Format("é€ æˆ{0}ä¼¤å®³", action.value)); break;
         }
 
         return sb.ToString();
@@ -76,7 +76,7 @@ public struct Intent
 
 public enum IntentConditionType
 {
-    // ÎŞÌõ¼ş´¥·¢
+    // æ— æ¡ä»¶è§¦å‘
     None,
     Equal,
     NotEqual,

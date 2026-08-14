@@ -5,21 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 未知事件数据
+/// 鏈煡浜嬩欢鏁版嵁
 /// </summary>
 public class UnknowEventData
 {
-    public Text UnknowEventName; //事件名称
-    public Text UnknowEventIntroduct; //事件介绍
-    public Image UnknowEventIcon; //事件图片
-    public List<UnknowEventOptionData> UnknowEventOptions; //事件选项按钮
+    public Text UnknowEventName; //浜嬩欢鍚嶇О
+    public Text UnknowEventIntroduct; //浜嬩欢浠嬬粛
+    public Image UnknowEventIcon; //浜嬩欢鍥剧墖
+    public List<UnknowEventOptionData> UnknowEventOptions; //浜嬩欢閫夐」鎸夐挳
 }
 
 /// <summary>
-/// 未知事件单个选项
+/// 鏈煡浜嬩欢鍗曚釜閫夐」
 /// </summary>
 public class UnknowEventOptionData
 {
-    public string optionName; //选项文字
-    public Action optionClicked;  //选项点击事件
+    public string optionName; //閫夐」鏂囧瓧
+    public Action optionClicked;  //閫夐」鐐瑰嚮浜嬩欢
 }
