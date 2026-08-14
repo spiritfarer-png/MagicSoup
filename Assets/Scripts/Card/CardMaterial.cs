@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class CardMaterialInfo
 {
+    // 运行时的卡牌数据
     [SerializeField] private CardMaterialData cardMaterialData;
     public CardMaterialData Data => cardMaterialData;
     public Intent[] Intents { get; private set; }
@@ -11,21 +12,28 @@ public class CardMaterialInfo
     public Sprite Icon => cardMaterialData.icon;
     public string MaterialName => cardMaterialData.materialName;
     public int IniHealth { get; private set; }
-    public bool IsAscended { get; private set; }
+    public bool IsAscended { get; private set; } = false;
 
     public CardMaterialInfo(CardMaterialData data) { cardMaterialData = data; }
 
     public void Initialize()
     {
-        IsAscended = false;
-        Intents = cardMaterialData.normalIntents;
-        IniHealth = cardMaterialData.iniHealth;
+        if (IsAscended)
+        {
+            Intents = (Intent[])cardMaterialData.ascendedIntents.Clone();
+            IniHealth = cardMaterialData.ascendedIniHealth;
+        }
+        else
+        {
+            Intents = (Intent[])cardMaterialData.normalIntents.Clone();
+            IniHealth = cardMaterialData.iniHealth;
+        }
+        
     }
 
     public void Ascend()
     {
         IsAscended = true;
-        Intents = cardMaterialData.ascendedIntents;
         IniHealth = cardMaterialData.ascendedIniHealth;
     }
 }

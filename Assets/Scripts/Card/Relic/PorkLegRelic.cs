@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class PorkLegRelic:CardMaterialData,IRelic
 {
+    [Header("精猪后腿肉")]
     [SerializeField] int defence = 4;
     public CardMaterialData MaterialData => this;
     public bool OnBattleStart(BattleManager battleManager,bool isEnemy)
