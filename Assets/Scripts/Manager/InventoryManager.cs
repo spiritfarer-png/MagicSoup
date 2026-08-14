@@ -72,6 +72,30 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
+    public List<IRelic> CreateRelicSnapshot()
+    {
+        var relics = new List<IRelic>();
+        foreach (var slot in materialSlots)
+        {
+            if (slot == null) continue;
+            if (slot.materialData != null)
+            {
+                if (!slot.IsOccupied)
+                {
+                    continue;
+                }
+
+                if (!slot.isRelic)
+                {
+                    continue;
+                }
+
+                relics.Add((IRelic)slot.materialData);
+            }
+        }
+        return relics;
+    }
+
     private void InitializeSlots()
     {
         materialSlots ??= new List<MaterialSlotData>();

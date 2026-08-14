@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca38b0d21f4b174dbe81a52853fc91d, type: 3}
+  m_Name: Material_025_特级精品猪油
+  m_EditorClassIdentifier: 
+  materialID: 25
+  materialName: 特级精品猪油
+  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
+  color: {r: 0.95, g: 0.82, b: 0.65, a: 1}
+  iniHealth: 10
+  ascendedIniHealth: 10
+  normalIntents:
+  - condition: 3
+    conditionValue: 6
+    action:
+      type: 1
+      value: 2
+  ascendedIntents:
+  - condition: 0
+    conditionValue: 0
+    action:
+      type: 2
+      value: 10

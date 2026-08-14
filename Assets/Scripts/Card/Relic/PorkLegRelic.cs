@@ -25,4 +25,9 @@ public class PorkLegRelic:CardMaterialData,IRelic
     {
         return false;
     }
+
+    public string GetRelicInfo()
+    {
+        return "战斗开始时随机对己方目标施加4防御";
+    }
 }

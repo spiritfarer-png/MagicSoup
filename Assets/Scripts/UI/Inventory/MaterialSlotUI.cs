@@ -142,11 +142,29 @@ public class MaterialSlotUI : MonoBehaviour,
             : manager.craftingSlots;
         MaterialSlotData data = slots[SlotIndex];
         if (data == null || !data.IsOccupied) return null;
+        bool isRelic = data.isRelic;
         StringBuilder sb = new();
-        sb.Append("素材:").Append(data.materialData.materialName);
-        foreach(var intent in data.materialData.normalIntents)
+
+        if (isRelic)
+        {
+            sb.Append("遗物:").AppendLine(data.materialData.materialName);
+            if(data.materialData.normalIntents.Length > 0)
+            {
+                sb.AppendLine("素材效果");
+            }
+        }
+        else
+        {
+            sb.Append("素材:").Append(data.materialData.materialName);
+
+        }
+        foreach (var intent in data.materialData.normalIntents)
         {
             sb.AppendLine(intent.ToString());
+        }
+        if (isRelic)
+        {
+            sb.AppendLine("遗物效果:").Append(((IRelic)(data.materialData)).GetRelicInfo());
         }
         return sb.ToString();
     }
