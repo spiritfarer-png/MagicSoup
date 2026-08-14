@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BeginBattle : MonoBehaviour
@@ -9,7 +10,7 @@ public class BeginBattle : MonoBehaviour
 
     private void Start()
     {
-        btnBeginBattle.onClick.AddListener(() =>
+        /*btnBeginBattle.onClick.AddListener(() =>
         {
             if (MapManager.Instance.CurrentMap == null)
             {
@@ -18,7 +19,9 @@ public class BeginBattle : MonoBehaviour
             }
 
             MapManager.Instance.OpenMap();
-        });
+        });*/
+
+        btnBeginBattle.onClick.AddListener(() => SceneManager.LoadScene("TestBattleScene"));
 
         if (btnInventory != null)
         {
