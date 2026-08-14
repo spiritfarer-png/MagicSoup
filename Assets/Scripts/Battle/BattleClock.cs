@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleClock : MonoBehaviour
+public static class BattleClock
 {
-    //褰撳墠鏃堕挓鏃跺埢
-    public int currentTime = 0;
-    //姣忓洖鍚堟椂閽堣蛋澶氬皯
-    public int stepPerTurn = 0;
+    public static int currentTime = 0;
+    public static int maxTime = 12;
 
-    //鏃堕拡杩愬姩瑙勫垯
-    public void AdvanceClock()
+    public static Action<int> OnClockChanged;
+
+    //时针运动规则
+    public static void AdvanceClock()
     {
-        currentTime = currentTime + stepPerTurn;
+        currentTime = (currentTime+1) % maxTime;
+        OnClockChanged?.Invoke(currentTime);
     }
 
 }
