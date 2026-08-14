@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// 地图界面。
@@ -8,9 +9,12 @@ public sealed class MapView : UIView
 {
     [SerializeField] private RectTransform nodeRoot;
     [SerializeField] private MapNodeView nodePrefab;
+    [SerializeField] private RectTransform edgeRoot;
+    [SerializeField] private MapEdgeView edgePrefab;
 
     [SerializeField] private float horizontalSpacing = 150f;
     [SerializeField] private float verticalSpacing = 65f;
+    [SerializeField] private float edgeThickness = 4f;
     private MapData mapData;
 
     protected override void OnOpen(object param)
@@ -30,8 +34,15 @@ public sealed class MapView : UIView
         {
             return;
         }
-        ClearNodes();
+
+        ClearChildren(nodeRoot);
+        ClearChildren(edgeRoot);
+
+        Dictionary<int, Vector2> nodePositions = new Dictionary<int, Vector2>();
+
         float mapHeight = (mapData.Floors.Count - 1) * verticalSpacing;
+
+        // 计算位置并生成节点。
         foreach (MapFloorData floor in mapData.Floors)
         {
             int nodeCount = floor.Nodes.Count;
@@ -39,23 +50,33 @@ public sealed class MapView : UIView
             for (int i = 0; i < nodeCount; i++)
             {
                 MapNodeData node = floor.Nodes[i];
-                MapNodeView nodeView = Instantiate(nodePrefab, nodeRoot);
-                RectTransform rect = nodeView.GetComponent<RectTransform>();
                 float x = i * horizontalSpacing - floorWidth * 0.5f;
                 float y = floor.FloorIndex * verticalSpacing - mapHeight * 0.5f;
-                rect.anchoredPosition = new Vector2(x, y);
+                Vector2 position = new Vector2(x, y);
+                nodePositions.Add(node.Id, position);
+                MapNodeView nodeView = Instantiate(nodePrefab, nodeRoot);
+                RectTransform nodeRect = nodeView.GetComponent<RectTransform>();
+                nodeRect.anchoredPosition = position;
                 nodeView.Initialize(node, this);
             }
         }
+        // 根据 MapData.Edges 生成连线。
+        foreach (MapEdgeData edge in mapData.Edges)
+        {
+            Vector2 fromPosition = nodePositions[edge.FromNodeId];
+            Vector2 toPosition = nodePositions[edge.ToNodeId];
+            MapEdgeView edgeView = Instantiate(edgePrefab, edgeRoot);
+            edgeView.Initialize(fromPosition, toPosition, edgeThickness);
+        }
 
-        Debug.Log($"地图节点显示完成，层数：{mapData.Floors.Count}");
+        Debug.Log($"地图显示完成，节点层数：{mapData.Floors.Count}，" + $"连线数：{mapData.Edges.Count}");
     }
 
-    private void ClearNodes()
+    private void ClearChildren(RectTransform root)
     {
-        for (int i = nodeRoot.childCount - 1; i >= 0; i--)
+        for (int i = root.childCount - 1; i >= 0; i--)
         {
-            Destroy(nodeRoot.GetChild(i).gameObject);
+            Destroy(root.GetChild(i).gameObject);
         }
     }
 

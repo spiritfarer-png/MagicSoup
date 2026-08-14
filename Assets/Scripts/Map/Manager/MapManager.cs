@@ -127,6 +127,41 @@ public sealed class MapManager : MonoBehaviour
         UIManager.instance.Open<MapView>(CurrentMap);
     }
 
+    public void StartNewMap(int seed)
+    {
+        GenerateNewMap(seed);
+        OpenMap();
+    }
+
+    // public void OnNodeClicked(int nodeId)
+    // {
+    //     if (!SelectNode(nodeId))
+    //     {
+    //         return;
+    //     }
+
+    //     MapNodeData node = GetNode(nodeId);
+    //     Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
+
+    //     switch (node.NodeType)
+    //     {
+    //         case MapNodeType.NormalBattle:
+    //         case MapNodeType.EliteBattle:
+    //         case MapNodeType.Boss:
+    //             UIManager.instance.Open<BattleView>(node);
+    //             break;
+
+    //         case MapNodeType.RandomEvent:
+    //             UIManager.instance.Open<EventView>(node);
+    //             break;
+
+    //         case MapNodeType.Treasure:
+    //             UIManager.instance.Open<TreasureView>(node);
+    //             break;
+    //     }
+    // }
+
+    // 测试代码
     public void OnNodeClicked(int nodeId)
     {
         if (!SelectNode(nodeId))
@@ -135,29 +170,30 @@ public sealed class MapManager : MonoBehaviour
         }
 
         MapNodeData node = GetNode(nodeId);
-        Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
 
-        // switch (node.NodeType)
-        // {
-        //     case MapNodeType.NormalBattle:
-        //     case MapNodeType.EliteBattle:
-        //     case MapNodeType.Boss:
-        //         UIManager.instance.Open<BattleView>(node);
-        //         break;
+        Debug.Log(
+            $"进入地图节点：{node.Id}，" +
+            $"节点类型：{node.NodeType}");
 
-        //     case MapNodeType.RandomEvent:
-        //         UIManager.instance.Open<EventView>(node);
-        //         break;
-
-        //     case MapNodeType.Treasure:
-        //         UIManager.instance.Open<TreasureView>(node);
-        //         break;
-        // }
+        UIManager.instance.Close<MapView>();
+        UIManager.instance.Open<TestBattleView>(node);
     }
 
-    public void StartNewMap(int seed)
+
+    // 接收虚拟战斗结果并返回地图
+    public void OnTestBattleFinished(bool playerWin)
     {
-        GenerateNewMap(seed);
+        if (playerWin)
+        {
+            CompleteCurrentNode();
+        }
+        else
+        {
+            CancelCurrentNode();
+        }
+
+        UIManager.instance.Close<TestBattleView>();
         OpenMap();
     }
+
 }

@@ -8,10 +8,8 @@ public sealed class MapNodeView : MonoBehaviour
     private Button button;
     [SerializeField]
     private TMP_Text nodeText;
-
     private int nodeId;
     private MapView mapView;
-
     public void Initialize(MapNodeData node, MapView owner)
     {
         nodeId = node.Id;
