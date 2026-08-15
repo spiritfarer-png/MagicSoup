@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Text;
 using TMPro;
@@ -8,7 +9,6 @@ using UnityEngine.UI;
 public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,ITooltipSource
 {
     public static event Action<CardEntity> OnCardEntityDead;
-
     public CardInfo CardInfo 
     {
         get { return cardInfo; }
@@ -21,7 +21,11 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private TextMeshProUGUI nameText;
-
+    private Tween doPunchScale;
+    private void Awake()
+    {
+        doPunchScale = transform.DOPunchScale(Vector3.one * 1.2f, 0.25f).SetAutoKill(false).Pause();
+    }
     public void Initialize(CardInfo cardInfo,bool isEnemy)
     {
         CardInfo = cardInfo;
@@ -78,6 +82,11 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
             OnCardEntityDead?.Invoke(this);
             gameObject?.SetActive(false);
         }
+        else
+        {
+            doPunchScale.Rewind();
+            doPunchScale.PlayForward();
+        }
     }
 
     public void Heal(int amount)
@@ -85,6 +94,8 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         int healedAmount = cardState.Heal(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, healedAmount));
+        doPunchScale.Rewind();
+        doPunchScale.PlayForward();
     }
 
     public void Defence(int amount)
@@ -92,6 +103,8 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         cardState.Defence(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}获得{1}护盾", cardInfo.CardName, amount));
+        doPunchScale.Rewind();
+        doPunchScale.PlayForward();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -103,12 +116,19 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     {
         BattleManager.instance.HandlePointerEnterCard(this);
         UIManager.instance.Open<TooltipView>(this);
+        if (!cardState.isEnemy)
+        {
+            doPunchScale.Rewind();
+            transform.DOScale(1.2f, 0.2f);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // 关闭高亮等动效
         UIManager.instance.Close<TooltipView>();
+        doPunchScale.Rewind();
+        transform.DOScale(1f, 0.2f);
     }
 
     public string GetToolTip()
