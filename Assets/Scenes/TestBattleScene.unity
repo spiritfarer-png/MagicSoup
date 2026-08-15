@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyEntities:
-  - {fileID: 910000100001}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -533,6 +533,7 @@ MonoBehaviour:
   - {fileID: 800000017}
   - {fileID: 800000018}
   cardEntityPrefab: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
+  enemyConfigPool: {fileID: 11400000, guid: 8b7e556d49c3dbf45903ab23fcf9b983, type: 2}
 --- !u!1 &910000000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,90 +1194,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &910000100000
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 682505318, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_Name
-      value: EnemyTestCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505319, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: cardInfo.cardMaterialInfoArray.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: cardInfo.cardMaterialInfoArray.Array.data[0].cardMaterialData
-      value: 
-      objectReference: {fileID: 11400000, guid: a1010000000000000000000000000001, type: 2}
-    - target: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: cardInfo.cardMaterialInfoArray.Array.data[1].cardMaterialData
-      value: 
-      objectReference: {fileID: 11400000, guid: a1010000000000000000000000000002, type: 2}
-    - target: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-      propertyPath: cardInfo.cardMaterialInfoArray.Array.data[2].cardMaterialData
-      value: 
-      objectReference: {fileID: 11400000, guid: a1010000000000000000000000000003, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
---- !u!114 &910000100001 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 682505320, guid: d2b8437cfe1a4b8b91fb81c0aa1ec101, type: 3}
-  m_PrefabInstance: {fileID: 910000100000}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563b64cdc98e91541b88ed67f21c2604, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1295,4 +1212,3 @@ SceneRoots:
   - {fileID: 2055497758}
   - {fileID: 480534184}
   - {fileID: 1719505183}
-  - {fileID: 910000100000}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,20 +17,55 @@ public class BattleManager : MonoBehaviour
     public CardEntity[] PlayerEntities { get { return playerEntities; } }
     [SerializeField] private CardEntity[] enemyEntities;
     [SerializeField] private CardEntity[] playerEntities;
+    [SerializeField] private IRelic[] playerRelics;
+    [SerializeField] private IRelic[] enemyRelics;
     [SerializeField] private Transform[] playerCardEntitySpawnRoots;
     [SerializeField] private Transform[] enemyCardEntitySpawnRoots;
     [SerializeField] private CardEntity cardEntityPrefab;
+    [SerializeField] private EnemyConfigPool enemyConfigPool;
     private int playerEntityCount = 0;
     private int enemyEntityCount = 0;
     private CardEntity firstPlayerEntity = null;
     private CardEntity firstEnemyEntity = null;
+    private int roundCount = 0;
+
+    private void ClearBattle()
+    {
+        foreach(var transform in playerCardEntitySpawnRoots)
+        {
+            foreach(Transform _t in transform)
+            {
+                if(_t.TryGetComponent<CardEntity>(out var card))
+                {
+                    Destroy(card.gameObject);
+                }
+            }
+        }
+
+        foreach(var transform in enemyCardEntitySpawnRoots)
+        {
+            foreach(Transform _t in transform)
+            {
+                if (_t.TryGetComponent<CardEntity>(out var card))
+                {
+                    Destroy(card.gameObject);
+                }
+            }
+        }
+    }
     public void InitializeBattle()
     {
         Phase = BattlePhase.Initializing;
+        ClearBattle();
+        var enemyConfig = enemyConfigPool.PopNormalEnemy();
+        roundCount = 0;
         var playerCardInfos = InventoryManager.Instance.deployedCardSlots.ToArray();
+        var enemyCardInfos = enemyConfig.enemyCardInfos;
         playerEntities = new CardEntity[4];
-        //enemyEntities = new CardEntity[4];
+        enemyEntities = new CardEntity[4];
         int index = 0;
+
+        // 生成玩家卡牌
         foreach (var cardInfo in playerCardInfos)
         {
             if(cardInfo != null)
@@ -46,18 +82,31 @@ public class BattleManager : MonoBehaviour
             index++;
         }
 
-        foreach (var cardEntity in enemyEntities)
+        // 生成敌方卡牌
+        index = 0;
+        foreach(var cardInfo in enemyCardInfos)
         {
-            if (cardEntity != null)
+            if(cardInfo != null)
             {
-                if (firstEnemyEntity == null)
+                var enemyCardEntity = Instantiate(cardEntityPrefab, enemyCardEntitySpawnRoots[index]);
+                if(firstEnemyEntity == null)
                 {
-                    firstEnemyEntity = cardEntity;
+                    firstEnemyEntity = enemyCardEntity;
                 }
-                cardEntity.Initialize(cardEntity.CardInfo, true);
+
+                enemyCardEntity.Initialize(cardInfo,true);
+                enemyEntities[index] = enemyCardEntity;
                 enemyEntityCount++;
             }
+            index++;
         }
+
+
+        // 收集双方遗物
+        playerRelics = InventoryManager.Instance.CreateRelicSnapshot().ToArray();
+        enemyRelics = enemyConfig.enemyRelics.Select(relic => (IRelic)relic).ToArray();
+
+        // todo:药水
 
         CardEntity.OnCardEntityDead += OnCardEntityDead;
         UIManager.instance.Open<BattleHUDView>(this);
@@ -111,18 +160,38 @@ public class BattleManager : MonoBehaviour
     public void TryInvokeIntent(CardEntity card)
     {
         if (card == null||card.cardState.isDead) { return;}
+
+        // 触发遗物的卡牌行动节点
+        bool isEnemy = card.cardState.isEnemy;
+        var relics = isEnemy ? enemyRelics : playerRelics;
+        if (relics != null)
+        {
+            foreach (var relic in relics)
+            {
+                relic.OnCardAction(this, isEnemy, card);
+                if (IsBattleOver())
+                {
+                    DoBattleOver();
+                    return;
+                }
+
+            }
+        }
+
+
         int time = BattleClock.currentTime;
         var intents = card.CardInfo.intents;
         foreach (var intent in intents) 
         {
             if (intent.Match(time))
             {
+                
                 switch (intent.action.type)
                 {
                     case MaterialAction.ActionType.Attack:
                         {
                             CardEntity targetCard;
-                            if (card.cardState.isEnemy)
+                            if (isEnemy)
                             {
                                 targetCard = firstPlayerEntity;
                             }
@@ -146,13 +215,18 @@ public class BattleManager : MonoBehaviour
 
                 if (IsBattleOver())
                 {
-                    Phase = BattlePhase.BattleOver;
-                    PhaseChanged?.Invoke(Phase);
-                    BattleEnded?.Invoke(BattleWin);
+                    DoBattleOver();
                     return;
                 }
             }
         }
+    }
+
+    private void DoBattleOver()
+    {
+        Phase = BattlePhase.BattleOver;
+        PhaseChanged?.Invoke(Phase);
+        BattleEnded?.Invoke(BattleWin);
     }
 
     public void HandleCardClicked(CardEntity card)
@@ -227,8 +301,57 @@ public class BattleManager : MonoBehaviour
     private void StartRound()
     {
         BattleClock.AdvanceClock();
+        roundCount++;
+        // 清空防御
         ClearDefence(playerEntities);
-        // todo:触发玩家遗物
+
+        // 触发战斗开始遗物节点
+        if(roundCount == 1)
+        {
+            if (playerRelics != null)
+            {
+                foreach (var relic in playerRelics)
+                {
+                    relic?.OnBattleStart(this, false);
+                    if (IsBattleOver())
+                    {
+                        DoBattleOver();
+                        return;
+                    }
+                }
+            }
+            
+            if(enemyRelics != null)
+            {
+                foreach (var relic in enemyRelics)
+                {
+                    relic?.OnBattleStart(this, true);
+                    if (IsBattleOver())
+                    {
+                        DoBattleOver();
+                        return;
+                    }
+                }
+            }
+            
+        }
+
+
+        // 触发玩家遗物的每回合行动节点
+        if (playerRelics != null)
+        {
+            foreach(var relic in playerRelics)
+            {
+                relic?.OnRoundStart(this, false);
+                if (IsBattleOver())
+                {
+                    DoBattleOver();
+                    return;
+                }
+            }
+        }
+            
+
         extraActed = false;
         Phase = BattlePhase.PlayerDecision;
         PhaseChanged?.Invoke(Phase);
@@ -276,7 +399,18 @@ public class BattleManager : MonoBehaviour
         if (Phase == BattlePhase.BattleOver) 
             return;
         ClearDefence(enemyEntities);
-        // todo:触发敌方遗物效果
+        // 触发敌方遗物效果
+        if(enemyRelics != null)
+        {
+            foreach(var relic in enemyRelics){
+                relic.OnRoundStart(this, true);
+                if (IsBattleOver())
+                {
+                    DoBattleOver();
+                    return;
+                }
+            }
+        }
         if (Phase == BattlePhase.BattleOver)
             return;
         InvokeIntents(enemyEntities);
@@ -341,4 +475,11 @@ public enum BattlePhase
     SelectingExtraAction,
     Resolving,
     BattleOver
+}
+
+public enum BattleType
+{
+    Normal,
+    Elite,
+    Boss,
 }

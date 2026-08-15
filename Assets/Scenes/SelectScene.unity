@@ -308,7 +308,7 @@ Canvas:
   m_GameObject: {fileID: 852089478}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -316,7 +316,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -744,6 +744,7 @@ MonoBehaviour:
   - materialData: {fileID: 11400000, guid: 9b9e234a5386b814cb8fe338aeffc3eb, type: 2}
   - materialData: {fileID: 11400000, guid: 03e2d45a24678154d94f1a93713a420c, type: 2}
   - materialData: {fileID: 11400000, guid: 9b9e234a5386b814cb8fe338aeffc3eb, type: 2}
+  - materialData: {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
   craftingSlots: []
   cardSlots: []
   deployedCardSlots: []

@@ -9,7 +9,7 @@ public class CardInfo
     public CardMaterialInfo[] materialInfoArray { get => cardMaterialInfoArray; }
     public string CardName { get; private set; }
     [SerializeField] private CardMaterialInfo[] cardMaterialInfoArray;
-    public Intent[] intents 
+    public Intent[] intents
     {
         get 
         {

@@ -45,4 +45,9 @@ public class SeaweedClumpRelic : CardMaterialData, IRelic
     {
         return false;
     }
+
+    public string GetRelicInfo()
+    {
+        return "战斗开始时所有友方目标的进攻意图加1伤害";
+    }
 }

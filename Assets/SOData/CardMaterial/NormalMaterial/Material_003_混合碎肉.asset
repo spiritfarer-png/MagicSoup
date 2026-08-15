@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca38b0d21f4b174dbe81a52853fc91d, type: 3}
+  m_Name: Material_003_混合碎肉
+  m_EditorClassIdentifier: 
+  materialID: 3
+  materialName: 混合碎肉
+  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  color: {r: 0.78, g: 0.34, b: 0.3, a: 1}
+  iniHealth: 3
+  ascendedIniHealth: 3
+  normalIntents:
+  - condition: 1
+    conditionValue: 1
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 3
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 5
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 7
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 9
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 11
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 6
+    action:
+      type: 0
+      value: 0
+  - condition: 1
+    conditionValue: 12
+    action:
+      type: 0
+      value: 0
+  ascendedIntents:
+  - condition: 3
+    conditionValue: 6
+    action:
+      type: 0
+      value: 2
+  - condition: 4
+    conditionValue: 6
+    action:
+      type: 0
+      value: 1
+  - condition: 4
+    conditionValue: 6
+    action:
+      type: 0
+      value: 1
