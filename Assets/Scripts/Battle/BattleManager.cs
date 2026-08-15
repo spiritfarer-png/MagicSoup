@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BattleManager : MonoBehaviour
     public bool ExtraActionAvailable => !extraActed;
     public event Action<BattlePhase> PhaseChanged;
     public event Action<bool> BattleEnded;
+    public BattleType BattleType { get; private set; }
     public CardEntity[] EnemyEntities { get { return enemyEntities; } }
     public CardEntity[] PlayerEntities { get { return playerEntities; } }
     [SerializeField] private CardEntity[] enemyEntities;
@@ -23,6 +25,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Transform[] enemyCardEntitySpawnRoots;
     [SerializeField] private CardEntity cardEntityPrefab;
     [SerializeField] private EnemyConfigPool enemyConfigPool;
+    [SerializeField] private LootPool lootPool;
     private int playerEntityCount = 0;
     private int enemyEntityCount = 0;
     private CardEntity firstPlayerEntity = null;
@@ -52,12 +55,28 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+
+        firstPlayerEntity = null;
+        firstEnemyEntity = null;
+        playerEntityCount = 0;
+        enemyEntityCount = 0;
+        playerEntities = Array.Empty<CardEntity>();
+        enemyEntities = Array.Empty<CardEntity>();
     }
-    public void InitializeBattle()
+    public void InitializeBattle(BattleType battleType = BattleType.Normal)
     {
         Phase = BattlePhase.Initializing;
+        BattleType = battleType;
         ClearBattle();
-        var enemyConfig = enemyConfigPool.PopNormalEnemy();
+        EnemyConfig enemyConfig;
+        switch (battleType)
+        {
+            case BattleType.Normal: enemyConfig = enemyConfigPool.PopNormalEnemy(); break;
+            case BattleType.Elite: enemyConfig = enemyConfigPool.PopEliteEnemy(); break;
+            case BattleType.Boss: enemyConfig = enemyConfigPool.PopBoss(); break;
+            default: enemyConfig = null; Debug.LogError("未定义"); break;
+        }
+
         roundCount = 0;
         var playerCardInfos = InventoryManager.Instance.deployedCardSlots.ToArray();
         var enemyCardInfos = enemyConfig.enemyCardInfos;
@@ -108,9 +127,12 @@ public class BattleManager : MonoBehaviour
 
         // todo:药水
 
+        CardEntity.OnCardEntityDead -= OnCardEntityDead;
         CardEntity.OnCardEntityDead += OnCardEntityDead;
         UIManager.instance.Open<BattleHUDView>(this);
         PhaseChanged?.Invoke(Phase);
+
+        StartRound();
     }
 
     private void OnCardEntityDead(CardEntity obj)
@@ -227,6 +249,38 @@ public class BattleManager : MonoBehaviour
         Phase = BattlePhase.BattleOver;
         PhaseChanged?.Invoke(Phase);
         BattleEnded?.Invoke(BattleWin);
+        UIManager.instance.Close<BattleHUDView>();
+        // 打开战利品界面/死亡界面
+        if (BattleWin)
+        {
+            if(BattleType == BattleType.Boss)
+            {
+                // 游戏胜利
+                UIManager.instance.Open<GameWinView>();
+            }
+            else
+            {
+                CardMaterialData[] loots;
+                if(BattleType == BattleType.Elite)
+                {
+                    loots = new CardMaterialData[] { PopMaterial(),PopRelic()};
+                }
+                else
+                {
+                    loots = new CardMaterialData[] { PopMaterial() };
+                }
+                UIManager.instance.Open<BattleWinView>(loots);
+            }
+        }
+        else
+        {
+            UIManager.instance.Open<GameOverView>();
+        }
+    }
+
+    public void ResartGame()
+    {
+        SceneManager.LoadScene("GamePlayScene");
     }
 
     public void HandleCardClicked(CardEntity card)
@@ -296,6 +350,16 @@ public class BattleManager : MonoBehaviour
         // 未结束
         BattleWin = false;
         return false;
+    }
+
+    public CardMaterialData PopMaterial()
+    {
+        return lootPool.PopMaterial();
+    }
+
+    public CardMaterialData PopRelic()
+    {
+        return lootPool.PopRelic();
     }
 
     private void StartRound()
@@ -422,12 +486,6 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        InitializeBattle();
-        StartRound();
     }
 
     private void OnDestroy()

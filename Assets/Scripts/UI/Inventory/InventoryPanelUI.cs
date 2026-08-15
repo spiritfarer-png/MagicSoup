@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -58,6 +59,14 @@ public class InventoryPanelUI : UIView
         for (int i = 0; i < cardSlotViews.Count; i++) cardSlotViews[i].Bind(manager.cardSlots[i], i, InventoryManager.CardArea.Inventory);
         for (int i = 0; i < deployedSlotViews.Count; i++) deployedSlotViews[i].Bind(manager.deployedCardSlots[i], i, InventoryManager.CardArea.Deployed);
         if (craftButton != null) craftButton.interactable = manager.CanCraftCard;
+        closeButton.interactable = false;
+        foreach(var card in manager.deployedCardSlots)
+        {
+            if (card != null)
+            {
+                closeButton.interactable = true;
+            }
+        }
     }
 
     private void SpawnAllSlots()

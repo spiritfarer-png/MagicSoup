@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9129d8a0f54031d4c958d8f380ccdbd6, type: 3}
+  m_Name: LootPool
+  m_EditorClassIdentifier: 
+  materialLoots:
+  - {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
+  - {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
+  - {fileID: 11400000, guid: d1adfef6fcc9122504714594941784b8, type: 2}
+  - {fileID: 11400000, guid: cd2f689734100e5cc31498b54f34d1d2, type: 2}
+  - {fileID: 11400000, guid: 7bab47b5f47ece4c43580cfc39ddb489, type: 2}
+  - {fileID: 11400000, guid: 81a2d2e397166dc5c206e8acec855f04, type: 2}
+  - {fileID: 11400000, guid: e6c215eb196907eb474c968c9664a397, type: 2}
+  - {fileID: 11400000, guid: bfac5e8fb07e0467d41a5dcb87e893bd, type: 2}
+  - {fileID: 11400000, guid: 360d22794c546b92998e61b636726373, type: 2}
+  - {fileID: 11400000, guid: f0cbb58bc28fa9581337b9c24f30054c, type: 2}
+  - {fileID: 11400000, guid: 1feecad7943bbebc1033aea6216bc756, type: 2}
+  - {fileID: 11400000, guid: 52e9b9029dbceed0795e63adfe632861, type: 2}
+  - {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+  - {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+  - {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+  - {fileID: 11400000, guid: e01e978b8221134a2b4caaa85147474e, type: 2}
+  - {fileID: 11400000, guid: 302e601ed5b3c6dd3a9959266a27596d, type: 2}
+  - {fileID: 11400000, guid: a5fc7ab70c105a7a31396b44bd488242, type: 2}
+  - {fileID: 11400000, guid: 5737a642cb7f840a1e4801b2390f72ef, type: 2}
+  - {fileID: 11400000, guid: 8a876dfd778526743136420f80044d06, type: 2}
+  - {fileID: 11400000, guid: e99ce5b951cedc428b412b992099f9ad, type: 2}
+  - {fileID: 11400000, guid: 888a76929cb300dc487338e45a354543, type: 2}
+  - {fileID: 11400000, guid: d70c15c2fb79dd6657423d64dfc7f8a8, type: 2}
+  - {fileID: 11400000, guid: eded8facaec974a8cf909227f7f31858, type: 2}
+  - {fileID: 11400000, guid: 174f656bb6d65fec2fb6ccf320184107, type: 2}
+  - {fileID: 11400000, guid: 03f77c9319eb6485974ccad4466be9c5, type: 2}
+  - {fileID: 11400000, guid: 3ba2c32ab9f2732df835a7409a5a4aed, type: 2}
+  - {fileID: 11400000, guid: 6bbb308032cef0f802794fb8b6f75e1b, type: 2}
+  - {fileID: 11400000, guid: c1a1ccbad583502b181d6b888ad8f362, type: 2}
+  relicLoots:
+  - {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
+  - {fileID: 11400000, guid: 98b4a1a61f460e949821d17d58ef134a, type: 2}

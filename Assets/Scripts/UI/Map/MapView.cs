@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 /// <summary>
 /// 地图界面。
@@ -15,17 +16,22 @@ public sealed class MapView : UIView
     [SerializeField] private float horizontalSpacing = 150f;
     [SerializeField] private float verticalSpacing = 65f;
     [SerializeField] private float edgeThickness = 4f;
+
+    [SerializeField] private Button inventoryButton;
+
     private MapData mapData;
 
     protected override void OnOpen(object param)
     {
         mapData = param as MapData;
+        inventoryButton.onClick.AddListener(()=>UIManager.instance.Open<InventoryPanelUI>());
         Refresh();
     }
 
     protected override void OnClose()
     {
         mapData = null;
+        inventoryButton.onClick.RemoveAllListeners();
     }
 
     public void Refresh()
@@ -71,6 +77,7 @@ public sealed class MapView : UIView
 
         Debug.Log($"地图显示完成，节点层数：{mapData.Floors.Count}，" + $"连线数：{mapData.Edges.Count}");
     }
+
 
     private void ClearChildren(RectTransform root)
     {
