@@ -24,5 +24,30 @@ MonoBehaviour:
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
     enemyRelics: []
-  eliteEnemyConfigs: []
-  bossEnemyConfigs: []
+  eliteEnemyConfigs:
+  - enemyCardInfos:
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: cd2f689734100e5cc31498b54f34d1d2, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 7bab47b5f47ece4c43580cfc39ddb489, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 1feecad7943bbebc1033aea6216bc756, type: 2}
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 81a2d2e397166dc5c206e8acec855f04, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 302e601ed5b3c6dd3a9959266a27596d, type: 2}
+    enemyRelics: []
+  bossEnemyConfigs:
+  - enemyCardInfos:
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: e6c215eb196907eb474c968c9664a397, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: bfac5e8fb07e0467d41a5dcb87e893bd, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 302e601ed5b3c6dd3a9959266a27596d, type: 2}
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 360d22794c546b92998e61b636726373, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 52e9b9029dbceed0795e63adfe632861, type: 2}
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: d70c15c2fb79dd6657423d64dfc7f8a8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+    enemyRelics: []

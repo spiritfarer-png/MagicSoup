@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public sealed class MapManager : MonoBehaviour
 {
-    private const string SelectSceneName = "SelectScene";
-    private const string BattleSceneName = "TestBattleScene";
 
     public static MapManager Instance { get; private set; }
     [SerializeField]
@@ -16,21 +14,20 @@ public sealed class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        StartNewMap((int)(Time.realtimeSinceStartup * 1000));
+        UIManager.instance.Open<InventoryPanelUI>();
     }
 
     private void OnDestroy()
     {
         if (Instance == this)
         {
-            SceneManager.sceneLoaded -= OnReturnSceneLoaded;
             Instance = null;
         }
     }
@@ -216,48 +213,26 @@ public sealed class MapManager : MonoBehaviour
             case MapNodeType.Treasure:
                 UIManager.instance.Open<TreasureView>(node);
                 break;
-
+            /*case MapNodeType.RandomEvent:
+                UIManager.instance.Open<UnknowEventUI>();
+                break;*/
+            case MapNodeType.NormalBattle:
+                UIManager.instance.Close<MapView>();
+                BattleManager.instance.InitializeBattle();
+                break;
+            case MapNodeType.EliteBattle:
+                UIManager.instance.Close<MapView>();
+                BattleManager.instance.InitializeBattle(BattleType.Elite);
+                break;
+            case MapNodeType.Boss:
+                UIManager.instance.Close<MapView>();
+                BattleManager.instance.InitializeBattle(BattleType.Boss);
+                break;
             default:
-                SceneManager.LoadScene(BattleSceneName);
+                UIManager.instance.Close<MapView>();
+                BattleManager.instance.InitializeBattle();
                 break;
         }
-    }
-
-
-    // 接收虚拟战斗结果并返回地图
-    public void OnTestBattleFinished(bool playerWin)
-    {
-        OnBattleFinished(playerWin);
-    }
-
-    /// <summary>
-    /// 接收测试战斗场景的结果，返回选卡场景并重新打开当前地图。
-    /// </summary>
-    public void OnBattleFinished(bool playerWin)
-    {
-        if (playerWin)
-        {
-            CompleteCurrentNode();
-        }
-        else
-        {
-            CancelCurrentNode();
-        }
-
-        SceneManager.sceneLoaded -= OnReturnSceneLoaded;
-        SceneManager.sceneLoaded += OnReturnSceneLoaded;
-        SceneManager.LoadScene(SelectSceneName);
-    }
-
-    private void OnReturnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name != SelectSceneName)
-        {
-            return;
-        }
-
-        SceneManager.sceneLoaded -= OnReturnSceneLoaded;
-        OpenMap();
     }
 
 }

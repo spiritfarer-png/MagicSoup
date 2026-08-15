@@ -76,7 +76,7 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         if (cardState.isDead)
         {
             OnCardEntityDead?.Invoke(this);
-            gameObject.SetActive(false);
+            gameObject?.SetActive(false);
         }
     }
 

@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     private const int DeployedCardSlotCapacity = 4;
 
     [Header("Runtime Slots")]
+    public List<MaterialSlotData> iniMaterialSlots = new List<MaterialSlotData>();
     public List<MaterialSlotData> materialSlots = new List<MaterialSlotData>();
     public List<MaterialSlotData> craftingSlots = new List<MaterialSlotData>();
     [SerializeReference] public List<CardInfo> cardSlots = new List<CardInfo>();
@@ -26,8 +27,23 @@ public class InventoryManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        materialSlots = new List<MaterialSlotData>(iniMaterialSlots);
         InitializeSlots();
+    }
+
+    public bool TryAddMaterial(CardMaterialData material)
+    {
+        int index = materialSlots.FindIndex(IsEmptyMaterialSlot);
+        if (index < 0) return false;
+        materialSlots[index] = new MaterialSlotData() { materialData = material };
+        return true;
+    }
+    static private bool IsEmptyMaterialSlot(MaterialSlotData slot)
+    {
+        if (slot == null) return true;
+        if (!slot.IsOccupied) return true;
+        if(slot.materialData == null) return true;
+        return false;
     }
 
     public void SwapOrMoveMaterial(MaterialArea sourceArea, int sourceIndex, MaterialArea targetArea, int targetIndex)

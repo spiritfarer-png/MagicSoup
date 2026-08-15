@@ -131,6 +131,12 @@ public sealed class TreasureView : UIView
         relicRoot.anchoredPosition = relicEndPosition;
         relicRoot.localScale = Vector3.one;
         relicCanvasGroup.alpha = 1f;
+        var relic = BattleManager.instance.PopRelic();
+        if (relic != null)
+        {
+            relicRoot.GetComponentInChildren<Image>().sprite = relic.icon;
+        }
+        InventoryManager.Instance.TryAddMaterial(relic);
 
         state = TreasureState.RewardShown;
         hintText.text = "You got a Relic!";

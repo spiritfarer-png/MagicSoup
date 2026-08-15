@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class BattleWinLootSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltipSource, IPointerClickHandler
+{
+    private CardMaterialData material;
+    [SerializeField] Image icon;
+    [SerializeField] TextMeshProUGUI tmp;
+
+    public void Initialize(CardMaterialData material)
+    {
+        this.material = material;
+        icon.sprite = material.icon;
+        tmp.text = material.materialName;
+    }
+
+
+    public string GetToolTip()
+    {
+        // todo:优化
+        return material.materialName;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.instance.Open<TooltipView>(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.instance.Close<TooltipView>();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == 0)
+        {
+            InventoryManager.Instance.TryAddMaterial(material);
+            Destroy(gameObject);
+            UIManager.instance.Close<TooltipView>();
+        }
+    }
+}
