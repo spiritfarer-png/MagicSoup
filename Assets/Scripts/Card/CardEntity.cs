@@ -82,9 +82,9 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
 
     public void Heal(int amount)
     {
-        cardState.Heal(amount);
+        int healedAmount = cardState.Heal(amount);
         UpdateVisual();
-        Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, amount));
+        Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, healedAmount));
     }
 
     public void Defence(int amount)

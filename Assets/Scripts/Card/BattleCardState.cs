@@ -9,6 +9,7 @@ public class BattleCardState
 {
     public CardInfo cardInfo;
     public bool isEnemy;
+    public int maxHealth;
     public int currentHealth;
     public int defence;
     public bool isDead { get { return currentHealth <= 0; } }
@@ -16,7 +17,8 @@ public class BattleCardState
     {
         this.cardInfo = cardInfo;
         this.isEnemy = isEnemy;
-        currentHealth = cardInfo.iniHealth;
+        maxHealth = cardInfo.MaxHealth;
+        currentHealth = maxHealth;
         defence = 0;
     }
 
@@ -30,9 +32,11 @@ public class BattleCardState
         }
     }
 
-    public void Heal(int amount)
+    public int Heal(int amount)
     {
-        currentHealth += amount;
+        int previousHealth = currentHealth;
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        return currentHealth - previousHealth;
     }
 
     public void Defence(int amount) 

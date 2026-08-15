@@ -18,11 +18,11 @@
 
 ## 卡牌升级状态恢复
 
-- [x] 修正 `CardInfo.Initialize()`：重新进入战斗或重新初始化卡牌时，根据 `CardInfo.isAscended` 恢复全部素材的 `ascendedIniHealth` 与 `ascendedIntents`，避免已升级卡被重置为普通数据。
+- [x] 修正 `CardInfo.Initialize()`：重新进入战斗或重新初始化卡牌时，根据 `CardInfo.isAscended` 恢复全部素材的 `ascendedMaxHealth` 与 `ascendedIntents`，避免已升级卡被重置为普通数据。
 
 ## 最大生命与治疗上限
 
-- [ ] 将现有“初始生命值”语义统一改为“最大生命值”，战斗开始时当前生命等于最大生命，治疗不得超过最大生命。
+- [x] 将现有“初始生命值”语义统一改为“最大生命值”，战斗开始时当前生命等于最大生命，治疗不得超过最大生命。
 
 ## 回合流程重构
 

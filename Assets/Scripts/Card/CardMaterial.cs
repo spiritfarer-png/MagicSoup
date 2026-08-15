@@ -11,7 +11,7 @@ public class CardMaterialInfo
     public Color Color => cardMaterialData.color;
     public Sprite Icon => cardMaterialData.icon;
     public string MaterialName => cardMaterialData.materialName;
-    public int IniHealth { get; private set; }
+    public int MaxHealth { get; private set; }
     public bool IsAscended { get; private set; } = false;
 
     public CardMaterialInfo(SoupMaterialData data) { cardMaterialData = data; }
@@ -21,12 +21,12 @@ public class CardMaterialInfo
         if (IsAscended)
         {
             Intents = (Intent[])cardMaterialData.ascendedIntents.Clone();
-            IniHealth = cardMaterialData.ascendedIniHealth;
+            MaxHealth = cardMaterialData.ascendedMaxHealth;
         }
         else
         {
             Intents = (Intent[])cardMaterialData.normalIntents.Clone();
-            IniHealth = cardMaterialData.iniHealth;
+            MaxHealth = cardMaterialData.maxHealth;
         }
         
     }
@@ -34,6 +34,6 @@ public class CardMaterialInfo
     public void Ascend()
     {
         IsAscended = true;
-        IniHealth = cardMaterialData.ascendedIniHealth;
+        MaxHealth = cardMaterialData.ascendedMaxHealth;
     }
 }
