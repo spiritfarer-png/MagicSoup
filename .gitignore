@@ -27,3 +27,17 @@
 # OS 生成的文件
 .DS_Store
 Thumbs.db
+
+Packages/EPPlus*/
+packages.config
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# 忽略 NuGet 还原生成的依赖包目录
+Packages/Microsoft.*/
+Packages/System.*/
+Packages/EPPlus*/
+packages.config
