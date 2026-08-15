@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "SeaweedClumpRelic", menuName = "ScriptableObject/素材数据/遗物/SeaweedClumpRelic")]
 
-public class SeaweedClumpRelic : CardMaterialData, IRelic 
+public class SeaweedClumpRelic : SoupMaterialData, IRelic 
 {
     [Header("海藻团块")]
 
     [SerializeField] int value = 1;
 
-    public CardMaterialData MaterialData => this;
+    public SoupMaterialData MaterialData => this;
     public bool OnBattleStart(BattleManager battleManager, bool isEnemy)
     {
         CardEntity[] cards = isEnemy ? battleManager.EnemyEntities : battleManager.PlayerEntities;

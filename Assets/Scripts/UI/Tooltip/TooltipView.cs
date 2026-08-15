@@ -10,6 +10,7 @@ public class TooltipView : UIView
 {
     [SerializeField] TextMeshProUGUI tmp;
     [SerializeField] private Vector2 mouseOffset = new Vector2(20f, -20f);
+    public ITooltipSource source { get { return tipSource; } }
     private ITooltipSource tipSource;
     private Canvas canvas;
     private RectTransform rectTransform;

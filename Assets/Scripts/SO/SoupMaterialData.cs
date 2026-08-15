@@ -2,8 +2,8 @@ using System;
 using System.Text;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardMaterialData", menuName = "ScriptableObject/素材数据", order = 0)]
-public class CardMaterialData : ScriptableObject
+[CreateAssetMenu(fileName = "SoupMaterialData", menuName = "ScriptableObject/素材数据", order = 0)]
+public class SoupMaterialData : ScriptableObject
 {
     public string materialID;
     public string materialName;

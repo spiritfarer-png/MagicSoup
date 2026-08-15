@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public enum MaterialArea { Inventory, Crafting }
+    public enum MaterialArea { Inventory, Crafting,Potion }
     public enum CardArea { Inventory, Deployed }
     public static InventoryManager Instance { get; private set; }
     private const int MaterialSlotCapacity = 20;
     private const int CraftingSlotCapacity = 3;
+    private const int PotionSlotCapacity = 5;
     private const int CardSlotCapacity = 10;
     private const int DeployedCardSlotCapacity = 4;
 
@@ -15,10 +16,12 @@ public class InventoryManager : MonoBehaviour
     public List<MaterialSlotData> iniMaterialSlots = new List<MaterialSlotData>();
     public List<MaterialSlotData> materialSlots = new List<MaterialSlotData>();
     public List<MaterialSlotData> craftingSlots = new List<MaterialSlotData>();
+    public List<MaterialSlotData> potionSlots = new List<MaterialSlotData>();
     [SerializeReference] public List<CardInfo> cardSlots = new List<CardInfo>();
     [SerializeReference] public List<CardInfo> deployedCardSlots = new List<CardInfo>();
     public int MaxMaterialSlots => MaterialSlotCapacity;
     public int MaxCraftingSlots => CraftingSlotCapacity;
+    public int MaxPotionSlots => PotionSlotCapacity;
     public int MaxCardSlots => CardSlotCapacity;
     public int MaxDeployedCardSlots => DeployedCardSlotCapacity;
     public bool CanCraftCard => craftingSlots.Exists(slot => slot != null && slot.IsOccupied) && cardSlots.Exists(IsEmptyCard);
@@ -31,8 +34,9 @@ public class InventoryManager : MonoBehaviour
         InitializeSlots();
     }
 
-    public bool TryAddMaterial(CardMaterialData material)
+    public bool TryAddMaterial(SoupMaterialData material)
     {
+        if (material is PotionData) return false;
         int index = materialSlots.FindIndex(IsEmptyMaterialSlot);
         if (index < 0) return false;
         materialSlots[index] = new MaterialSlotData() { materialData = material };
@@ -48,12 +52,13 @@ public class InventoryManager : MonoBehaviour
 
     public void SwapOrMoveMaterial(MaterialArea sourceArea, int sourceIndex, MaterialArea targetArea, int targetIndex)
     {
+        if ((sourceArea == MaterialArea.Potion) != (targetArea == MaterialArea.Potion)) return;
         List<MaterialSlotData> sourceSlots = GetMaterialSlots(sourceArea);
         List<MaterialSlotData> targetSlots = GetMaterialSlots(targetArea);
         if (!IsValidIndex(sourceSlots, sourceIndex) || !IsValidIndex(targetSlots, targetIndex)) return;
         MaterialSlotData source = sourceSlots[sourceIndex];
         if (source == null || !source.IsOccupied) return;
-        CardMaterialData targetMaterial = targetSlots[targetIndex]?.materialData;
+        SoupMaterialData targetMaterial = targetSlots[targetIndex]?.materialData;
         EnsureMaterialSlot(targetSlots, targetIndex).materialData = source.materialData;
         source.materialData = targetMaterial;
     }
@@ -77,7 +82,7 @@ public class InventoryManager : MonoBehaviour
         List<CardMaterialInfo> materials = new List<CardMaterialInfo>(CraftingSlotCapacity);
         for (int i = 0; i < craftingSlots.Count; i++)
         {
-            CardMaterialData data = craftingSlots[i]?.materialData;
+            SoupMaterialData data = craftingSlots[i]?.materialData;
             if (data != null) materials.Add(new CardMaterialInfo(data));
         }
         if (materials.Count == 0) return false;
@@ -116,15 +121,26 @@ public class InventoryManager : MonoBehaviour
     {
         materialSlots ??= new List<MaterialSlotData>();
         craftingSlots ??= new List<MaterialSlotData>();
+        potionSlots ??= new List<MaterialSlotData>();
         cardSlots ??= new List<CardInfo>();
         deployedCardSlots ??= new List<CardInfo>();
         ResizeMaterialSlots(materialSlots, MaterialSlotCapacity);
         ResizeMaterialSlots(craftingSlots, CraftingSlotCapacity);
+        ResizeMaterialSlots(potionSlots, PotionSlotCapacity);
         ResizeCardSlots(cardSlots, CardSlotCapacity);
         ResizeCardSlots(deployedCardSlots, DeployedCardSlotCapacity);
     }
 
-    private List<MaterialSlotData> GetMaterialSlots(MaterialArea area) => area == MaterialArea.Inventory ? materialSlots : craftingSlots;
+    private List<MaterialSlotData> GetMaterialSlots(MaterialArea area)
+    {
+        switch (area)
+        {
+            case MaterialArea.Inventory: return materialSlots;
+            case MaterialArea.Crafting: return craftingSlots;
+            case MaterialArea.Potion: return potionSlots;
+            default: return null;
+        }
+    }
     private List<CardInfo> GetCardSlots(CardArea area) => area == CardArea.Inventory ? cardSlots : deployedCardSlots;
     private static bool IsValidIndex<T>(List<T> list, int index) => list != null && index >= 0 && index < list.Count;
 
@@ -153,5 +169,21 @@ public class InventoryManager : MonoBehaviour
         if (card == null || card.materialInfoArray == null) return true;
         foreach (CardMaterialInfo material in card.materialInfoArray) if (material != null && material.Data != null) return false;
         return true;
+    }
+    public bool TryAddPotion(PotionData potion)
+    {
+        int index = potionSlots.FindIndex(IsEmptyMaterialSlot);
+        if (index < 0) return false;
+        potionSlots[index] = new MaterialSlotData() { materialData = potion };
+        return true;
+    }
+
+    public void ConsumePotion(PotionData potion)
+    {
+        int index = potionSlots.FindIndex((MaterialSlotData data) => { return ReferenceEquals(data.materialData, potion); });
+        if (IsValidIndex(potionSlots, index))
+        {
+            potionSlots[index] = new MaterialSlotData();
+        }
     }
 }

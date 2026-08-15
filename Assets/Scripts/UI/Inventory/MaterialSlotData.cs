@@ -6,6 +6,6 @@ using UnityEngine;
 public class MaterialSlotData
 {
     public bool isRelic => materialData is IRelic;
-    public CardMaterialData materialData;
+    public SoupMaterialData materialData;
     public bool IsOccupied => materialData != null;
 }

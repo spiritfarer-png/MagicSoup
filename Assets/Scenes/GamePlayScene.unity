@@ -787,6 +787,7 @@ MonoBehaviour:
   - materialData: {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
   materialSlots: []
   craftingSlots: []
+  potionSlots: []
   cardSlots: []
   deployedCardSlots: []
   references:

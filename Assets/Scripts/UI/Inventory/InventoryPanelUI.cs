@@ -17,9 +17,12 @@ public class InventoryPanelUI : UIView
     [Header("Grid Contents")]
     [SerializeField] private Transform materialGridContent;
     [SerializeField] private Transform craftingGridContent;
+    [SerializeField] private Transform potionGridContent;
+
     [FormerlySerializedAs("minionGridContent")]
     [SerializeField] private Transform cardGridContent;
     [SerializeField] private Transform deployedGridContent;
+
 
     [Header("Controls")]
     [FormerlySerializedAs("btnCraft")]
@@ -29,6 +32,7 @@ public class InventoryPanelUI : UIView
 
     private readonly List<MaterialSlotUI> materialSlotViews = new List<MaterialSlotUI>();
     private readonly List<MaterialSlotUI> craftingSlotViews = new List<MaterialSlotUI>();
+    private readonly List<MaterialSlotUI> potionSlotViews = new List<MaterialSlotUI>();
     private readonly List<CardSlotUI> cardSlotViews = new List<CardSlotUI>();
     private readonly List<CardSlotUI> deployedSlotViews = new List<CardSlotUI>();
     private bool initialized;
@@ -56,6 +60,7 @@ public class InventoryPanelUI : UIView
         if (manager == null) return;
         for (int i = 0; i < materialSlotViews.Count; i++) materialSlotViews[i].Bind(manager.materialSlots[i], i, InventoryManager.MaterialArea.Inventory);
         for (int i = 0; i < craftingSlotViews.Count; i++) craftingSlotViews[i].Bind(manager.craftingSlots[i], i, InventoryManager.MaterialArea.Crafting);
+        for (int i = 0; i < potionSlotViews.Count; i++) potionSlotViews[i].Bind(manager.potionSlots[i], i, InventoryManager.MaterialArea.Potion);
         for (int i = 0; i < cardSlotViews.Count; i++) cardSlotViews[i].Bind(manager.cardSlots[i], i, InventoryManager.CardArea.Inventory);
         for (int i = 0; i < deployedSlotViews.Count; i++) deployedSlotViews[i].Bind(manager.deployedCardSlots[i], i, InventoryManager.CardArea.Deployed);
         if (craftButton != null) craftButton.interactable = manager.CanCraftCard;
@@ -74,10 +79,12 @@ public class InventoryPanelUI : UIView
         InventoryManager manager = InventoryManager.Instance;
         ClearChildren(materialGridContent);
         ClearChildren(craftingGridContent);
+        ClearChildren(potionGridContent);
         ClearChildren(cardGridContent);
         ClearChildren(deployedGridContent);
         for (int i = 0; i < manager.MaxMaterialSlots; i++) materialSlotViews.Add(CreateMaterialSlot(materialGridContent));
         for (int i = 0; i < manager.MaxCraftingSlots; i++) craftingSlotViews.Add(CreateMaterialSlot(craftingGridContent));
+        for (int i = 0; i < manager.MaxPotionSlots; i++) potionSlotViews.Add(CreateMaterialSlot(potionGridContent));
         for (int i = 0; i < manager.MaxCardSlots; i++) cardSlotViews.Add(CreateCardSlot(cardGridContent));
         for (int i = 0; i < manager.MaxDeployedCardSlots; i++) deployedSlotViews.Add(CreateCardSlot(deployedGridContent));
     }

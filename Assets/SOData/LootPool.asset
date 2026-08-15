@@ -45,3 +45,12 @@ MonoBehaviour:
   relicLoots:
   - {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
   - {fileID: 11400000, guid: 98b4a1a61f460e949821d17d58ef134a, type: 2}
+  potionLoots:
+  - {fileID: 11400000, guid: bc7339ceebd54050bfac035d49911339, type: 2}
+  - {fileID: 11400000, guid: 03fc2793edbb4bf6b3b0f233fe91f901, type: 2}
+  - {fileID: 11400000, guid: 6c120516910e4906a233cd3d88d32603, type: 2}
+  - {fileID: 11400000, guid: 9d75b71ade4b484491a828097554f335, type: 2}
+  - {fileID: 11400000, guid: a3f611b30b4048f997949a2b5d610a37, type: 2}
+  - {fileID: 11400000, guid: add62f1ff144466b830c4eefeb019f9c, type: 2}
+  - {fileID: 11400000, guid: 3413645b70e144f28a233c54dd3aaa26, type: 2}
+  - {fileID: 11400000, guid: 035844d7685c4b4e8cbf967313d799eb, type: 2}

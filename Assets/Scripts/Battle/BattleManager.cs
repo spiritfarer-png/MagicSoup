@@ -17,10 +17,14 @@ public class BattleManager : MonoBehaviour
     public BattleType BattleType { get; private set; }
     public CardEntity[] EnemyEntities { get { return enemyEntities; } }
     public CardEntity[] PlayerEntities { get { return playerEntities; } }
+    public IRelic[] PlayerRelics { get { return playerRelics; } }
+    public IRelic[] EnemyRelics { get { return enemyRelics; } }
+    public PotionData[] Potions { get { return potions; } }
     [SerializeField] private CardEntity[] enemyEntities;
     [SerializeField] private CardEntity[] playerEntities;
     [SerializeField] private IRelic[] playerRelics;
     [SerializeField] private IRelic[] enemyRelics;
+    private PotionData[] potions;
     [SerializeField] private Transform[] playerCardEntitySpawnRoots;
     [SerializeField] private Transform[] enemyCardEntitySpawnRoots;
     [SerializeField] private CardEntity cardEntityPrefab;
@@ -125,7 +129,19 @@ public class BattleManager : MonoBehaviour
         playerRelics = InventoryManager.Instance.CreateRelicSnapshot().ToArray();
         enemyRelics = enemyConfig.enemyRelics.Select(relic => (IRelic)relic).ToArray();
 
-        // todo:药水
+        // 收集药水
+        var validpotionSlotDatas = InventoryManager.Instance.potionSlots.Select(data => data.IsOccupied);
+        var potionList = new List<PotionData>();
+        int i = 0;
+        foreach(var valid in validpotionSlotDatas)
+        {
+            if (valid)
+            {
+                potionList.Add((PotionData)InventoryManager.Instance.potionSlots[i].materialData);
+            }
+            i++;
+        }
+        potions = potionList.ToArray();
 
         CardEntity.OnCardEntityDead -= OnCardEntityDead;
         CardEntity.OnCardEntityDead += OnCardEntityDead;
@@ -181,7 +197,7 @@ public class BattleManager : MonoBehaviour
 
     public void TryInvokeIntent(CardEntity card)
     {
-        if (card == null||card.cardState.isDead) { return;}
+        if (card == null || card.cardState.isDead) { return; }
 
         // 触发遗物的卡牌行动节点
         bool isEnemy = card.cardState.isEnemy;
@@ -200,14 +216,24 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        ResolveIntents(card.CardInfo.intents,card, isEnemy);
 
+    }
+
+    public void UsePotion(PotionData potion)
+    {
+        ResolveIntents(potion.normalIntents, firstPlayerEntity, false);
+        InventoryManager.Instance.ConsumePotion(potion);
+    }
+
+    private void ResolveIntents(Intent[] intents, CardEntity card, bool isEnemy)
+    {
         int time = BattleClock.currentTime;
-        var intents = card.CardInfo.intents;
-        foreach (var intent in intents) 
+        foreach (var intent in intents)
         {
             if (intent.Match(time))
             {
-                
+
                 switch (intent.action.type)
                 {
                     case MaterialAction.ActionType.Attack:
@@ -242,6 +268,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+
     }
 
     private void DoBattleOver()
@@ -260,15 +287,16 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                CardMaterialData[] loots;
+                SoupMaterialData[] loots;
                 if(BattleType == BattleType.Elite)
                 {
-                    loots = new CardMaterialData[] { PopMaterial(),PopRelic()};
+                    loots = new SoupMaterialData[] { PopMaterial(),PopRelic(),PopPotion()};
                 }
                 else
                 {
-                    loots = new CardMaterialData[] { PopMaterial() };
+                    loots = new SoupMaterialData[] { PopMaterial(), PopPotion()};
                 }
+
                 UIManager.instance.Open<BattleWinView>(loots);
             }
         }
@@ -352,14 +380,19 @@ public class BattleManager : MonoBehaviour
         return false;
     }
 
-    public CardMaterialData PopMaterial()
+    public SoupMaterialData PopMaterial()
     {
         return lootPool.PopMaterial();
     }
 
-    public CardMaterialData PopRelic()
+    public SoupMaterialData PopRelic()
     {
         return lootPool.PopRelic();
+    }
+
+    public PotionData PopPotion()
+    {
+        return lootPool.PopPotion();
     }
 
     private void StartRound()

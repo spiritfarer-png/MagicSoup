@@ -5,24 +5,28 @@ using UnityEngine;
 public class LootPool : ScriptableObject
 {
     [Header("素材池")]
-    [SerializeField] private CardMaterialData[] materialLoots;
+    [SerializeField] private SoupMaterialData[] materialLoots;
     [Header("遗物池")]
-    [SerializeField] private CardMaterialData[] relicLoots;
+    [SerializeField] private SoupMaterialData[] relicLoots;
+    [Header("药水池")]
+    [SerializeField] private PotionData[] potionLoots;
 
-    private List<CardMaterialData> materialLootPool;
-    private List<CardMaterialData> relicLootPool;
+    private List<SoupMaterialData> materialLootPool;
+    private List<SoupMaterialData> relicLootPool;
+    private List<PotionData> potionLootPool;
 
     public void Initialize()
     {
-        materialLootPool = new List<CardMaterialData>(materialLoots);
-        relicLootPool = new List<CardMaterialData>(relicLoots);
+        materialLootPool = new List<SoupMaterialData>(materialLoots);
+        relicLootPool = new List<SoupMaterialData>(relicLoots);
+        potionLootPool = new List<PotionData>(potionLoots);
     }
 
-    public CardMaterialData PopMaterial()
+    public SoupMaterialData PopMaterial()
     {
         if (materialLootPool == null || materialLootPool.Count == 0)
         {
-            materialLootPool = new List<CardMaterialData>(materialLoots);
+            materialLootPool = new List<SoupMaterialData>(materialLoots);
         }
         int index = Random.Range(0, materialLootPool.Count);
         var pop = materialLootPool[index];
@@ -30,15 +34,27 @@ public class LootPool : ScriptableObject
         return pop;
     }
 
-    public CardMaterialData PopRelic()
+    public SoupMaterialData PopRelic()
     {
         if (relicLootPool == null || relicLootPool.Count == 0)
         {
-            relicLootPool = new List<CardMaterialData>(relicLoots);
+            relicLootPool = new List<SoupMaterialData>(relicLoots);
         }
         int index = Random.Range(0, relicLootPool.Count);
         var pop = relicLootPool[index];
         relicLootPool.RemoveAt(index);
+        return pop;
+    }
+
+    public PotionData PopPotion()
+    {
+        if (potionLootPool == null || potionLootPool.Count == 0)
+        {
+            potionLootPool = new List<PotionData>(potionLoots);
+        }
+        int index = Random.Range(0, potionLootPool.Count);
+        var pop = potionLootPool[index];
+        potionLootPool.RemoveAt(index);
         return pop;
     }
 }
