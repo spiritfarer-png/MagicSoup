@@ -46,10 +46,15 @@ public class InventoryPanelUI : UIView
             if (InventoryManager.Instance == null) { Debug.LogError("InventoryManager is missing."); return; }
             SpawnAllSlots();
             if (craftButton != null) craftButton.onClick.AddListener(CraftCard);
-            if (closeButton != null) closeButton.onClick.AddListener(CloseSelf);
+            if (closeButton != null) closeButton.onClick.AddListener(() => PlayCloseTween(
+                () =>
+                {
+                    CloseSelf();
+                }));
             initialized = true;
         }
         RefreshAllUI();
+        PlayOpenTween();
     }
 
     private void OnDestroy() { if (Instance == this) Instance = null; }

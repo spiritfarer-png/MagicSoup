@@ -116,7 +116,8 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     {
         BattleManager.instance.HandlePointerEnterCard(this);
         UIManager.instance.Open<TooltipView>(this);
-        if (!cardState.isEnemy)
+        var phase = BattleManager.instance.Phase;
+        if (!cardState.isEnemy && (phase == BattlePhase.PlayerDecision || phase == BattlePhase.SelectingExtraAction))
         {
             doPunchScale.Rewind();
             transform.DOScale(1.2f, 0.2f);

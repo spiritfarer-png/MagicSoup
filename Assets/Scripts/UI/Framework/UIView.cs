@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,6 +26,17 @@ public abstract class UIView : MonoBehaviour
         IsOpen = false;
         gameObject.SetActive(false);
         Closed?.Invoke(this);
+    }
+
+    public void PlayOpenTween()
+    {
+        transform.localScale = Vector3.zero;
+        transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+    }
+
+    public void PlayCloseTween(Action onComplete)
+    {
+        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InCubic).OnComplete(() => onComplete());
     }
 
     protected void CloseSelf()
