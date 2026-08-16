@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class BattleWinLootSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltipSource, IPointerClickHandler
 {
-    private CardMaterialData material;
+    private SoupMaterialData material;
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI tmp;
 
-    public void Initialize(CardMaterialData material)
+    public void Initialize(SoupMaterialData material)
     {
         this.material = material;
         icon.sprite = material.icon;
@@ -39,7 +39,14 @@ public class BattleWinLootSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if(eventData.button == 0)
         {
-            InventoryManager.Instance.TryAddMaterial(material);
+            if(material is PotionData)
+            {
+                InventoryManager.Instance.TryAddPotion((PotionData)material);
+            }
+            else
+            {
+                InventoryManager.Instance.TryAddMaterial(material);
+            }
             Destroy(gameObject);
             UIManager.instance.Close<TooltipView>();
         }

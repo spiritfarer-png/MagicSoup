@@ -11,6 +11,13 @@ public class BattleHUDView : UIView
     [SerializeField] private Button endRoundButton;
     [SerializeField] private Button cancelButton;
 
+    [SerializeField] private RectTransform enemyRelicSlotParent;
+    [SerializeField] private RectTransform playerRelicSlotParent;
+    [SerializeField] private BattleHUDRelicSlot relicSlotPrefab;
+
+    [SerializeField] private RectTransform potionSlotParent;
+    [SerializeField] private BattleHUDPotionSlot potionSlotPrefab;
+
 
     private BattleManager battle;
     protected override void OnOpen(object param)
@@ -22,7 +29,28 @@ public class BattleHUDView : UIView
         cancelButton.onClick.AddListener(battle.CancelExtraAction);
         battle.PhaseChanged += Refresh;
         BattleClock.OnClockChanged += OnClockChanged;
+
+
         clockText.text = BattleClock.currentTime.ToString();
+
+        // 遗物槽
+        foreach(var relic in battle.PlayerRelics)
+        {
+            var slot = Instantiate(relicSlotPrefab,playerRelicSlotParent);
+            slot.Inititalize(relic);
+        }
+        foreach(var relic in battle.EnemyRelics)
+        {
+            var slot = Instantiate(relicSlotPrefab, enemyRelicSlotParent);
+            slot.Inititalize(relic);
+        }
+
+        // 药水槽
+        foreach(var potion in battle.Potions)
+        {
+            var slot = Instantiate(potionSlotPrefab, potionSlotParent);
+            slot.Inititalize(potion);
+        }
     }
 
     private void OnClockChanged(int time)
@@ -66,6 +94,21 @@ public class BattleHUDView : UIView
         extraActionButton.onClick.RemoveAllListeners();
         endRoundButton.onClick.RemoveAllListeners();
         cancelButton.onClick.RemoveAllListeners();
+
+        foreach(var slot in playerRelicSlotParent.GetComponentsInChildren<BattleHUDRelicSlot>())
+        {
+            Destroy(slot.gameObject);
+        }
+        foreach(var slot in enemyRelicSlotParent.GetComponentsInChildren<BattleHUDRelicSlot>())
+        {
+            Destroy(slot.gameObject);
+        }
+
+        foreach(var slot in potionSlotParent.GetComponentsInChildren<BattleHUDPotionSlot>())
+        {
+            Destroy(slot.gameObject);
+        }
+
         base.OnClose();
     }
 

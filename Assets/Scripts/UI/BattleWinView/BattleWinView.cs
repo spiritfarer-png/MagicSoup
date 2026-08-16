@@ -9,10 +9,10 @@ public class BattleWinView : UIView
     [SerializeField] Button next;
     [SerializeField] RectTransform lootParent;
     [SerializeField] BattleWinLootSlot lootSlotPrefab;
-    private CardMaterialData[] loots;
+    private SoupMaterialData[] loots;
     protected override void OnOpen(object param)
     {
-        loots = (CardMaterialData[])param;
+        loots = (SoupMaterialData[])param;
         foreach(var loot in loots)
         {
             if (loot != null)

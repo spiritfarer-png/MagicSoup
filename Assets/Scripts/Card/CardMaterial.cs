@@ -5,8 +5,8 @@ using UnityEngine;
 public class CardMaterialInfo
 {
     // 运行时的卡牌数据
-    [SerializeField] private CardMaterialData cardMaterialData;
-    public CardMaterialData Data => cardMaterialData;
+    [SerializeField] private SoupMaterialData cardMaterialData;
+    public SoupMaterialData Data => cardMaterialData;
     public Intent[] Intents { get; private set; }
     public Color Color => cardMaterialData.color;
     public Sprite Icon => cardMaterialData.icon;
@@ -14,7 +14,7 @@ public class CardMaterialInfo
     public int IniHealth { get; private set; }
     public bool IsAscended { get; private set; } = false;
 
-    public CardMaterialInfo(CardMaterialData data) { cardMaterialData = data; }
+    public CardMaterialInfo(SoupMaterialData data) { cardMaterialData = data; }
 
     public void Initialize()
     {
