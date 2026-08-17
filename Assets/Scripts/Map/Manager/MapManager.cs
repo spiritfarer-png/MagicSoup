@@ -178,6 +178,26 @@ public sealed class MapManager : MonoBehaviour
         OpenMap();
     }
 
+    public void OnRandomEventFinished()
+    {
+        if (CurrentMap == null || CurrentMap.CurrentNodeId < 0)
+        {
+            return;
+        }
+
+        MapNodeData currentNode = GetNode(CurrentMap.CurrentNodeId);
+
+        if (currentNode == null || currentNode.NodeType != MapNodeType.RandomEvent)
+        {
+            Debug.LogError("当前地图节点不是 RandomEvent 节点。");
+
+            return;
+        }
+        CompleteCurrentNode();
+        UIManager.instance.Close<RandomEventView>();
+        OpenMap();
+    }
+
     // public void OnNodeClicked(int nodeId)
     // {
     //     if (!SelectNode(nodeId))
@@ -222,9 +242,9 @@ public sealed class MapManager : MonoBehaviour
             case MapNodeType.Treasure:
                 UIManager.instance.Open<TreasureView>(node);
                 break;
-            /*case MapNodeType.RandomEvent:
-                UIManager.instance.Open<UnknowEventUI>();
-                break;*/
+            case MapNodeType.RandomEvent:
+                UIManager.instance.Open<RandomEventView>(node);
+                break;
             case MapNodeType.NormalBattle:
                 MapManager.Instance.CloesMap();
                 BattleManager.instance.InitializeBattle();
