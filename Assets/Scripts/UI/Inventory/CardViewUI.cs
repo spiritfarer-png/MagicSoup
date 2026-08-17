@@ -32,7 +32,7 @@ public class CardViewUI : MonoBehaviour,ITooltipSource,IPointerEnterHandler,IPoi
         if (materialCount > 0) { soupColor /= materialCount; soupColor.a = 1f; }
         if (soup != null) soup.color = soupColor;
         if (nameText != null) nameText.text = cardInfo.CardName;
-        if (healthText != null) healthText.text = cardInfo.iniHealth.ToString();
+        if (healthText != null) healthText.text = cardInfo.MaxHealth.ToString();
         if (defenceText != null) defenceText.text = "";
     }
 

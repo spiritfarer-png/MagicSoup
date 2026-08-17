@@ -26,6 +26,7 @@ public sealed class MapView : UIView
         mapData = param as MapData;
         inventoryButton.onClick.AddListener(()=>UIManager.instance.Open<InventoryPanelUI>());
         Refresh();
+        PlayOpenTween();
     }
 
     protected override void OnClose()

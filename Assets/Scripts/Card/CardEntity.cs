@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Text;
 using TMPro;
@@ -8,7 +9,6 @@ using UnityEngine.UI;
 public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,ITooltipSource
 {
     public static event Action<CardEntity> OnCardEntityDead;
-
     public CardInfo CardInfo 
     {
         get { return cardInfo; }
@@ -21,7 +21,24 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private TextMeshProUGUI nameText;
+    public Vector2 iniLocalPosition { get; private set; }
+    public Vector3 iniLocalScale { get; private set; }
+    public Quaternion iniLocalRotation { get; private set; }
+    [SerializeField] private Image background;
+    public Color initialBackgroundColor {  get; private set; }
+    public float animationDuration = 0.25f;
+    public float horizontalStrength = 30f;
+    public float verticalStrength = 20f;
+    public int vibrato = 12;
+    public Color hitColor = new Color(1f, 0.35f, 0.35f, 1f);
+    private void Awake()
+    {
 
+        iniLocalPosition = transform.localPosition;
+        iniLocalScale = transform.localScale;
+        iniLocalRotation = transform.localRotation;
+        initialBackgroundColor = background.color;
+    }
     public void Initialize(CardInfo cardInfo,bool isEnemy)
     {
         CardInfo = cardInfo;
@@ -76,15 +93,14 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         if (cardState.isDead)
         {
             OnCardEntityDead?.Invoke(this);
-            gameObject?.SetActive(false);
         }
     }
 
     public void Heal(int amount)
     {
-        cardState.Heal(amount);
+        int healedAmount = cardState.Heal(amount);
         UpdateVisual();
-        Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, amount));
+        Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, healedAmount));
     }
 
     public void Defence(int amount)
@@ -103,17 +119,53 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     {
         BattleManager.instance.HandlePointerEnterCard(this);
         UIManager.instance.Open<TooltipView>(this);
+        var phase = BattleManager.instance.Phase;
+        if (!cardState.isEnemy && (phase == BattlePhase.PlayerDecision || phase == BattlePhase.SelectingExtraAction))
+        {
+            transform.DOScale(1.2f, 0.2f);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // 关闭高亮等动效
         UIManager.instance.Close<TooltipView>();
+        transform.DOScale(1f, 0.2f);
     }
 
     public string GetToolTip()
     {
         return cardInfo.ToString();
     }
+
+    public Tween HorizontalShake()
+    {
+        return transform.DOShakePosition(animationDuration, new Vector2(horizontalStrength, 0f), vibrato);
+    }
+
+    public Tween VerticalShake() 
+    {
+        return transform.DOShakePosition(animationDuration,new Vector2(0f, verticalStrength),vibrato);
+    }
+
+    public void SetHitColor(bool isHit)
+    {
+        background.color = isHit ? hitColor : initialBackgroundColor;
+    }
+
+    public void StopAnimation()
+    {
+        transform.DOKill();
+        transform.localPosition = iniLocalPosition;
+        transform.localScale = iniLocalScale;
+        transform.localRotation = iniLocalRotation;
+        SetHitColor(false);
+    }
+
+    private void OnDestroy()
+    {
+        StopAnimation();
+    }
+
 }
 

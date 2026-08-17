@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,14 +23,21 @@ public class BattleWinView : UIView
             }
         }
         next.onClick.AddListener(NextButtonClick);
+
+        PlayOpenTween();
     }
+
+
 
     void NextButtonClick()
     {
         MapManager.Instance.CompleteCurrentNode();
-        MapManager.Instance.OpenMap();
-        UIManager.instance.Open<InventoryPanelUI>();
-        CloseSelf();
+        PlayCloseTween(() =>
+        {
+            MapManager.Instance.OpenMap();
+            UIManager.instance.Open<InventoryPanelUI>();
+            CloseSelf();
+        });
     }
 
     protected override void OnClose()

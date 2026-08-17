@@ -144,6 +144,15 @@ public sealed class MapManager : MonoBehaviour
         UIManager.instance.Open<MapView>(CurrentMap);
     }
 
+    public void CloesMap()
+    {
+        if (CurrentMap == null) return;
+        if(UIManager.instance.TryGet<MapView>(out var mapView))
+        {
+            mapView.PlayCloseTween(() => { UIManager.instance.Close(mapView); });
+        }
+    }
+
     public void StartNewMap(int seed)
     {
         GenerateNewMap(seed);
@@ -227,7 +236,7 @@ public sealed class MapManager : MonoBehaviour
 
         MapNodeData node = GetNode(nodeId);
         Debug.Log($"进入地图节点：{node.Id}，" + $"节点类型：{node.NodeType}");
-        UIManager.instance.Close<MapView>();
+        MapManager.Instance.CloesMap();
         switch (node.NodeType)
         {
             case MapNodeType.Treasure:
@@ -237,19 +246,19 @@ public sealed class MapManager : MonoBehaviour
                 UIManager.instance.Open<RandomEventView>(node);
                 break;
             case MapNodeType.NormalBattle:
-                UIManager.instance.Close<MapView>();
+                MapManager.Instance.CloesMap();
                 BattleManager.instance.InitializeBattle();
                 break;
             case MapNodeType.EliteBattle:
-                UIManager.instance.Close<MapView>();
+                MapManager.Instance.CloesMap();
                 BattleManager.instance.InitializeBattle(BattleType.Elite);
                 break;
             case MapNodeType.Boss:
-                UIManager.instance.Close<MapView>();
+                MapManager.Instance.CloesMap();
                 BattleManager.instance.InitializeBattle(BattleType.Boss);
                 break;
             default:
-                UIManager.instance.Close<MapView>();
+                MapManager.Instance.CloesMap();
                 BattleManager.instance.InitializeBattle();
                 break;
         }
