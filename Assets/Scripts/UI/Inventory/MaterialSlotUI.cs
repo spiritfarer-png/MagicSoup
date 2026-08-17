@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -137,9 +139,20 @@ public class MaterialSlotUI : MonoBehaviour,
     public string GetToolTip()
     {
         var manager = InventoryManager.Instance;
-        var slots = Area == InventoryManager.MaterialArea.Inventory
-            ? manager.materialSlots
-            : manager.craftingSlots;
+        List<MaterialSlotData> slots;
+        if(Area == InventoryManager.MaterialArea.Inventory)
+        {
+            slots = manager.materialSlots;
+        }
+        else if(Area == InventoryManager.MaterialArea.Crafting)
+        {
+            slots = manager.craftingSlots;
+        }
+        else
+        {
+            slots = manager.potionSlots;
+        }
+
         MaterialSlotData data = slots[SlotIndex];
         if (data == null || !data.IsOccupied) return null;
         bool isRelic = data.isRelic;
@@ -155,7 +168,15 @@ public class MaterialSlotUI : MonoBehaviour,
         }
         else
         {
-            sb.Append("素材:").Append(data.materialData.materialName);
+            if(data.materialData is PotionData)
+            {
+                sb.Append("药水:");
+            }
+            else
+            {
+                sb.Append("素材:");
+            }
+            sb.Append(data.materialData.materialName);
 
         }
         foreach (var intent in data.materialData.normalIntents)

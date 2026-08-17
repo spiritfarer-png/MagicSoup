@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "PorkLegRelic", menuName = "ScriptableObject/素材数据/遗物/PorkLegRelic")]
 [System.Serializable]
-public class PorkLegRelic:CardMaterialData,IRelic
+public class PorkLegRelic:SoupMaterialData,IRelic
 {
     [Header("精猪后腿肉")]
     [SerializeField] int defence = 4;
-    public CardMaterialData MaterialData => this;
+    public SoupMaterialData MaterialData => this;
     public bool OnBattleStart(BattleManager battleManager,bool isEnemy)
     {
         CardEntity entity = battleManager.GetRandomLivingCard(isEnemy);
