@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -195,80 +196,105 @@ public class BattleManager : MonoBehaviour
 
 
 
-    public void TryInvokeIntent(CardEntity card)
+    public IEnumerator TryInvokeIntent(CardEntity card)
     {
-        if (card == null || card.cardState.isDead) { return; }
+        if (card == null || card.cardState.isDead) yield break;
 
-        // 触发遗物的卡牌行动节点
         bool isEnemy = card.cardState.isEnemy;
         var relics = isEnemy ? enemyRelics : playerRelics;
+
         if (relics != null)
         {
             foreach (var relic in relics)
             {
                 relic.OnCardAction(this, isEnemy, card);
+
                 if (IsBattleOver())
                 {
                     DoBattleOver();
-                    return;
+                    yield break;
                 }
-
             }
         }
 
-        ResolveIntents(card.CardInfo.intents,card, isEnemy);
-
+        yield return ResolveIntents(card.CardInfo.intents, card, isEnemy);
     }
 
     public void UsePotion(PotionData potion)
     {
-        ResolveIntents(potion.normalIntents, firstPlayerEntity, false);
-        InventoryManager.Instance.ConsumePotion(potion);
+        StartCoroutine(PotionCoroutine(potion));
     }
 
-    private void ResolveIntents(Intent[] intents, CardEntity card, bool isEnemy)
+    private IEnumerator PotionCoroutine(PotionData potion)
+    {
+        Phase = BattlePhase.Resolving;
+        PhaseChanged?.Invoke(Phase);
+        InventoryManager.Instance.ConsumePotion(potion);
+        yield return ResolveIntents(potion.normalIntents, firstPlayerEntity, false);
+        if (Phase == BattlePhase.BattleOver) 
+        {
+            yield break;
+        }
+        Phase = BattlePhase.PlayerDecision;
+        PhaseChanged?.Invoke(Phase);
+    }
+
+
+    private IEnumerator ResolveIntents(Intent[] intents, CardEntity card, bool isEnemy)
     {
         int time = BattleClock.currentTime;
+
         foreach (var intent in intents)
         {
-            if (intent.Match(time))
+            if (!intent.Match(time)) continue;
+
+            Tween tween = null;
+            CardEntity target = null;
+
+            switch (intent.action.type)
             {
+                case MaterialAction.ActionType.Attack:
+                    target = isEnemy ? firstPlayerEntity : firstEnemyEntity;
+                    if (target == null) break;
 
-                switch (intent.action.type)
-                {
-                    case MaterialAction.ActionType.Attack:
-                        {
-                            CardEntity targetCard;
-                            if (isEnemy)
-                            {
-                                targetCard = firstPlayerEntity;
-                            }
-                            else
-                            {
-                                targetCard = firstEnemyEntity;
-                            }
-                            targetCard?.TakeDamage(intent.action.value);
-                            break;
-                        }
-                    case MaterialAction.ActionType.Heal:
-                        {
-                            card.Heal(intent.action.value); break;
-                        }
-                    case MaterialAction.ActionType.Defend:
-                        {
-                            card.Defence(intent.action.value); break;
-                        }
-                    default: break;
-                }
+                    card.StopAnimation();
+                    target.StopAnimation();
+                    target.SetHitColor(true);
+                    target.TakeDamage(intent.action.value);
+                    bool targetDied = target.cardState.isDead;
 
-                if (IsBattleOver())
-                {
-                    DoBattleOver();
-                    return;
-                }
+                    tween = DOTween.Sequence()
+                        .Join(card.HorizontalShake())
+                        .Join(target.VerticalShake())
+                        .OnComplete(() =>
+                        {
+                            target.SetHitColor(false);
+                            if (targetDied) target.gameObject.SetActive(false);
+                        })
+                        .OnKill(() => target.SetHitColor(false));
+                    break;
+
+                case MaterialAction.ActionType.Heal:
+                    card.StopAnimation();
+                    card.Heal(intent.action.value);
+                    tween = card.VerticalShake();
+                    break;
+
+                case MaterialAction.ActionType.Defend:
+                    card.StopAnimation();
+                    card.Defence(intent.action.value);
+                    tween = card.VerticalShake();
+                    break;
             }
-        }
 
+            if (IsBattleOver())
+            {
+                DoBattleOver();
+                yield break;
+            }
+
+            if (tween != null) yield return tween.WaitForCompletion();
+        }
     }
 
     private void DoBattleOver()
@@ -324,14 +350,13 @@ public class BattleManager : MonoBehaviour
         // 如果是选择阶段，就设置高亮等动效
     }
 
-    private void InvokeIntents(CardEntity[] cards)
+    private IEnumerator InvokeIntents(CardEntity[] cards)
     {
         
         foreach(var card in cards)
         {
-            TryInvokeIntent(card);
-            if (Phase == BattlePhase.BattleOver) return;
-            // todo:卡片动效
+            yield return TryInvokeIntent(card);
+            if (Phase == BattlePhase.BattleOver) yield break;
         }
 
     }
@@ -482,37 +507,53 @@ public class BattleManager : MonoBehaviour
         if (card == null || card.cardState.isDead || card.cardState.isEnemy) return;
         if(extraActed) return;
         extraActed = true;
-        TryInvokeIntent(card);
-        if (Phase == BattlePhase.BattleOver) return;
+        StartCoroutine(ExtraActionCoroutine(card));
+    }
+
+    private IEnumerator ExtraActionCoroutine(CardEntity card)
+    {
+        Phase = BattlePhase.Resolving;
+        PhaseChanged?.Invoke(Phase);
+        yield return TryInvokeIntent(card);
+        if (Phase == BattlePhase.BattleOver) yield break;
         Phase = BattlePhase.PlayerDecision;
         PhaseChanged?.Invoke(Phase);
     }
     public void EndPlayerTurn()
     {
-        if (Phase != BattlePhase.PlayerDecision && Phase != BattlePhase.SelectingExtraAction) return;
+        if (Phase != BattlePhase.PlayerDecision &&
+            Phase != BattlePhase.SelectingExtraAction) return;
+
+        StartCoroutine(ResolveCoroutine());
+    }
+
+    private IEnumerator ResolveCoroutine()
+    {
         Phase = BattlePhase.Resolving;
         PhaseChanged?.Invoke(Phase);
-        InvokeIntents(playerEntities);
-        if (Phase == BattlePhase.BattleOver) 
-            return;
+        // 玩家卡片行动
+        yield return InvokeIntents(playerEntities);
+        if (Phase == BattlePhase.BattleOver) yield break;
+
+
         ClearDefence(enemyEntities);
         // 触发敌方遗物效果
-        if(enemyRelics != null)
+        if (enemyRelics != null)
         {
-            foreach(var relic in enemyRelics){
+            foreach (var relic in enemyRelics)
+            {
                 relic.OnRoundStart(this, true);
                 if (IsBattleOver())
                 {
                     DoBattleOver();
-                    return;
+                    yield break;
                 }
             }
         }
-        if (Phase == BattlePhase.BattleOver)
-            return;
-        InvokeIntents(enemyEntities);
-        if (Phase == BattlePhase.BattleOver)
-            return;
+
+        yield return InvokeIntents(enemyEntities);
+        if (Phase == BattlePhase.BattleOver) yield break;
+
         StartRound();
     }
 

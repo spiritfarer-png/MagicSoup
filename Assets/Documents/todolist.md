@@ -10,7 +10,7 @@
 
 - [x] 将 `CardEntity` 的卡面整体改造为 World Space UI，不再混用 `SpriteRenderer` 与世界空间文字。
 - [ ] 卡面点击、悬停和退出交互改用 UI EventSystem 与 `GraphicRaycaster`，移除摄像机上的 `Physics2DRaycaster` 依赖。
-- [ ] 结合dotween的动效
+- [x] 按 `卡片动效_ai.md` 接入 CardEntity 的 DOTween 意图动效与 BattleManager 串行结算协程。
 
 ## tooltip
 
@@ -33,3 +33,7 @@
 - [x] 实现 `CardMaterialData + IRelic` 遗物数据、背包身份切换、玩家/敌方战斗快照和三个战斗触发节点。
 - [ ] 在 `BattleHUDView` 中展示双方遗物。
 - [ ] 为敌方配置测试遗物，验证双方触发顺序、重复遗物和遗物结束战斗的中断行为。
+
+## 动效优化
+
+- [ ] 致命意图触发战斗结束时，等待当前受击/死亡动效播放完成后再弹出结算 UI；当前 game jam 版本保持立即结算。

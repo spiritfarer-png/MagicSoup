@@ -21,10 +21,23 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private TextMeshProUGUI nameText;
-    private Tween doPunchScale;
+    public Vector2 iniLocalPosition { get; private set; }
+    public Vector3 iniLocalScale { get; private set; }
+    public Quaternion iniLocalRotation { get; private set; }
+    [SerializeField] private Image background;
+    public Color initialBackgroundColor {  get; private set; }
+    public float animationDuration = 0.25f;
+    public float horizontalStrength = 30f;
+    public float verticalStrength = 20f;
+    public int vibrato = 12;
+    public Color hitColor = new Color(1f, 0.35f, 0.35f, 1f);
     private void Awake()
     {
-        doPunchScale = transform.DOPunchScale(Vector3.one * 1.2f, 0.25f).SetAutoKill(false).Pause();
+
+        iniLocalPosition = transform.localPosition;
+        iniLocalScale = transform.localScale;
+        iniLocalRotation = transform.localRotation;
+        initialBackgroundColor = background.color;
     }
     public void Initialize(CardInfo cardInfo,bool isEnemy)
     {
@@ -80,12 +93,6 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         if (cardState.isDead)
         {
             OnCardEntityDead?.Invoke(this);
-            gameObject?.SetActive(false);
-        }
-        else
-        {
-            doPunchScale.Rewind();
-            doPunchScale.PlayForward();
         }
     }
 
@@ -94,8 +101,6 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         int healedAmount = cardState.Heal(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, healedAmount));
-        doPunchScale.Rewind();
-        doPunchScale.PlayForward();
     }
 
     public void Defence(int amount)
@@ -103,8 +108,6 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         cardState.Defence(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}获得{1}护盾", cardInfo.CardName, amount));
-        doPunchScale.Rewind();
-        doPunchScale.PlayForward();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -119,7 +122,6 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         var phase = BattleManager.instance.Phase;
         if (!cardState.isEnemy && (phase == BattlePhase.PlayerDecision || phase == BattlePhase.SelectingExtraAction))
         {
-            doPunchScale.Rewind();
             transform.DOScale(1.2f, 0.2f);
         }
     }
@@ -128,7 +130,6 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     {
         // 关闭高亮等动效
         UIManager.instance.Close<TooltipView>();
-        doPunchScale.Rewind();
         transform.DOScale(1f, 0.2f);
     }
 
@@ -136,5 +137,35 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     {
         return cardInfo.ToString();
     }
+
+    public Tween HorizontalShake()
+    {
+        return transform.DOShakePosition(animationDuration, new Vector2(horizontalStrength, 0f), vibrato);
+    }
+
+    public Tween VerticalShake() 
+    {
+        return transform.DOShakePosition(animationDuration,new Vector2(0f, verticalStrength),vibrato);
+    }
+
+    public void SetHitColor(bool isHit)
+    {
+        background.color = isHit ? hitColor : initialBackgroundColor;
+    }
+
+    public void StopAnimation()
+    {
+        transform.DOKill();
+        transform.localPosition = iniLocalPosition;
+        transform.localScale = iniLocalScale;
+        transform.localRotation = iniLocalRotation;
+        SetHitColor(false);
+    }
+
+    private void OnDestroy()
+    {
+        StopAnimation();
+    }
+
 }
 

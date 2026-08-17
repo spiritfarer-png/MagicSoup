@@ -189,6 +189,12 @@ MonoBehaviour:
   healthText: {fileID: 385861790}
   defenceText: {fileID: 1468504027}
   nameText: {fileID: 1466207003}
+  background: {fileID: 2274881949079933895}
+  animationDuration: 0.25
+  horizontalStrength: 0.3
+  verticalStrength: 0.2
+  vibrato: 12
+  hitColor: {r: 1, g: 0.35, b: 0.35, a: 1}
 --- !u!1 &1438147190
 GameObject:
   m_ObjectHideFlags: 0
