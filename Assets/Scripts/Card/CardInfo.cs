@@ -25,7 +25,7 @@ public class CardInfo
         } 
     }
     public bool isAscended { get; private set; } = false;
-    public int iniHealth
+    public int MaxHealth
     {
         get
         {
@@ -33,7 +33,7 @@ public class CardInfo
             if (cardMaterialInfoArray == null) return value;
             foreach (var material in cardMaterialInfoArray)
             {
-                if (material != null) value += material.IniHealth;
+                if (material != null) value += material.MaxHealth;
             }
             return value;
         }

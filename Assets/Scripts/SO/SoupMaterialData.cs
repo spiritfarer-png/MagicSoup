@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "SoupMaterialData", menuName = "ScriptableObject/素材数据", order = 0)]
 public class SoupMaterialData : ScriptableObject
@@ -10,9 +11,11 @@ public class SoupMaterialData : ScriptableObject
     public Sprite icon;
     public Color color;
 
-    public int iniHealth;
+    [FormerlySerializedAs("iniHealth")]
+    public int maxHealth;
 
-    public int ascendedIniHealth;
+    [FormerlySerializedAs("ascendedIniHealth")]
+    public int ascendedMaxHealth;
 
     /// <summary>
     /// 意图列表

@@ -12,11 +12,15 @@ public class GameOverView : UIView
     {
         quitButton.onClick.AddListener(() => Application.Quit());
         restartButton.onClick.AddListener(RestartGame);
+        PlayOpenTween();
     }
 
     void RestartGame()
     {
-        BattleManager.instance.ResartGame();
+        PlayCloseTween(() =>
+        {
+            BattleManager.instance.ResartGame();
+        });
     }
 
     protected override void OnClose()
