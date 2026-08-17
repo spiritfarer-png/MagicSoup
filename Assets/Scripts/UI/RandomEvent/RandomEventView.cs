@@ -26,11 +26,17 @@ public sealed class RandomEventView : UIView
     [SerializeField]
     private CardViewUI cardRewardView;
     [SerializeField]
-    private Image itemRewardImage;
+    private RandomEventRewardItemView itemRewardView;
     [SerializeField]
-    private TMP_Text rewardDescriptionText;
+    public float moveSpeed = 30f;
+    [SerializeField]
+    private float riseDistance = 50f;
     private RandomEventSO eventSO;
     private MapNodeData currentNode;
+    private bool isShowingReward;
+    private RectTransform rewardRectTransform;
+    private Vector2 rewardStartPosition;
+    private float rewardTargetY;
 
 
     protected override void OnOpen(object param)
@@ -43,6 +49,19 @@ public sealed class RandomEventView : UIView
             return;
         }
         Initialize();
+        RefreshDialogue();
+    }
+    private void Awake()
+    {
+        rewardRectTransform = rewardRoot.GetComponent<RectTransform>();
+        rewardStartPosition = rewardRectTransform.anchoredPosition;
+    }
+    public void Initialize()
+    {
+        isShowingReward = false;
+        rewardRectTransform.anchoredPosition = rewardStartPosition;
+        rewardTargetY = rewardStartPosition.y + riseDistance;
+        eventSO = RandomEventManager.Instance.BeginRandomEvent();
         titleText.text = eventSO.eventTitle;
         eventIcon.sprite = eventSO.eventIcon;
         eventIcon.gameObject.SetActive(eventSO.eventIcon != null);
@@ -50,18 +69,11 @@ public sealed class RandomEventView : UIView
         optionRoot.gameObject.SetActive(true);
         rewardRoot.SetActive(false);
         cardRewardView.gameObject.SetActive(false);
-        itemRewardImage.gameObject.SetActive(false);
+        itemRewardView.gameObject.SetActive(false);
         leaveButton.gameObject.SetActive(true);
         leaveButton.interactable = true;
         leaveButton.onClick.RemoveAllListeners();
         leaveButton.onClick.AddListener(OnLeaveClicked);
-
-        RefreshDialogue();
-    }
-
-    public void Initialize()
-    {
-        eventSO = RandomEventManager.Instance.BeginRandomEvent();
     }
 
     private void OnLeaveClicked()
@@ -132,8 +144,10 @@ public sealed class RandomEventView : UIView
         if (!manager.RewardSucceeded)
         {
             cardRewardView.gameObject.SetActive(false);
-            itemRewardImage.gameObject.SetActive(false);
-            rewardDescriptionText.text = GetFailureDescription();
+            itemRewardView.gameObject.SetActive(false);
+
+            dialogueText.gameObject.SetActive(true);
+            dialogueText.text = GetFailureDescription();
             return;
         }
 
@@ -151,42 +165,37 @@ public sealed class RandomEventView : UIView
 
     private void ShowCardReward(CardInfo card)
     {
-        itemRewardImage.gameObject.SetActive(false);
+        itemRewardView.gameObject.SetActive(false);
         cardRewardView.gameObject.SetActive(true);
 
         cardRewardView.Bind(card);
-        rewardDescriptionText.text = card.ToString();
+        isShowingReward = true;
     }
 
     private void ShowItemReward(SoupMaterialData item)
     {
         cardRewardView.gameObject.SetActive(false);
-        itemRewardImage.gameObject.SetActive(true);
-        itemRewardImage.sprite = item.icon;
-        itemRewardImage.preserveAspect = true;
-        rewardDescriptionText.text = BuildItemDescription(item);
+        itemRewardView.gameObject.SetActive(true);
+
+        itemRewardView.Bind(item);
+
+        isShowingReward = true;
     }
 
-    private string BuildItemDescription(SoupMaterialData item)
+    private void RaiseReward()
     {
-        StringBuilder builder = new StringBuilder();
-        builder.AppendLine(item.materialName);
+        Vector2 position = rewardRectTransform.anchoredPosition;
 
-        if (item.normalIntents != null)
+        position.y = Mathf.MoveTowards(position.y, rewardTargetY, moveSpeed * Time.deltaTime);
+
+        rewardRectTransform.anchoredPosition = position;
+
+        if (Mathf.Approximately(position.y, rewardTargetY))
         {
-            foreach (Intent intent in item.normalIntents)
-            {
-                builder.AppendLine(intent.ToString());
-            }
+            isShowingReward = false;
         }
-
-        if (item is IRelic relic)
-        {
-            builder.AppendLine(relic.GetRelicInfo());
-        }
-
-        return builder.ToString();
     }
+
 
     private string GetFailureDescription()
     {
@@ -213,5 +222,11 @@ public sealed class RandomEventView : UIView
         {
             Destroy(optionRoot.GetChild(i).gameObject);
         }
+    }
+
+    void Update()
+    {
+        if (isShowingReward)
+            RaiseReward();
     }
 }
