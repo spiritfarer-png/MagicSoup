@@ -23,6 +23,7 @@ public sealed class MapView : UIView
 
     protected override void OnOpen(object param)
     {
+        AudioManager.Instance.PlayBGM("地图音乐");
         mapData = param as MapData;
         inventoryButton.onClick.AddListener(()=>UIManager.instance.Open<InventoryPanelUI>());
         Refresh();

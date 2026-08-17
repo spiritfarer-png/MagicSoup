@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc6bda892089df4a9df03af4cf421b5, type: 3}
   m_Name: SFX2
   m_EditorClassIdentifier: 
-  soundID: shit
+  soundID: "\u53D7\u51FB\u97F3\u6548"
   clip: {fileID: 8300000, guid: 56889fc09dca89d46a4c3aa216a08a26, type: 3}
   volume: 1
   randomizePitch: 1

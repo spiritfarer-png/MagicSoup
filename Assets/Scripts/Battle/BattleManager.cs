@@ -257,6 +257,8 @@ public class BattleManager : MonoBehaviour
                     target = isEnemy ? firstPlayerEntity : firstEnemyEntity;
                     if (target == null) break;
 
+                    AudioManager.Instance.PlaySFX("攻击音效");
+
                     card.StopAnimation();
                     target.StopAnimation();
                     target.SetHitColor(true);
