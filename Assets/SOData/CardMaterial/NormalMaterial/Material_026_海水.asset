@@ -18,40 +18,5 @@ MonoBehaviour:
   color: {r: 0.12, g: 0.5, b: 0.72, a: 1}
   iniHealth: 10
   ascendedIniHealth: 10
-  normalIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 10
-  ascendedIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 5
-  - condition: 1
-    conditionValue: 3
-    action:
-      type: 1
-      value: 8
-  - condition: 1
-    conditionValue: 6
-    action:
-      type: 1
-      value: 8
-  - condition: 1
-    conditionValue: 9
-    action:
-      type: 1
-      value: 8
-  - condition: 1
-    conditionValue: 12
-    action:
-      type: 1
-      value: 8
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 0
+  normalIntents: []
+  ascendedIntents: []

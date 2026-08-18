@@ -279,7 +279,14 @@ public class BattleManager : MonoBehaviour
                 case MaterialAction.ActionType.Heal:
                     card.StopAnimation();
                     card.Heal(intent.action.value);
-                    tween = card.VerticalShake();
+                    if (intent.action.value < 0)
+                    {
+                        card.SetHitColor(true);
+                    }
+                    tween = card.VerticalShake().OnComplete(()=>
+                    {
+                        card.SetHitColor(false);
+                    });
                     break;
 
                 case MaterialAction.ActionType.Defend:

@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,ITooltipSource
+public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, ITooltipSource
 {
     public static event Action<CardEntity> OnCardEntityDead;
-    public CardInfo CardInfo 
+    public CardInfo CardInfo
     {
         get { return cardInfo; }
         private set { cardInfo = value; }
@@ -25,7 +25,7 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
     public Vector3 iniLocalScale { get; private set; }
     public Quaternion iniLocalRotation { get; private set; }
     [SerializeField] private Image background;
-    public Color initialBackgroundColor {  get; private set; }
+    public Color initialBackgroundColor { get; private set; }
     public float animationDuration = 0.25f;
     public float horizontalStrength = 30f;
     public float verticalStrength = 20f;
@@ -39,7 +39,7 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         iniLocalRotation = transform.localRotation;
         initialBackgroundColor = background.color;
     }
-    public void Initialize(CardInfo cardInfo,bool isEnemy)
+    public void Initialize(CardInfo cardInfo, bool isEnemy)
     {
         CardInfo = cardInfo;
         CardInfo.Initialize();
@@ -47,9 +47,9 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         InitializeVisual();
     }
 
-    public void InitializeBattleState(CardInfo cardInfo,bool isEnemy)
+    public void InitializeBattleState(CardInfo cardInfo, bool isEnemy)
     {
-        cardState = new BattleCardState(cardInfo,isEnemy);
+        cardState = new BattleCardState(cardInfo, isEnemy);
     }
 
     public void InitializeVisual()
@@ -90,7 +90,7 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         cardState.TakeDamage(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}受到{1}伤害", cardInfo.CardName, amount));
-     
+
         AudioManager.Instance.PlaySFX("受击音效");
 
         if (cardState.isDead)
@@ -101,8 +101,17 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
 
     public void Heal(int amount)
     {
+        bool wasAlive = !cardState.isDead;
         int healedAmount = cardState.Heal(amount);
+
         UpdateVisual();
+
+        if (wasAlive && cardState.isDead)
+        {
+            OnCardEntityDead?.Invoke(this);
+            gameObject.SetActive(false);
+        }
+
         Debug.Log(string.Format("{0}获得{1}治疗", cardInfo.CardName, healedAmount));
     }
 
@@ -146,9 +155,9 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         return transform.DOShakePosition(animationDuration, new Vector2(horizontalStrength, 0f), vibrato);
     }
 
-    public Tween VerticalShake() 
+    public Tween VerticalShake()
     {
-        return transform.DOShakePosition(animationDuration,new Vector2(0f, verticalStrength),vibrato);
+        return transform.DOShakePosition(animationDuration, new Vector2(0f, verticalStrength), vibrato);
     }
 
     public void SetHitColor(bool isHit)
