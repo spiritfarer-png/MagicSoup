@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930a2d80f2bbeed4abfed025a9269837, type: 3}
-  m_Name: ChickenPowderRelic
+  m_Script: {fileID: 11500000, guid: ea0baf66f8b73f545b8dcf2470db3e36, type: 3}
+  m_Name: GingerSerumRelic
   m_EditorClassIdentifier: 
-  materialID: 30
-  materialName: "\u9E21\u7CBE"
+  materialID: 36
+  materialName: "\u751F\u59DC\u7CBE\u534E\u6DB2"
   icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
-  color: {r: 0.95, g: 0.78, b: 0.26, a: 1}
+  color: {r: 0.88, g: 0.55, b: 0.16, a: 1}
   maxHealth: 0
   ascendedMaxHealth: 0
   normalIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 1
+      type: 0
       value: 3
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 1
+      type: 0
       value: 4
-  defence: 3
+  value: -3

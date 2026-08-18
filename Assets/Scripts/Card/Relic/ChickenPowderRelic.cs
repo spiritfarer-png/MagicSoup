@@ -1,8 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "ChickenPowderRelic",
-    menuName = "ScriptableObject/素材数据/遗物/ChickenPowderRelic")]
+[CreateAssetMenu(fileName = "ChickenPowderRelic", menuName = "ScriptableObject/素材数据/遗物/ChickenPowderRelic")]
 public class ChickenPowderRelic : SoupMaterialData, IRelic
 {
     [Header("鸡精")]

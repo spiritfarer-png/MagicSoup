@@ -19,11 +19,6 @@ MonoBehaviour:
   iniHealth: 5
   ascendedIniHealth: 5
   normalIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 5
   - condition: 1
     conditionValue: 3
     action:
@@ -44,34 +39,24 @@ MonoBehaviour:
     action:
       type: 1
       value: 8
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 0
   ascendedIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 15
   - condition: 1
-    conditionValue: 1
+    conditionValue: 3
     action:
-      type: 0
-      value: 13
+      type: 1
+      value: 8
   - condition: 1
-    conditionValue: 4
+    conditionValue: 6
     action:
-      type: 0
-      value: 13
+      type: 1
+      value: 8
   - condition: 1
-    conditionValue: 7
+    conditionValue: 9
     action:
-      type: 0
-      value: 13
+      type: 1
+      value: 8
   - condition: 1
-    conditionValue: 10
+    conditionValue: 12
     action:
-      type: 0
-      value: 13
+      type: 1
+      value: 8

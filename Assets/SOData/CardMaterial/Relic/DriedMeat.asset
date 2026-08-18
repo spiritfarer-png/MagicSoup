@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930a2d80f2bbeed4abfed025a9269837, type: 3}
-  m_Name: ChickenPowderRelic
+  m_Script: {fileID: 11500000, guid: a732f4a105c836f41a08abee5a6c9b15, type: 3}
+  m_Name: DriedMeat
   m_EditorClassIdentifier: 
-  materialID: 30
-  materialName: "\u9E21\u7CBE"
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
-  color: {r: 0.95, g: 0.78, b: 0.26, a: 1}
-  maxHealth: 0
-  ascendedMaxHealth: 0
+  materialID: 35
+  materialName: "\u8089\u5E72"
+  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  color: {r: 0.55, g: 0.2, b: 0.12, a: 1}
+  maxHealth: 3
+  ascendedMaxHealth: 3
   normalIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 1
-      value: 3
+      type: 0
+      value: 1
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 1
-      value: 4
-  defence: 3
+      type: 0
+      value: 2
+  value: 1

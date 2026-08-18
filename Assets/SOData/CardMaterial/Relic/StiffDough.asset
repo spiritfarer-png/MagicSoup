@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930a2d80f2bbeed4abfed025a9269837, type: 3}
-  m_Name: ChickenPowderRelic
+  m_Script: {fileID: 11500000, guid: 172c5622632250e438f76901ca4693c9, type: 3}
+  m_Name: StiffDough
   m_EditorClassIdentifier: 
-  materialID: 30
-  materialName: "\u9E21\u7CBE"
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
-  color: {r: 0.95, g: 0.78, b: 0.26, a: 1}
-  maxHealth: 0
-  ascendedMaxHealth: 0
+  materialID: 34
+  materialName: "\u786C\u9762\u56E2"
+  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  color: {r: 0.74, g: 0.54, b: 0.29, a: 1}
+  maxHealth: 3
+  ascendedMaxHealth: 3
   normalIntents:
   - condition: 0
     conditionValue: 0
     action:
       type: 1
-      value: 3
+      value: 1
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
       type: 1
-      value: 4
-  defence: 3
+      value: 2
+  defence: 1
