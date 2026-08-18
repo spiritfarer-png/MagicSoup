@@ -22,6 +22,7 @@ public class BattleHUDView : UIView
     private BattleManager battle;
     protected override void OnOpen(object param)
     {
+        AudioManager.Instance.PlayBGM("战斗音乐");
         base.OnOpen(param);
         battle = (BattleManager)param;
         extraActionButton.onClick.AddListener(battle.RequestExtraAction);

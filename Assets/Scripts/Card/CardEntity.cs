@@ -90,6 +90,9 @@ public class CardEntity : MonoBehaviour,IPointerClickHandler,IPointerEnterHandle
         cardState.TakeDamage(amount);
         UpdateVisual();
         Debug.Log(string.Format("{0}受到{1}伤害", cardInfo.CardName, amount));
+     
+        AudioManager.Instance.PlaySFX("受击音效");
+
         if (cardState.isDead)
         {
             OnCardEntityDead?.Invoke(this);
