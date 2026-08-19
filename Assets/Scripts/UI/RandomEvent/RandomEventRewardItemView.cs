@@ -1,4 +1,3 @@
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,35 +24,7 @@ public sealed class RandomEventRewardItemView : MonoBehaviour, ITooltipSource, I
 
     public string GetToolTip()
     {
-        if (item == null)
-            return null;
-
-        StringBuilder builder = new StringBuilder();
-
-        if (item is IRelic)
-            builder.Append("遗物：");
-        else if (item is PotionData)
-            builder.Append("药水：");
-        else
-            builder.Append("素材：");
-
-        builder.AppendLine(item.materialName);
-
-        if (item.normalIntents != null)
-        {
-            foreach (Intent intent in item.normalIntents)
-            {
-                builder.AppendLine(intent.ToString());
-            }
-        }
-
-        if (item is IRelic relic)
-        {
-            builder.Append("遗物效果：");
-            builder.Append(relic.GetRelicInfo());
-        }
-
-        return builder.ToString();
+        return item?.GetTooltipText();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

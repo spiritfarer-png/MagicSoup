@@ -14,19 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 2
   materialName: 榴莲汁
-  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  icon: {fileID: 21300000, guid: c0b5e6fb0572a5b46a5347654b26b8fe, type: 3}
   color: {r: 0.86, g: 0.72, b: 0.25, a: 1}
   iniHealth: 0
   ascendedIniHealth: 0
   normalIntents:
-  - condition: 1
-    conditionValue: 6
+  - condition: 3
+    conditionValue: 4
     action:
       type: 0
-      value: 2
+      value: 3
   - condition: 4
-    conditionValue: 5
+    conditionValue: 8
     action:
       type: 0
-      value: 2
+      value: 1
+  - condition: 4
+    conditionValue: 8
+    action:
+      type: 0
+      value: 1
   ascendedIntents: []

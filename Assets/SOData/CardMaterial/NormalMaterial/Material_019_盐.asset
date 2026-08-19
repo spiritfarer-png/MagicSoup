@@ -16,22 +16,7 @@ MonoBehaviour:
   materialName: 盐
   icon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
   color: {r: 0.94, g: 0.95, b: 1, a: 1}
-  iniHealth: 0
-  ascendedIniHealth: 0
-  normalIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 0
-  ascendedIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: -2
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 0
+  maxHealth: 0
+  ascendedMaxHealth: 0
+  normalIntents: []
+  ascendedIntents: []

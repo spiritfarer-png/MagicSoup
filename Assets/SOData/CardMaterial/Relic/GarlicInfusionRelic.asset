@@ -21,12 +21,12 @@ MonoBehaviour:
   - condition: 0
     conditionValue: 0
     action:
-      type: 2
+      type: 4
       value: 2
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 2
+      type: 4
       value: 2
   value: 1

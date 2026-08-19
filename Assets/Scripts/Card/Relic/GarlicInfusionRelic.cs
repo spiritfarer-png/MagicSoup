@@ -31,6 +31,6 @@ public class GarlicInfusionRelic : SoupMaterialData, IRelic
 
     public string GetRelicInfo()
     {
-        return $"我方单位行动前，恢复{value}点hp";
+        return $"友方单位行动后，恢复{value}点hp";
     }
 }

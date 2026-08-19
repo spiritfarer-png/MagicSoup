@@ -18,16 +18,6 @@ MonoBehaviour:
   color: {r: 0.55, g: 0.2, b: 0.12, a: 1}
   maxHealth: 3
   ascendedMaxHealth: 3
-  normalIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 1
-  ascendedIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 2
+  normalIntents: []
+  ascendedIntents: []
   value: 1

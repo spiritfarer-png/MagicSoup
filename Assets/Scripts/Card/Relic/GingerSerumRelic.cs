@@ -37,6 +37,6 @@ public class GingerSerumRelic : SoupMaterialData, IRelic
 
     public string GetRelicInfo()
     {
-        return $"回合开始使所有敌方受到{-value}点伤害";
+        return $"回合开始使所有敌方失去{-value}点生命值";
     }
 }

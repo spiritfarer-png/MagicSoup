@@ -21,8 +21,7 @@ public class BattleWinLootSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public string GetToolTip()
     {
-        // todo:优化
-        return material.materialName;
+        return material?.GetTooltipText();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
