@@ -14,23 +14,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 6
   materialName: 味精
-  icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
+  icon: {fileID: 21300000, guid: 4e42b915ce35ab040ad3f8ba306d022d, type: 3}
   color: {r: 0.96, g: 0.96, b: 0.9, a: 1}
   iniHealth: 0
   ascendedIniHealth: 0
   normalIntents:
-  - condition: 3
-    conditionValue: 6
+  - condition: 1
+    conditionValue: 1
     action:
       type: 0
-      value: 2
-  - condition: 4
+      value: 1
+  - condition: 1
+    conditionValue: 3
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 5
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 7
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 9
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 11
+    action:
+      type: 0
+      value: 1
+  - condition: 1
     conditionValue: 6
     action:
       type: 0
       value: 1
-  - condition: 4
+  - condition: 1
     conditionValue: 6
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 6
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 12
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 12
+    action:
+      type: 0
+      value: 1
+  - condition: 1
+    conditionValue: 12
     action:
       type: 0
       value: 1

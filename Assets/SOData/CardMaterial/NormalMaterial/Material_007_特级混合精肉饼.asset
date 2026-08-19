@@ -16,8 +16,8 @@ MonoBehaviour:
   materialName: 特级混合精肉饼
   icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
   color: {r: 0.93, g: 0.36, b: 0.24, a: 1}
-  iniHealth: 10
-  ascendedIniHealth: 10
+  maxHealth: 10
+  ascendedMaxHealth: 14
   normalIntents:
   - condition: 3
     conditionValue: 7
@@ -40,13 +40,23 @@ MonoBehaviour:
       type: 0
       value: 1
   ascendedIntents:
-  - condition: 1
-    conditionValue: 6
+  - condition: 3
+    conditionValue: 7
     action:
       type: 0
-      value: 8
+      value: 5
   - condition: 4
-    conditionValue: 0
+    conditionValue: 5
+    action:
+      type: 0
+      value: 2
+  - condition: 4
+    conditionValue: 5
+    action:
+      type: 0
+      value: 2
+  - condition: 4
+    conditionValue: 5
     action:
       type: 0
       value: 2

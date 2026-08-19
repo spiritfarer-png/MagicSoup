@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -203,6 +202,9 @@ public class BattleManager : MonoBehaviour
         bool isEnemy = card.cardState.isEnemy;
         var relics = isEnemy ? enemyRelics : playerRelics;
 
+        yield return ResolveIntents(card.CardInfo.intents, card, isEnemy);
+        if (Phase == BattlePhase.BattleOver) yield break;
+
         if (relics != null)
         {
             foreach (var relic in relics)
@@ -216,8 +218,6 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-
-        yield return ResolveIntents(card.CardInfo.intents, card, isEnemy);
     }
 
     public void UsePotion(PotionData potion)
@@ -293,6 +293,39 @@ public class BattleManager : MonoBehaviour
                     card.StopAnimation();
                     card.Defence(intent.action.value);
                     tween = card.VerticalShake();
+                    break;
+
+                case MaterialAction.ActionType.AttackAll:
+                    CardEntity[] enemyTargets = isEnemy ? playerEntities : enemyEntities;
+                    card.StopAnimation();
+                    DG.Tweening.Sequence attackAllSequence = DOTween.Sequence().Join(card.HorizontalShake());
+                    foreach (CardEntity enemyTarget in enemyTargets)
+                    {
+                        if (enemyTarget == null || enemyTarget.cardState.isDead) continue;
+                        enemyTarget.StopAnimation();
+                        enemyTarget.SetHitColor(true);
+                        enemyTarget.TakeDamage(intent.action.value);
+                        bool died = enemyTarget.cardState.isDead;
+                        attackAllSequence.Join(enemyTarget.VerticalShake().OnComplete(() =>
+                        {
+                            enemyTarget.SetHitColor(false);
+                            if (died) enemyTarget.gameObject.SetActive(false);
+                        }).OnKill(() => enemyTarget.SetHitColor(false)));
+                    }
+                    tween = attackAllSequence;
+                    break;
+
+                case MaterialAction.ActionType.HealAll:
+                    CardEntity[] allyTargets = isEnemy ? enemyEntities : playerEntities;
+                    DG.Tweening.Sequence healAllSequence = DOTween.Sequence();
+                    foreach (CardEntity allyTarget in allyTargets)
+                    {
+                        if (allyTarget == null || allyTarget.cardState.isDead) continue;
+                        allyTarget.StopAnimation();
+                        allyTarget.Heal(intent.action.value);
+                        healAllSequence.Join(allyTarget.VerticalShake());
+                    }
+                    tween = healAllSequence;
                     break;
             }
 

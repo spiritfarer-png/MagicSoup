@@ -16,17 +16,17 @@ MonoBehaviour:
   materialName: 干香菇
   icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
   color: {r: 0.35, g: 0.22, b: 0.15, a: 1}
-  iniHealth: 1
-  ascendedIniHealth: 1
+  maxHealth: 1
+  ascendedMaxHealth: 8
   normalIntents:
   - condition: 0
     conditionValue: 0
     action:
       type: 2
-      value: 2
+      value: 3
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
-      type: 0
-      value: 0
+      type: 2
+      value: 4

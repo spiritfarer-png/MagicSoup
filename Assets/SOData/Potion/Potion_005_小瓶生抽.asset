@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 5
   materialName: 小瓶生抽
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
+  icon: {fileID: 21300000, guid: 385662b2d7c83ba4a92b325c28403b8b, type: 3}
   color: {r: 0.25, g: 0.1, b: 0.04, a: 1}
   iniHealth: 0
   ascendedIniHealth: 0
@@ -51,6 +51,26 @@ MonoBehaviour:
       value: 1
   - condition: 1
     conditionValue: 6
+    action:
+      type: 0
+      value: 0
+  - condition: 1
+    conditionValue: 6
+    action:
+      type: 0
+      value: 0
+  - condition: 1
+    conditionValue: 6
+    action:
+      type: 0
+      value: 0
+  - condition: 1
+    conditionValue: 12
+    action:
+      type: 0
+      value: 0
+  - condition: 1
+    conditionValue: 12
     action:
       type: 0
       value: 0

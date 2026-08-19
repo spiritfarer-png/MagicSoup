@@ -16,8 +16,8 @@ MonoBehaviour:
   materialName: 土鸡蛋
   icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
   color: {r: 0.94, g: 0.7, b: 0.2, a: 1}
-  iniHealth: 2
-  ascendedIniHealth: 2
+  maxHealth: 2
+  ascendedMaxHealth: 5
   normalIntents:
   - condition: 0
     conditionValue: 0
@@ -28,18 +28,18 @@ MonoBehaviour:
     conditionValue: 0
     action:
       type: 0
-      value: 2
+      value: 3
   - condition: 3
     conditionValue: 13
     action:
       type: 1
-      value: 2
+      value: 3
   ascendedIntents:
   - condition: 0
     conditionValue: 0
     action:
       type: 2
-      value: 2
+      value: 3
   - condition: 0
     conditionValue: 0
     action:

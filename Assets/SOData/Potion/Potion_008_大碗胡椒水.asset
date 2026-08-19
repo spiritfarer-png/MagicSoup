@@ -14,19 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 8
   materialName: 大碗胡椒水
-  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  icon: {fileID: 21300000, guid: 0e4f30d56322a394dbaf1822b273a980, type: 3}
   color: {r: 0.34, g: 0.24, b: 0.16, a: 1}
   iniHealth: 0
   ascendedIniHealth: 0
   normalIntents:
-  - condition: 1
+  - condition: 3
     conditionValue: 6
     action:
       type: 0
-      value: 4
+      value: 3
   - condition: 4
-    conditionValue: 3
+    conditionValue: 6
     action:
       type: 0
-      value: 2
+      value: 1
+  - condition: 4
+    conditionValue: 6
+    action:
+      type: 0
+      value: 1
   ascendedIntents: []

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,10 +10,7 @@ public class BattleHUDRelicSlot : MonoBehaviour,IPointerEnterHandler,IPointerExi
 
     public string GetToolTip()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine(relic.MaterialData.materialName);
-        sb.Append(relic.GetRelicInfo());
-        return sb.ToString();
+        return relic?.MaterialData.GetRelicTooltipText();
     }
 
     public void Inititalize(IRelic relic)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -155,38 +154,6 @@ public class MaterialSlotUI : MonoBehaviour,
 
         MaterialSlotData data = slots[SlotIndex];
         if (data == null || !data.IsOccupied) return null;
-        bool isRelic = data.isRelic;
-        StringBuilder sb = new();
-
-        if (isRelic)
-        {
-            sb.Append("遗物:").AppendLine(data.materialData.materialName);
-            if(data.materialData.normalIntents.Length > 0)
-            {
-                sb.AppendLine("素材效果");
-            }
-        }
-        else
-        {
-            if(data.materialData is PotionData)
-            {
-                sb.Append("药水:");
-            }
-            else
-            {
-                sb.Append("素材:");
-            }
-            sb.Append(data.materialData.materialName);
-
-        }
-        foreach (var intent in data.materialData.normalIntents)
-        {
-            sb.AppendLine(intent.ToString());
-        }
-        if (isRelic)
-        {
-            sb.AppendLine("遗物效果:").Append(((IRelic)(data.materialData)).GetRelicInfo());
-        }
-        return sb.ToString();
+        return data.materialData.GetTooltipText();
     }
 }
