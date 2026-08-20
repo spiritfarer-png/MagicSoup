@@ -52,7 +52,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1944870481189919352
 RectTransform:
   m_ObjectHideFlags: 0
@@ -265,8 +265,8 @@ MonoBehaviour:
   nodePrefab: {fileID: 2648455701723092741, guid: a789b30a710085a449209440a6c284a5, type: 3}
   edgeRoot: {fileID: 4656920576287320588}
   edgePrefab: {fileID: 143804595740063144, guid: 8b6d43bfb8977c942a27966326acd8dd, type: 3}
-  horizontalSpacing: 170
-  verticalSpacing: 60
+  horizontalSpacing: 150
+  verticalSpacing: 120
   edgeThickness: 4
   inventoryButton: {fileID: 8132240827612808703}
 --- !u!1 &5316077031921208539
@@ -303,9 +303,9 @@ RectTransform:
   - {fileID: 1944870481189919352}
   m_Father: {fileID: 4719189665853502182}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 826, y: -441}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1212740166965043732
