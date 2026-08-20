@@ -32,7 +32,7 @@ public class TooltipView : UIView
             CloseSelf();
             return;
         }
-        tmp.text = text;
+        tmp.text = TooltipText.Format(text);
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         UpdatePosition();
     }

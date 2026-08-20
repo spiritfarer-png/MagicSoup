@@ -30,7 +30,7 @@ public class SoupMaterialData : ScriptableObject
     public string GetTooltipText()
     {
         StringBuilder sb = new();
-        sb.Append(this is IRelic ? "遗物：" : this is PotionData ? "药水：" : "素材：").AppendLine(materialName);
+        sb.Append("<b>").Append(this is IRelic ? "遗物：" : this is PotionData ? "药水：" : "素材：").Append(materialName).AppendLine("</b>");
         if (normalIntents != null && normalIntents.Length > 0)
         {
             if (this is IRelic) sb.AppendLine("素材效果：");
@@ -43,7 +43,7 @@ public class SoupMaterialData : ScriptableObject
     public string GetRelicTooltipText()
     {
         if (this is not IRelic relic) return null;
-        return $"遗物：{materialName}\n遗物效果：{relic.GetRelicInfo()}";
+        return $"<b>遗物：{materialName}</b>\n遗物效果：{relic.GetRelicInfo()}";
     }
 }
 
