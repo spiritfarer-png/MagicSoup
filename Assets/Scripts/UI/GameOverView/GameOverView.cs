@@ -10,7 +10,10 @@ public class GameOverView : UIView
 
     protected override void OnOpen(object param)
     {
-        quitButton.onClick.AddListener(() => Application.Quit());
+        quitButton.onClick.AddListener(() =>{
+            Application.Quit();
+            AudioManager.Instance.PlaySFX("点击音效");
+        });
         restartButton.onClick.AddListener(RestartGame);
         PlayOpenTween();
     }
@@ -19,6 +22,7 @@ public class GameOverView : UIView
     {
         PlayCloseTween(() =>
         {
+            AudioManager.Instance.PlaySFX("点击音效");
             BattleManager.instance.ResartGame();
         });
     }

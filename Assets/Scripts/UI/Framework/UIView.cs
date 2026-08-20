@@ -36,6 +36,7 @@ public abstract class UIView : MonoBehaviour
 
     public void PlayCloseTween(Action onComplete)
     {
+        AudioManager.Instance.PlaySFX("µã»÷ÒôÐ§");
         transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InCubic).OnComplete(() => onComplete());
     }
 

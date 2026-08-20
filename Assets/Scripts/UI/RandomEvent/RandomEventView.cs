@@ -78,6 +78,7 @@ public sealed class RandomEventView : UIView
 
     private void OnLeaveClicked()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         leaveButton.interactable = false;
         MapManager.Instance.OnRandomEventFinished();
     }
