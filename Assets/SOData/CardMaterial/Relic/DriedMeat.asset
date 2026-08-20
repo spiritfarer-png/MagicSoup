@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 35
   materialName: "\u8089\u5E72"
-  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  icon: {fileID: 21300000, guid: b3e5dc72040def046850e3198e45a451, type: 3}
   color: {r: 0.55, g: 0.2, b: 0.12, a: 1}
   maxHealth: 3
   ascendedMaxHealth: 3

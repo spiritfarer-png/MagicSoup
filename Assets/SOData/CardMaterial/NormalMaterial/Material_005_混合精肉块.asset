@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 5
   materialName: 混合精肉块
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
+  icon: {fileID: 21300000, guid: 364571b0c12683a469b123d119de5d28, type: 3}
   color: {r: 0.76, g: 0.25, b: 0.22, a: 1}
   maxHealth: 3
   ascendedMaxHealth: 6

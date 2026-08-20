@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 24
   materialName: 咸水
-  icon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
+  icon: {fileID: 21300000, guid: 40705dffb50f8d143ae80bc8fea4224d, type: 3}
   color: {r: 0.36, g: 0.63, b: 0.75, a: 1}
   maxHealth: 5
   ascendedMaxHealth: 7

@@ -832,10 +832,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iniMaterialSlots:
-  - materialData: {fileID: 11400000, guid: 9b9e234a5386b814cb8fe338aeffc3eb, type: 2}
-  - materialData: {fileID: 11400000, guid: 03e2d45a24678154d94f1a93713a420c, type: 2}
-  - materialData: {fileID: 11400000, guid: 9b9e234a5386b814cb8fe338aeffc3eb, type: 2}
-  - materialData: {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
+  - materialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
+  - materialData: {fileID: 11400000, guid: f0cbb58bc28fa9581337b9c24f30054c, type: 2}
+  - materialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+  - materialData: {fileID: 11400000, guid: e01e978b8221134a2b4caaa85147474e, type: 2}
+  - materialData: {fileID: 11400000, guid: 5737a642cb7f840a1e4801b2390f72ef, type: 2}
   materialSlots: []
   craftingSlots: []
   potionSlots: []

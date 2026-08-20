@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 18
   materialName: 干香菇
-  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  icon: {fileID: 21300000, guid: 3624df08846264d4fab6914798b3038e, type: 3}
   color: {r: 0.35, g: 0.22, b: 0.15, a: 1}
   maxHealth: 1
   ascendedMaxHealth: 8

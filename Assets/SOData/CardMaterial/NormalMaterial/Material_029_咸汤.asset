@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 29
   materialName: 咸汤
-  icon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
+  icon: {fileID: 21300000, guid: 7eb6596c099e5eb4c8c9712163067a34, type: 3}
   color: {r: 0.53, g: 0.62, b: 0.47, a: 1}
   maxHealth: 12
   ascendedMaxHealth: 17
