@@ -339,7 +339,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 375841930}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: bcbf0d6ce815b654286ecc0d371ee27b, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: "\u70B9\u51FB\u97F3\u6548"
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &375841930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,9 +700,10 @@ MonoBehaviour:
   soundDatabase:
   - {fileID: 11400000, guid: 23c182f86ae5cdd458a1e1595d79eaa0, type: 2}
   - {fileID: 11400000, guid: 33c50e41a639c474d95bb00d6a1ff6aa, type: 2}
+  - {fileID: 11400000, guid: 2128b0f844d34a74eb14035621b6f8ed, type: 2}
   - {fileID: 11400000, guid: f99d531a347b61346bbe390667ae674e, type: 2}
   - {fileID: 11400000, guid: 3c4f4885d566424418ddafa92e3bc568, type: 2}
-  - {fileID: 11400000, guid: 2128b0f844d34a74eb14035621b6f8ed, type: 2}
+  - {fileID: 11400000, guid: e5303773fcaf9444e81e0945b93e57dc, type: 2}
   sfxPoolSize: 10
   MasterVolume: 1
   BGMVolume: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BGM2
   m_EditorClassIdentifier: 
   soundID: "\u6218\u6597\u97F3\u4E50"
-  clip: {fileID: 8300000, guid: a0f58e77ea2dee24ba7fc5477d76e6b3, type: 3}
+  clip: {fileID: 8300000, guid: a470f7823ef19b34791c44bcbda1ca9a, type: 3}
   volume: 1
   randomizePitch: 0
   pitchRange: {x: 0.9, y: 1.1}
