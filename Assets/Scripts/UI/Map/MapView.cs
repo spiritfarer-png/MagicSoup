@@ -26,7 +26,10 @@ public sealed class MapView : UIView
     {
         AudioManager.Instance.PlayBGM("地图音乐");
         mapData = param as MapData;
-        inventoryButton.onClick.AddListener(()=>UIManager.instance.Open<InventoryPanelUI>());
+        inventoryButton.onClick.AddListener(()=> {
+            AudioManager.Instance.PlaySFX("点击音效");
+            UIManager.instance.Open<InventoryPanelUI>();
+            });
         Refresh();
         PlayOpenTween();
     }

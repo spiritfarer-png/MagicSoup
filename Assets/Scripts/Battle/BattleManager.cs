@@ -525,6 +525,7 @@ public class BattleManager : MonoBehaviour
 
     public void RequestExtraAction()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         if (Phase != BattlePhase.PlayerDecision) return;
         if (extraActed) return;
         Phase = BattlePhase.SelectingExtraAction;
@@ -532,7 +533,9 @@ public class BattleManager : MonoBehaviour
     }
     public void CancelExtraAction()
     {
-        if(Phase != BattlePhase.SelectingExtraAction)
+        AudioManager.Instance.PlaySFX("点击音效");
+
+        if (Phase != BattlePhase.SelectingExtraAction)
         {
             return;
         }
@@ -563,6 +566,7 @@ public class BattleManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         if (Phase != BattlePhase.PlayerDecision &&
             Phase != BattlePhase.SelectingExtraAction) return;
 

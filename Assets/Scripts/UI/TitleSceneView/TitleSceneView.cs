@@ -18,11 +18,13 @@ public class TitleSceneView:MonoBehaviour
 
     void QuitButtonClick()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         Application.Quit();
     }
 
     void StartGameButtonClick()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         SceneManager.LoadScene("GamePlayScene");
     }
 

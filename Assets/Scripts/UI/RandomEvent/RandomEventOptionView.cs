@@ -27,6 +27,7 @@ public class RandomEventOptionView : MonoBehaviour
 
     private void HandleClicked()
     {
+        AudioManager.Instance.PlaySFX("µã»÷ÒôÐ§");
         button.interactable = false;
         onClicked?.Invoke(optionData);
     }

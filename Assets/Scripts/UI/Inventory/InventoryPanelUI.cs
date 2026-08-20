@@ -142,6 +142,7 @@ public class InventoryPanelUI : UIView
 
     private void CraftCard()
     {
+        AudioManager.Instance.PlaySFX("µã»÷ÒôÐ§");
         InventoryManager.Instance.TryCraftCard();
         RefreshAllUI();
     }

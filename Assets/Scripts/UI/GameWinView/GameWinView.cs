@@ -11,8 +11,18 @@ public class GameWinView : UIView
 
     protected override void OnOpen(object param)
     {
-        quit.onClick.AddListener(() => Application.Quit());
-        restart.onClick.AddListener(() => BattleManager.instance.ResartGame());
+        quit.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlaySFX("点击音效");
+            Application.Quit();
+        });
+
+        restart.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlaySFX("点击音效");
+            BattleManager.instance.ResartGame();
+        }
+        );
     }
 
     protected override void OnClose()
