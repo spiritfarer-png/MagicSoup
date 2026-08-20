@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 512a41b93ac73aa4f9c9cd908c2db343, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   layer: 0
   chestButton: {fileID: 2455972857943304623}
   chestImage: {fileID: 446478761002095664}
@@ -112,6 +112,7 @@ MonoBehaviour:
   relicRoot: {fileID: 902320489545986335}
   relicCanvasGroup: {fileID: 489149877395861448}
   relicNameText: {fileID: 20326405165682503}
+  relicRewardView: {fileID: 0}
   hintText: {fileID: 3793181052845375525}
   leaveButton: {fileID: 7037348238647279881}
   riseDistance: 200
@@ -171,8 +172,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
