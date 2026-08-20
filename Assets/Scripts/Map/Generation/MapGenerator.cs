@@ -51,7 +51,7 @@ public sealed class MapGenerator
 
             map.Floors.Add(floor);
         }
-        GenerateEdges(map, random);
+        GenerateEdges(map);
         return map;
     }
 
@@ -137,61 +137,179 @@ public sealed class MapGenerator
         return null;
     }
 
-    private void GenerateEdges(MapData map, MapRandom random)
+    /// <summary>
+    /// 生成层与层之间的连线，保证任意两条连线绘制时都不交叉。
+    /// 原理：节点按 index 从左到右排布后，两条边 (a→b)、(c→d) 交叉当且仅当
+    /// a 在 c 左侧但 b 在 d 右侧，即“来源顺序与目标顺序相反”。
+    /// 因此只要构造单调分配（把边按 (来源, 目标) 排序后目标下标非递减）就必然无交叉。
+    /// 几何约束：两层平行线之间的直线连线不交叉时，边构成森林，最多 n + m - 1 条
+    /// （n、m 分别为上下层节点数）。期望入度超出时会裁剪入度，并优先保留
+    /// 宝箱 / Boss “汇聚全部路线”的效果；同时保证上一层每个节点至少有一条出边。
+    /// </summary>
+    private void GenerateEdges(MapData map)
     {
         for (int floorIndex = 0; floorIndex < map.Floors.Count - 1; floorIndex++)
         {
             List<MapNodeData> fromNodes = map.Floors[floorIndex].Nodes;
             List<MapNodeData> toNodes = map.Floors[floorIndex + 1].Nodes;
+            int sourceCount = fromNodes.Count;
+            int targetCount = toNodes.Count;
 
-            // 每一项表示一条尚未分配来源的入边，其中保存目标节点的下标
-            List<int> targetSlots = new List<int>();
-            for (int targetIndex = 0; targetIndex < toNodes.Count; targetIndex++)
+            // 1. 目标节点期望入度：至少 1，至多 = 上一层节点数
+            int[] inDegrees = new int[targetCount];
+            for (int targetIndex = 0; targetIndex < targetCount; targetIndex++)
             {
-                int degree = Math.Max(1, Math.Min(toNodes[targetIndex].DesiredInDegree, fromNodes.Count));
+                inDegrees[targetIndex] = Math.Max(1, Math.Min(toNodes[targetIndex].DesiredInDegree, sourceCount));
+            }
 
-                for (int i = 0; i < degree; i++)
+            // 2. 可行性裁剪：总边数不能超过 n + m - 1（无交叉直线连线的最大边数）。
+            //    优先削减普通节点，尽量保留宝箱 / Boss 汇聚全部路线的效果。
+            int total = 0;
+            for (int targetIndex = 0; targetIndex < targetCount; targetIndex++)
+            {
+                total += inDegrees[targetIndex];
+            }
+
+            int maxTotal = sourceCount + targetCount - 1;
+            while (total > maxTotal)
+            {
+                int targetIndex = FindLargestDegradable(inDegrees, toNodes, preferNonPriority: true);
+                if (targetIndex < 0)
                 {
-                    targetSlots.Add(targetIndex);
+                    targetIndex = FindLargestDegradable(inDegrees, toNodes, preferNonPriority: false);
+                }
+                if (targetIndex < 0)
+                {
+                    break;
+                }
+                inDegrees[targetIndex]--;
+                total--;
+            }
+
+            // 3. 保证上一层每个节点都有出口：总边数至少 n
+            while (total < sourceCount)
+            {
+                int targetIndex = FindSmallestBoostable(inDegrees, sourceCount);
+                if (targetIndex < 0)
+                {
+                    break;
+                }
+                inDegrees[targetIndex]++;
+                total++;
+            }
+
+            // 4. 构造“目标端口序列”：目标 j 重复 inDegrees[j] 次，整体有序。
+            //    之后把序列切成 n 个连续块，第 i 个块 = 第 i 个来源节点连接的全部目标，
+            //    由于端口序列有序，块与块之间天然满足单调性，连线不会交叉。
+            List<int> ports = new List<int>(total);
+            for (int targetIndex = 0; targetIndex < targetCount; targetIndex++)
+            {
+                for (int i = 0; i < inDegrees[targetIndex]; i++)
+                {
+                    ports.Add(targetIndex);
                 }
             }
 
-            // 如果目标入度总数少于上一层节点数，增加入度，保证上一层所有节点都有出口。
-            while (targetSlots.Count < fromNodes.Count)
+            // 5. 确定切分点：需要 n - 1 个。
+            //    相邻相等端口之间必须切开（否则同一来源会连到同一目标两次，产生重复边）；
+            //    剩余切分点均匀散布在其余位置，让各来源的出边数尽量均衡。
+            int mandatoryCutCount = total - targetCount;
+            int extraCutCount = (sourceCount - 1) - mandatoryCutCount;
+
+            HashSet<int> cutPositions = new HashSet<int>();
+            for (int position = 1; position < total; position++)
             {
-                targetSlots.Add(random.NextIntInclusive(0, toNodes.Count - 1));
+                if (ports[position - 1] == ports[position])
+                {
+                    cutPositions.Add(position);
+                }
             }
-            random.Shuffle(targetSlots);
+
+            List<int> optionalPositions = new List<int>();
+            for (int position = 1; position < total; position++)
+            {
+                if (!cutPositions.Contains(position))
+                {
+                    optionalPositions.Add(position);
+                }
+            }
+            for (int i = 0; i < extraCutCount; i++)
+            {
+                int optionalIndex = (i * optionalPositions.Count) / Math.Max(1, extraCutCount);
+                cutPositions.Add(optionalPositions[optionalIndex]);
+            }
+
+            List<int> cutList = new List<int>(cutPositions);
+            cutList.Sort();
+
+            // 6. 第 i 个块 = 第 i 个来源节点，连接块内出现的全部目标
             HashSet<long> edgeKeys = new HashSet<long>();
-
-            // 先让上一层每个节点各占用一个目标入度名额
-            for (int sourceIndex = 0; sourceIndex < fromNodes.Count; sourceIndex++)
+            int blockStart = 0;
+            for (int sourceIndex = 0; sourceIndex < sourceCount; sourceIndex++)
             {
-                int targetIndex = targetSlots[sourceIndex];
-                AddEdge(fromNodes[sourceIndex], toNodes[targetIndex], map.Edges, edgeKeys);
-            }
-
-            // 处理剩余的目标入度名额。
-            for (int slotIndex = fromNodes.Count; slotIndex < targetSlots.Count; slotIndex++)
-            {
-                int targetIndex = targetSlots[slotIndex];
-                MapNodeData target = toNodes[targetIndex];
-
-                List<int> candidates = new List<int>();
-
-                // 找出尚未连接到当前目标节点的来源节点。
-                for (int sourceIndex = 0; sourceIndex < fromNodes.Count; sourceIndex++)
+                int blockEnd = sourceIndex < cutList.Count ? cutList[sourceIndex] : total;
+                for (int position = blockStart; position < blockEnd; position++)
                 {
-                    long key = CreateEdgeKey(fromNodes[sourceIndex].Id, target.Id);
-                    if (!edgeKeys.Contains(key))
-                    {
-                        candidates.Add(sourceIndex);
-                    }
+                    AddEdge(fromNodes[sourceIndex], toNodes[ports[position]], map.Edges, edgeKeys);
                 }
-                int selectedSourceIndex = candidates[random.NextIntInclusive(0, candidates.Count - 1)];
-                AddEdge(fromNodes[selectedSourceIndex], target, map.Edges, edgeKeys);
+                blockStart = blockEnd;
             }
         }
+    }
+
+    /// <summary>
+    /// 找出入度可削减（> 1）的目标节点，取入度最大者优先削减。
+    /// preferNonPriority 为 true 时跳过宝箱 / Boss（汇聚节点），尽量保留其“汇聚全部路线”的效果。
+    /// 没有可削减的节点时返回 -1。
+    /// </summary>
+    private int FindLargestDegradable(int[] inDegrees, List<MapNodeData> toNodes, bool preferNonPriority)
+    {
+        int best = -1;
+        for (int targetIndex = 0; targetIndex < inDegrees.Length; targetIndex++)
+        {
+            if (inDegrees[targetIndex] <= 1)
+            {
+                continue;
+            }
+            if (preferNonPriority && IsConvergenceNode(toNodes[targetIndex].NodeType))
+            {
+                continue;
+            }
+            if (best < 0 || inDegrees[targetIndex] > inDegrees[best])
+            {
+                best = targetIndex;
+            }
+        }
+        return best;
+    }
+
+    /// <summary>
+    /// 找出入度可增加（&lt; sourceCount）的目标节点，取当前入度最小者，让多余出边均匀分担。
+    /// 没有可增加的节点时返回 -1。
+    /// </summary>
+    private int FindSmallestBoostable(int[] inDegrees, int sourceCount)
+    {
+        int best = -1;
+        for (int targetIndex = 0; targetIndex < inDegrees.Length; targetIndex++)
+        {
+            if (inDegrees[targetIndex] >= sourceCount)
+            {
+                continue;
+            }
+            if (best < 0 || inDegrees[targetIndex] < inDegrees[best])
+            {
+                best = targetIndex;
+            }
+        }
+        return best;
+    }
+
+    /// <summary>
+    /// 宝箱 / Boss 属于“汇聚全部路线”的节点。
+    /// </summary>
+    private bool IsConvergenceNode(MapNodeType nodeType)
+    {
+        return nodeType == MapNodeType.Treasure || nodeType == MapNodeType.Boss;
     }
     private void AddEdge(MapNodeData source, MapNodeData target, List<MapEdgeData> edges, HashSet<long> edgeKeys)
     {
