@@ -95,7 +95,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "hud\u548C\u5341\u4E8C\u683C\u949F_0"
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 582
+        width: 96
+        height: 150
+      alignment: 9
+      pivot: {x: 0.08518378, y: 0.0512736}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28c33466bdd6f964799c86af0f4f234c
+      internalID: 189466722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "hud\u548C\u5341\u4E8C\u683C\u949F_1"
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 509
+        width: 143
+        height: 153
+      alignment: 9
+      pivot: {x: 0.12985507, y: 0.118122175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cd420f08771c2f429ca968539d92083
+      internalID: -1592368657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +148,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "hud\u548C\u5341\u4E8C\u683C\u949F_0": 189466722
+      "hud\u548C\u5341\u4E8C\u683C\u949F_1": -1592368657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
