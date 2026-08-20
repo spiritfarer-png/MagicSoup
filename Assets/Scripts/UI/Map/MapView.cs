@@ -88,12 +88,13 @@ public sealed class MapView : UIView
             }
         }
         // 根据 MapData.Edges 生成连线。
-        foreach (MapEdgeData edge in mapData.Edges)
+        for (int edgeIndex = 0; edgeIndex < mapData.Edges.Count; edgeIndex++)
         {
+            MapEdgeData edge = mapData.Edges[edgeIndex];
             Vector2 fromPosition = nodePositions[edge.FromNodeId];
             Vector2 toPosition = nodePositions[edge.ToNodeId];
             MapEdgeView edgeView = Instantiate(edgePrefab, edgeRoot);
-            edgeView.Initialize(fromPosition, toPosition, edgeThickness);
+            edgeView.Initialize(fromPosition, toPosition, edgeThickness, edgeIndex);
         }
 
         Debug.Log($"地图显示完成，节点层数：{mapData.Floors.Count}，" + $"连线数：{mapData.Edges.Count}");
