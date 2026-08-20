@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 23
   materialName: 精品猪后腿肉
-  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  icon: {fileID: 21300000, guid: 4228f567c5298d943817d76ddb8e9e66, type: 3}
   color: {r: 0.9, g: 0.42, b: 0.45, a: 1}
   maxHealth: 10
   ascendedMaxHealth: 10

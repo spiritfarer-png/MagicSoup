@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 12
   materialName: 特级土鸡蛋
-  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  icon: {fileID: 21300000, guid: b0d4189f623f8ab4094fbbe68b98d135, type: 3}
   color: {r: 1, g: 0.84, b: 0.25, a: 1}
   maxHealth: 2
   ascendedMaxHealth: 5

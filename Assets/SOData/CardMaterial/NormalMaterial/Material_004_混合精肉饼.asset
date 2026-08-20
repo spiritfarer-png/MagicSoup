@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 4
   materialName: 混合精肉饼
-  icon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
+  icon: {fileID: 21300000, guid: a3ad44f7283cff042b354501fa1e5e15, type: 3}
   color: {r: 0.82, g: 0.32, b: 0.28, a: 1}
   maxHealth: 5
   ascendedMaxHealth: 8

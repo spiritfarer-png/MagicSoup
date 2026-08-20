@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 22
   materialName: 虾米
-  icon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  icon: {fileID: 21300000, guid: 5ebadd9b5356e1c4898b5ecc66ebd952, type: 3}
   color: {r: 0.95, g: 0.52, b: 0.35, a: 1}
   maxHealth: 1
   ascendedMaxHealth: 2

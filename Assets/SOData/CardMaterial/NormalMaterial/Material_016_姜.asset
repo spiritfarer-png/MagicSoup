@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 16
   materialName: 姜
-  icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
+  icon: {fileID: 21300000, guid: 9ae57ab5f140ce4478e46df9228b3dea, type: 3}
   color: {r: 0.88, g: 0.64, b: 0.2, a: 1}
   maxHealth: 1
   ascendedMaxHealth: 1
