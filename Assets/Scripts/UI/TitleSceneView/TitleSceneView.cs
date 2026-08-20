@@ -11,6 +11,7 @@ public class TitleSceneView:MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlayBGM("±≥æ∞“Ù¿÷");
         quitButton.onClick.AddListener(QuitButtonClick);
         startGameButton.onClick.AddListener(StartGameButtonClick);
     }

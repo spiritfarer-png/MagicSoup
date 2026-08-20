@@ -22,6 +22,7 @@ public class BattleHUDView : UIView
     private BattleManager battle;
     protected override void OnOpen(object param)
     {
+        AudioManager.Instance.PlayBGM("战斗音乐");
         base.OnOpen(param);
         battle = (BattleManager)param;
         extraActionButton.onClick.AddListener(battle.RequestExtraAction);
@@ -29,6 +30,8 @@ public class BattleHUDView : UIView
         cancelButton.onClick.AddListener(battle.CancelExtraAction);
         battle.PhaseChanged += Refresh;
         BattleClock.OnClockChanged += OnClockChanged;
+        ConfigureTooltip(extraActionButton, "点击后选择一张我方卡牌额外行动一次。");
+        ConfigureTooltip(cancelButton, "取消额外行动。");
 
 
         clockText.text = BattleClock.currentTime.ToString();
@@ -51,6 +54,14 @@ public class BattleHUDView : UIView
             var slot = Instantiate(potionSlotPrefab, potionSlotParent);
             slot.Inititalize(potion);
         }
+    }
+
+    private static void ConfigureTooltip(Button button, string text)
+    {
+        if (button == null) return;
+        TooltipTrigger trigger = button.GetComponent<TooltipTrigger>();
+        if (trigger == null) trigger = button.gameObject.AddComponent<TooltipTrigger>();
+        trigger.Configure(text);
     }
 
     private void OnClockChanged(int time)

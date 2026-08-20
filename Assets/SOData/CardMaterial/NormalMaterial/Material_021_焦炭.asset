@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 21
   materialName: 焦炭
-  icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
+  icon: {fileID: 21300000, guid: 07c173c94db787743819906b1f583bf3, type: 3}
   color: {r: 0.08, g: 0.08, b: 0.09, a: 1}
-  iniHealth: -5
-  ascendedIniHealth: -5
+  maxHealth: -5
+  ascendedMaxHealth: -5
   normalIntents:
   - condition: 0
     conditionValue: 0
@@ -29,9 +29,4 @@ MonoBehaviour:
     conditionValue: 0
     action:
       type: 2
-      value: 1
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 0
-      value: 0
+      value: -5

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 13
   materialName: 水
-  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  icon: {fileID: 21300000, guid: 496351bb8b4a7074a974aeb87c8920de, type: 3}
   color: {r: 0.35, g: 0.68, b: 0.92, a: 1}
-  iniHealth: 5
-  ascendedIniHealth: 5
+  maxHealth: 5
+  ascendedMaxHealth: 8
   normalIntents:
   - condition: 0
     conditionValue: 0
@@ -29,9 +29,4 @@ MonoBehaviour:
     conditionValue: 0
     action:
       type: 2
-      value: 6
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 3
+      value: 2

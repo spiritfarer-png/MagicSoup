@@ -32,19 +32,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 302e601ed5b3c6dd3a9959266a27596d, type: 2}
   - {fileID: 11400000, guid: a5fc7ab70c105a7a31396b44bd488242, type: 2}
   - {fileID: 11400000, guid: 5737a642cb7f840a1e4801b2390f72ef, type: 2}
-  - {fileID: 11400000, guid: 8a876dfd778526743136420f80044d06, type: 2}
-  - {fileID: 11400000, guid: e99ce5b951cedc428b412b992099f9ad, type: 2}
   - {fileID: 11400000, guid: 888a76929cb300dc487338e45a354543, type: 2}
-  - {fileID: 11400000, guid: d70c15c2fb79dd6657423d64dfc7f8a8, type: 2}
   - {fileID: 11400000, guid: eded8facaec974a8cf909227f7f31858, type: 2}
   - {fileID: 11400000, guid: 174f656bb6d65fec2fb6ccf320184107, type: 2}
   - {fileID: 11400000, guid: 03f77c9319eb6485974ccad4466be9c5, type: 2}
   - {fileID: 11400000, guid: 3ba2c32ab9f2732df835a7409a5a4aed, type: 2}
-  - {fileID: 11400000, guid: 6bbb308032cef0f802794fb8b6f75e1b, type: 2}
-  - {fileID: 11400000, guid: c1a1ccbad583502b181d6b888ad8f362, type: 2}
   relicLoots:
   - {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
-  - {fileID: 11400000, guid: 98b4a1a61f460e949821d17d58ef134a, type: 2}
+  - {fileID: 11400000, guid: 12ede27853dd23f43a5e3cdfe36f9104, type: 2}
+  - {fileID: 11400000, guid: 7c0ef827702e41fcbdb4373030445f1a, type: 2}
+  - {fileID: 11400000, guid: 33f777d2dc7393c4c82fa3b941d44099, type: 2}
+  - {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
+  - {fileID: 11400000, guid: 85d76f746c5b4d6cbddb722e667eaa9c, type: 2}
+  - {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
   potionLoots:
   - {fileID: 11400000, guid: bc7339ceebd54050bfac035d49911339, type: 2}
   - {fileID: 11400000, guid: 03fc2793edbb4bf6b3b0f233fe91f901, type: 2}

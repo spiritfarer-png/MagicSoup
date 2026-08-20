@@ -34,6 +34,6 @@ public class CardMaterialInfo
     public void Ascend()
     {
         IsAscended = true;
-        MaxHealth = cardMaterialData.ascendedMaxHealth;
+        Initialize();
     }
 }

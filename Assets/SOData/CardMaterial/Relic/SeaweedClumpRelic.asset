@@ -12,12 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22353f54b6933f242aa0dcfb31afe166, type: 3}
   m_Name: SeaweedClumpRelic
   m_EditorClassIdentifier: 
-  materialID: 111
+  materialID: 28
   materialName: "\u6D77\u85FB\u56E2\u5757"
   icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
   color: {r: 0, g: 1, b: 0.028357267, a: 0}
-  iniHealth: 0
-  ascendedIniHealth: 0
-  normalIntents: []
-  ascendedIntents: []
+  maxHealth: 15
+  ascendedMaxHealth: 15
+  normalIntents:
+  - condition: 1
+    conditionValue: 1
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 4
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 7
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 10
+    action:
+      type: 0
+      value: 13
+  ascendedIntents:
+  - condition: 1
+    conditionValue: 1
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 4
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 7
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 10
+    action:
+      type: 0
+      value: 13
   value: 1

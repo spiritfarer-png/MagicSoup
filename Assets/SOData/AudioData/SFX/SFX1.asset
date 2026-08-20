@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc6bda892089df4a9df03af4cf421b5, type: 3}
   m_Name: SFX1
   m_EditorClassIdentifier: 
-  soundID: "van\u6E38\u620F"
-  clip: {fileID: 8300000, guid: f32a8837643f68a40ac53b8f274619fa, type: 3}
+  soundID: "\u653B\u51FB\u97F3\u6548"
+  clip: {fileID: 8300000, guid: a564bbea8d2ff5844af9e5ee322f51d7, type: 3}
   volume: 1
-  randomizePitch: 0
+  randomizePitch: 1
   pitchRange: {x: 0.9, y: 1.1}
   cooldown: 0.05
   lastPlayTime: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 1
   materialName: 霉豆腐
-  icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
+  icon: {fileID: 21300000, guid: a4b51e5a20a85d14b94bcb7715d75292, type: 3}
   color: {r: 0.45, g: 0.55, b: 0.36, a: 1}
   iniHealth: 0
   ascendedIniHealth: 0

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 1
   materialName: 混合肉饼
-  icon: {fileID: 21300000, guid: 68bf1dfc6ca3aa94ebb1984620f079ec, type: 3}
+  icon: {fileID: 21300000, guid: 471175fb0b92d1e439fc2d165978c855, type: 3}
   color: {r: 0.72, g: 0.28, b: 0.22, a: 1}
-  iniHealth: 5
-  ascendedIniHealth: 7
+  maxHealth: 5
+  ascendedMaxHealth: 7
   normalIntents:
   - condition: 3
     conditionValue: 4
@@ -35,13 +35,18 @@ MonoBehaviour:
       type: 0
       value: 1
   ascendedIntents:
-  - condition: 1
-    conditionValue: 6
+  - condition: 3
+    conditionValue: 4
     action:
       type: 0
-      value: 2
+      value: 3
   - condition: 4
-    conditionValue: 5
+    conditionValue: 8
     action:
       type: 0
-      value: 2
+      value: 1
+  - condition: 4
+    conditionValue: 8
+    action:
+      type: 0
+      value: 1

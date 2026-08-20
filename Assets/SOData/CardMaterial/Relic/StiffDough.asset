@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172c5622632250e438f76901ca4693c9, type: 3}
+  m_Name: StiffDough
+  m_EditorClassIdentifier: 
+  materialID: 34
+  materialName: "\u786C\u9762\u56E2"
+  icon: {fileID: 21300000, guid: 88a3c676bcd066c4db8ce885ec75e5e5, type: 3}
+  color: {r: 0.74, g: 0.54, b: 0.29, a: 1}
+  maxHealth: 3
+  ascendedMaxHealth: 3
+  normalIntents: []
+  ascendedIntents: []
+  defence: 1

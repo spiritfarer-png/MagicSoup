@@ -25,12 +25,14 @@ public class TooltipView : UIView
     }
     protected override void OnOpen(object param)
     {
-        tipSource = (ITooltipSource)param;
-        if(tipSource == null || string.IsNullOrEmpty(tipSource.GetToolTip()))
+        tipSource = param as ITooltipSource;
+        string text = tipSource?.GetToolTip();
+        if (string.IsNullOrEmpty(text))
         {
             CloseSelf();
+            return;
         }
-        tmp.text = tipSource.GetToolTip();
+        tmp.text = TooltipText.Format(text);
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         UpdatePosition();
     }
@@ -38,7 +40,6 @@ public class TooltipView : UIView
     private void LateUpdate()
     {
         if (IsOpen) UpdatePosition();
-        tmp.text = tipSource.GetToolTip();
     }
 
     private void UpdatePosition()

@@ -16,14 +16,9 @@ MonoBehaviour:
   materialName: 海藻团块
   icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
   color: {r: 0.1, g: 0.42, b: 0.24, a: 1}
-  iniHealth: 15
-  ascendedIniHealth: 15
+  maxHealth: 15
+  ascendedMaxHealth: 15
   normalIntents:
-  - condition: 0
-    conditionValue: 0
-    action:
-      type: 2
-      value: 15
   - condition: 1
     conditionValue: 1
     action:
@@ -45,13 +40,23 @@ MonoBehaviour:
       type: 0
       value: 13
   ascendedIntents:
-  - condition: 0
-    conditionValue: 0
+  - condition: 1
+    conditionValue: 1
     action:
-      type: 2
-      value: 12
-  - condition: 3
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 4
+    action:
+      type: 0
+      value: 13
+  - condition: 1
+    conditionValue: 7
+    action:
+      type: 0
+      value: 13
+  - condition: 1
     conditionValue: 10
     action:
-      type: 1
-      value: 4
+      type: 0
+      value: 13

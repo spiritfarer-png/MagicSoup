@@ -14,59 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 8
   materialName: 特级混合精肉块
-  icon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  icon: {fileID: 21300000, guid: f2ded73020d362c4896c5ffbac642295, type: 3}
   color: {r: 0.88, g: 0.29, b: 0.21, a: 1}
-  iniHealth: 5
-  ascendedIniHealth: 5
+  maxHealth: 5
+  ascendedMaxHealth: 9
   normalIntents:
   - condition: 1
     conditionValue: 6
     action:
       type: 0
       value: 8
+  - condition: 4
+    conditionValue: 0
+    action:
+      type: 0
+      value: 2
   ascendedIntents:
-  - condition: 1
-    conditionValue: 1
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 3
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 5
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 7
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 9
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 11
-    action:
-      type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 1
-    action:
-      type: 0
-      value: 1
   - condition: 1
     conditionValue: 6
     action:
       type: 0
-      value: 1
-  - condition: 1
-    conditionValue: 12
+      value: 16
+  - condition: 4
+    conditionValue: 0
     action:
       type: 0
-      value: 1
+      value: 2

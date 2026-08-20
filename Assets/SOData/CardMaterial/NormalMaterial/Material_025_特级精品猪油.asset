@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 25
   materialName: 特级精品猪油
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
+  icon: {fileID: 21300000, guid: a968a782705266e43b915de2d8941b83, type: 3}
   color: {r: 0.95, g: 0.82, b: 0.65, a: 1}
-  iniHealth: 10
-  ascendedIniHealth: 10
+  maxHealth: 10
+  ascendedMaxHealth: 11
   normalIntents:
   - condition: 3
     conditionValue: 6
     action:
       type: 1
       value: 2
-  ascendedIntents:
-  - condition: 0
-    conditionValue: 0
+  - condition: 3
+    conditionValue: 6
     action:
-      type: 2
-      value: 10
+      type: 0
+      value: 5
+  ascendedIntents:
+  - condition: 3
+    conditionValue: 6
+    action:
+      type: 1
+      value: 2
+  - condition: 3
+    conditionValue: 6
+    action:
+      type: 0
+      value: 5

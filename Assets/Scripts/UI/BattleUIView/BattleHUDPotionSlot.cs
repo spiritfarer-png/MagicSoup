@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,9 +10,7 @@ public class BattleHUDPotionSlot : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public string GetToolTip()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append(potion.materialName);
-        return sb.ToString();
+        return potion?.GetTooltipText();
     }
 
     public void Inititalize(PotionData potion)

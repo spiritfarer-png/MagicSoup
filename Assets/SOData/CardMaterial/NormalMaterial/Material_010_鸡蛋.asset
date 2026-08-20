@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 10
   materialName: 鸡蛋
-  icon: {fileID: 21300000, guid: beb5a41295649ad43a830282821a2da5, type: 3}
+  icon: {fileID: 21300000, guid: 942e7330b7f14e64c832e65ce434b6ce, type: 3}
   color: {r: 0.96, g: 0.78, b: 0.31, a: 1}
-  iniHealth: 2
-  ascendedIniHealth: 2
+  maxHealth: 2
+  ascendedMaxHealth: 5
   normalIntents:
   - condition: 0
     conditionValue: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
     conditionValue: 0
     action:
       type: 0
-      value: 2
-  - condition: 3
-    conditionValue: 13
+      value: 3
+  - condition: 0
+    conditionValue: 0
     action:
       type: 1
-      value: 2
+      value: 3

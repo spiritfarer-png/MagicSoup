@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,6 +21,7 @@ public class MaterialSlotUI : MonoBehaviour,
     [SerializeField] private GameObject emptyBackground;
     public InventoryManager.MaterialArea Area { get; private set; }
     public int SlotIndex { get; private set; }
+    private MaterialSlotData slotData;
 
     private RectTransform draggedRect;
     private Transform originalParent;
@@ -55,6 +55,7 @@ public class MaterialSlotUI : MonoBehaviour,
 
     public void Bind(MaterialSlotData data, int index, InventoryManager.MaterialArea area)
     {
+        slotData = data;
         SlotIndex = index;
         Area = area;
         bool occupied = data != null && data.IsOccupied;
@@ -138,55 +139,13 @@ public class MaterialSlotUI : MonoBehaviour,
 
     public string GetToolTip()
     {
-        var manager = InventoryManager.Instance;
-        List<MaterialSlotData> slots;
-        if(Area == InventoryManager.MaterialArea.Inventory)
+        if (slotData != null && slotData.IsOccupied) return slotData.materialData.GetTooltipText();
+        return Area switch
         {
-            slots = manager.materialSlots;
-        }
-        else if(Area == InventoryManager.MaterialArea.Crafting)
-        {
-            slots = manager.craftingSlots;
-        }
-        else
-        {
-            slots = manager.potionSlots;
-        }
-
-        MaterialSlotData data = slots[SlotIndex];
-        if (data == null || !data.IsOccupied) return null;
-        bool isRelic = data.isRelic;
-        StringBuilder sb = new();
-
-        if (isRelic)
-        {
-            sb.Append("遗物:").AppendLine(data.materialData.materialName);
-            if(data.materialData.normalIntents.Length > 0)
-            {
-                sb.AppendLine("素材效果");
-            }
-        }
-        else
-        {
-            if(data.materialData is PotionData)
-            {
-                sb.Append("药水:");
-            }
-            else
-            {
-                sb.Append("素材:");
-            }
-            sb.Append(data.materialData.materialName);
-
-        }
-        foreach (var intent in data.materialData.normalIntents)
-        {
-            sb.AppendLine(intent.ToString());
-        }
-        if (isRelic)
-        {
-            sb.AppendLine("遗物效果:").Append(((IRelic)(data.materialData)).GetRelicInfo());
-        }
-        return sb.ToString();
+            InventoryManager.MaterialArea.Inventory => "<b>素材栏位</b>\n素材可用于合成卡牌，卡牌效果和数值为素材的叠加，有些素材在背包中也能发挥效果。",
+            InventoryManager.MaterialArea.Crafting => "<b>合成栏位</b>\n将素材放置于此来合成卡牌。",
+            InventoryManager.MaterialArea.Potion => "<b>药水栏位</b>\n在战斗中使用药水可以获得强化或伤害敌人。",
+            _ => null
+        };
     }
 }
