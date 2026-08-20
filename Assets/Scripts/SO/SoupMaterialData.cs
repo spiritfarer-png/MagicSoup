@@ -31,6 +31,13 @@ public class SoupMaterialData : ScriptableObject
     {
         StringBuilder sb = new();
         sb.Append("<b>").Append(this is IRelic ? "遗物：" : this is PotionData ? "药水：" : "素材：").Append(materialName).AppendLine("</b>");
+        
+        if(materialID == "19")
+        {
+            sb.Append("合成时所有其他素材的意图值+1");
+            return sb.ToString();
+        }
+        
         if (normalIntents != null && normalIntents.Length > 0)
         {
             if (this is IRelic) sb.AppendLine("素材效果：");

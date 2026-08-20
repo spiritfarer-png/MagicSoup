@@ -7,12 +7,13 @@ public static class BattleClock
 {
     public static int currentTime = 0;
     public static int maxTime = 12;
-
+    public static int totalTime = 0;
     public static Action<int> OnClockChanged;
 
     //时针运动规则
     public static void AdvanceClock()
     {
+        totalTime++;
         currentTime = currentTime % maxTime + 1;
         OnClockChanged?.Invoke(currentTime);
     }

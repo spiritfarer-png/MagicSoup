@@ -231,6 +231,7 @@ public sealed class MapManager : MonoBehaviour
     {
         if (!SelectNode(nodeId))
         {
+            Debug.LogWarning($"节点 {nodeId} 无法进入：CurrentNodeId={CurrentMap?.CurrentNodeId}，节点状态={GetNode(nodeId)?.State}");
             return;
         }
 

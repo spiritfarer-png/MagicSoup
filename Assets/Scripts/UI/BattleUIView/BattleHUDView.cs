@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,7 +7,9 @@ using UnityEngine.UI;
 
 public class BattleHUDView : UIView
 {
-    [SerializeField] TextMeshProUGUI clockText;
+    [SerializeField] private RectTransform shortPointer;
+    [SerializeField] private RectTransform longPointer;
+    [SerializeField] private float clockTweenDuration = 0.3f;
     [SerializeField] private Button extraActionButton;
     [SerializeField] private Button endRoundButton;
     [SerializeField] private Button cancelButton;
@@ -17,9 +20,16 @@ public class BattleHUDView : UIView
 
     [SerializeField] private RectTransform potionSlotParent;
     [SerializeField] private BattleHUDPotionSlot potionSlotPrefab;
-
+    private Quaternion shortPointerIniRotation;
+    private Quaternion longPointerIniRotation;
 
     private BattleManager battle;
+
+    private void Awake()
+    {
+        shortPointerIniRotation = shortPointer.localRotation;
+        longPointerIniRotation = longPointer.localRotation;
+    }
     protected override void OnOpen(object param)
     {
         AudioManager.Instance.PlayBGM("战斗音乐");
@@ -30,11 +40,11 @@ public class BattleHUDView : UIView
         cancelButton.onClick.AddListener(battle.CancelExtraAction);
         battle.PhaseChanged += Refresh;
         BattleClock.OnClockChanged += OnClockChanged;
+        SetClockTime(BattleClock.currentTime, false);
+
         ConfigureTooltip(extraActionButton, "点击后选择一张我方卡牌额外行动一次。");
         ConfigureTooltip(cancelButton, "取消额外行动。");
 
-
-        clockText.text = BattleClock.currentTime.ToString();
 
         // 遗物槽
         foreach(var relic in battle.PlayerRelics)
@@ -66,7 +76,26 @@ public class BattleHUDView : UIView
 
     private void OnClockChanged(int time)
     {
-        clockText.text = "当前时间"+time.ToString();
+        SetClockTime(time);
+    }
+
+    private void SetClockTime(int time, bool animated = true)
+    {
+        Quaternion longTarget = longPointerIniRotation * Quaternion.Euler(0f, 0f, -time * 30f);
+        Quaternion shortTarget = shortPointerIniRotation * Quaternion.Euler(0f, 0f, -BattleClock.totalTime * 2.5f);
+
+        longPointer.DOKill();
+        shortPointer.DOKill();
+
+        if (!animated)
+        {
+            longPointer.localRotation = longTarget;
+            shortPointer.localRotation = shortTarget;
+            return;
+        }
+
+        longPointer.DOLocalRotateQuaternion(longTarget, clockTweenDuration).SetEase(Ease.OutCubic);
+        shortPointer.DOLocalRotateQuaternion(shortTarget, clockTweenDuration).SetEase(Ease.OutCubic);
     }
 
     private void Refresh(BattlePhase phase)
@@ -106,7 +135,10 @@ public class BattleHUDView : UIView
         endRoundButton.onClick.RemoveAllListeners();
         cancelButton.onClick.RemoveAllListeners();
 
-        foreach(var slot in playerRelicSlotParent.GetComponentsInChildren<BattleHUDRelicSlot>())
+        longPointer.DOKill();
+        shortPointer.DOKill();
+
+        foreach (var slot in playerRelicSlotParent.GetComponentsInChildren<BattleHUDRelicSlot>())
         {
             Destroy(slot.gameObject);
         }
