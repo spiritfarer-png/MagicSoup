@@ -93,8 +93,8 @@ public class CardInfo
     public override string ToString()
     {
         StringBuilder sb = new();
-        sb.Append("名称: ");
-        sb.AppendLine(CardName);
+        sb.Append("<b>卡牌：");
+        sb.Append(CardName).AppendLine("</b>");
         foreach (var intent in intents)
         {
             sb.AppendLine(intent.ToString());

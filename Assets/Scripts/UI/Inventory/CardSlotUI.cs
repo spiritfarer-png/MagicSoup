@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler, ITooltipSource
 {
     private static CardSlotUI activeDragSource;
     public InventoryManager.CardArea Area { get; private set; }
     public int SlotIndex { get; private set; }
     private CardViewUI cardView;
+    private CardInfo cardInfo;
     private GameObject emptyBackground;
     private RectTransform draggedRect;
     private Transform originalParent;
@@ -36,6 +37,7 @@ public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void Bind(CardInfo data, int index, InventoryManager.CardArea area)
     {
+        cardInfo = data;
         SlotIndex = index;
         Area = area;
         if (cardView != null) cardView.Bind(data);
@@ -98,4 +100,15 @@ public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         draggedRect = null;
         originalParent = null;
     }
+
+    public string GetToolTip()
+    {
+        if (cardInfo != null) return cardInfo.ToString();
+        return Area == InventoryManager.CardArea.Inventory
+            ? "<b>卡牌备战席</b>\n用不到的卡牌暂存于此。"
+            : "<b>卡牌部署栏</b>\n将卡牌放置于此，这些卡牌将会参与战斗。";
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) { UIManager.instance.Open<TooltipView>(this); }
+    public void OnPointerExit(PointerEventData eventData) { UIManager.instance.Close<TooltipView>(); }
 }
