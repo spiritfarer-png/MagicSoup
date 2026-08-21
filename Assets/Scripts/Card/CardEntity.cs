@@ -16,6 +16,7 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     }
     [SerializeField] CardInfo cardInfo;
     public BattleCardState cardState;
+    [SerializeField] private Image cardBase;
     [SerializeField] private Image soup;
     [SerializeField] private Image[] materialIcons;
     [SerializeField] private TextMeshProUGUI healthText;
@@ -53,7 +54,7 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void InitializeVisual()
     {
-        var materials = CardInfo.materialInfoArray;
+        var materials = cardInfo.materialInfoArray;
         if (materials == null || materials.Length == 0) return;
 
         Color soupColor = Color.clear;
@@ -62,10 +63,18 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             soupColor += materials[i].Color;
             materialIcons[i].sprite = materials[i].Icon;
         }
-
-        soupColor /= materials.Length;
-        soupColor.a = 1f;
-        soup.color = soupColor;
+        if (cardInfo.SoupIconOverride == null)
+        {
+            soupColor /= materials.Length;
+            soupColor.a = 1f;
+            soup.color = soupColor;
+        }
+        else
+        {
+            soup.sprite = null;
+            soup.color = Color.clear;
+            cardBase.sprite = cardInfo.SoupIconOverride;
+        }
 
         UpdateVisual();
     }

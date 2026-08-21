@@ -10,23 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e2c75d15d368ad4d9b0aad0babc80d2, type: 3}
-  m_Name: EnemyConfigPool
+  m_Name: testEnemyConfig
   m_EditorClassIdentifier: 
   normalEnemyConfigs:
   - enemyCardInfos:
     - cardMaterialInfoArray:
-      - cardMaterialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: d1adfef6fcc9122504714594941784b8, type: 2}
-      soupIconOverride: {fileID: 0}
-      cardNameOverride: 
+      - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
-      - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: d1adfef6fcc9122504714594941784b8, type: 2}
-      soupIconOverride: {fileID: 0}
-      cardNameOverride: 
+      - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
-      - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 360d22794c546b92998e61b636726373, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
       soupIconOverride: {fileID: 0}
       cardNameOverride: 
     enemyRelics: []
@@ -38,6 +41,26 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: eded8facaec974a8cf909227f7f31858, type: 2}
       soupIconOverride: {fileID: 0}
       cardNameOverride: "\u732A\u817F\u7172\u6C64"
+    enemyRelics: []
+  - enemyCardInfos:
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
+    - cardMaterialInfoArray:
+      - cardMaterialData: {fileID: 11400000, guid: 360d22794c546b92998e61b636726373, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: 
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
