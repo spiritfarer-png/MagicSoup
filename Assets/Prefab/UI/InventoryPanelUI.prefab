@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.790249, b: 0.50539076, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -457,15 +457,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 84
+    m_Left: 61
     m_Right: 0
-    m_Top: 165
-    m_Bottom: 0
+    m_Top: 94
+    m_Bottom: 45
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 85.3, y: 10}
+  m_CellSize: {x: 160, y: 240}
+  m_Spacing: {x: 24.28, y: 120}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!222 &7436617986051622169
