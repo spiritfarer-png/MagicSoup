@@ -8,8 +8,10 @@ public class CardInfo
 {
     public CardMaterialInfo[] materialInfoArray { get => cardMaterialInfoArray; }
     public string CardName { get; private set; }
+    public Sprite SoupIconOverride => soupIconOverride;
     [SerializeField] private CardMaterialInfo[] cardMaterialInfoArray;
     [SerializeField] private Sprite soupIconOverride;
+    [SerializeField] private string cardNameOverride;
     public Intent[] intents
     {
         get 
@@ -58,7 +60,9 @@ public class CardInfo
         }
 
         sb.Append("瓦罐汤");
-        CardName = sb.ToString();
+        if (string.IsNullOrEmpty(cardNameOverride))
+            CardName = sb.ToString();
+        else CardName = cardNameOverride;
     }
 
     public void Ascend()
@@ -73,19 +77,29 @@ public class CardInfo
 
     private void ApplyCardModifiers()
     {
-        bool hasSalt = false;
+        int allBonus = 0;
+        int attackBonus = 0;
+        int defenceBonus = 0;
         foreach (var material in cardMaterialInfoArray)
         {
-            if (material?.Data?.materialID == "19") hasSalt = true;
+            if (material?.Data == null) continue;
+            switch (material.Data.materialID)
+            {
+                case "19": allBonus = 1; break;
+                case "34": defenceBonus += material.IsAscended ? 2 : 1; break;
+                case "35": attackBonus += material.IsAscended ? 2 : 1; break;
+            }
         }
-        if (!hasSalt) return;
+        if (allBonus == 0 && attackBonus == 0 && defenceBonus == 0) return;
         foreach (var material in cardMaterialInfoArray)
         {
             if (material == null) continue;
             for (int i = 0; i < material.Intents.Length; i++)
             {
                 Intent intent = material.Intents[i];
-                intent.action.value++;
+                intent.action.value += allBonus;
+                if (intent.action.type == MaterialAction.ActionType.Attack || intent.action.type == MaterialAction.ActionType.AttackAll) intent.action.value += attackBonus;
+                else if (intent.action.type == MaterialAction.ActionType.Defend) intent.action.value += defenceBonus;
                 material.Intents[i] = intent;
             }
         }

@@ -13,9 +13,6 @@ public sealed class MapView : UIView
     [SerializeField] private RectTransform edgeRoot;
     [SerializeField] private MapEdgeView edgePrefab;
 
-    // 布局已改为按画布尺寸自动适配（见 Refresh），以下字段仅作参考，不再参与计算
-    [SerializeField] private float horizontalSpacing = 150f;
-    [SerializeField] private float verticalSpacing = 65f;
     [SerializeField] private float edgeThickness = 4f;
 
     [SerializeField] private Button inventoryButton;
@@ -55,7 +52,7 @@ public sealed class MapView : UIView
         // —— 自动适配画布尺寸：地图铺满 nodeRoot 可用区域，不溢出、不缩成一团 ——
         // 横向左右各留 300（右侧为右下角背包按钮让位，任何分辨率下节点都不会与按钮重叠）；
         // 纵向上下各留 50（覆盖节点半尺寸 + 少量留白，保持高度铺满）
-        const float marginX = 300f;
+        const float marginX = 500f;
         const float marginY = 50f;
         float availWidth = Mathf.Max(1f, nodeRoot.rect.width - marginX * 2f);
         float availHeight = Mathf.Max(1f, nodeRoot.rect.height - marginY * 2f);
