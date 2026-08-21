@@ -8,8 +8,10 @@ public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private static CardSlotUI activeDragSource;
     public InventoryManager.CardArea Area { get; private set; }
     public int SlotIndex { get; private set; }
+    [SerializeField]
     private CardViewUI cardView;
     private CardInfo cardInfo;
+    [SerializeField]
     private GameObject emptyBackground;
     private RectTransform draggedRect;
     private Transform originalParent;
@@ -21,10 +23,24 @@ public class CardSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private Vector2 originalSizeDelta;
     private Vector2 originalAnchoredPosition;
 
+
     private void Awake()
     {
         Canvas canvas = GetComponentInParent<Canvas>();
         rootCanvas = canvas != null ? canvas.rootCanvas : null;
+
+        if (cardView == null) cardView = GetComponentInChildren<CardViewUI>(true);
+        EnsureCanvasGroup();
+
+    }
+
+    private void EnsureCanvasGroup()
+    {
+        if (cardView != null && canvasGroup == null)
+        {
+            canvasGroup = cardView.GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = cardView.gameObject.AddComponent<CanvasGroup>();
+        }
     }
 
     public void Configure(CardViewUI view, GameObject emptyView)

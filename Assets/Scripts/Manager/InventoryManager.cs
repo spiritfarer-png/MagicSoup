@@ -6,10 +6,10 @@ public class InventoryManager : MonoBehaviour
     public enum MaterialArea { Inventory, Crafting,Potion }
     public enum CardArea { Inventory, Deployed }
     public static InventoryManager Instance { get; private set; }
-    private const int MaterialSlotCapacity = 20;
+    private const int MaterialSlotCapacity = 16;
     private const int CraftingSlotCapacity = 3;
     private const int PotionSlotCapacity = 5;
-    private const int CardSlotCapacity = 10;
+    private const int CardSlotCapacity = 5;
     private const int DeployedCardSlotCapacity = 4;
 
     [Header("Runtime Slots")]
