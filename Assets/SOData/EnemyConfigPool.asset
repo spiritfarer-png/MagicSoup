@@ -18,11 +18,17 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: d1adfef6fcc9122504714594941784b8, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: 
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: d1adfef6fcc9122504714594941784b8, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: 
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 79318aaa88f895cccde9d67c0e6acfaa, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: 
     enemyRelics: []
   eliteEnemyConfigs:
   - enemyCardInfos:
@@ -30,26 +36,36 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: 174f656bb6d65fec2fb6ccf320184107, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: eded8facaec974a8cf909227f7f31858, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: "\u732A\u817F\u7172\u6C64"
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
+      cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 360d22794c546b92998e61b636726373, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
+      soupIconOverride: {fileID: 0}
+      cardNameOverride: 
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: f0cbb58bc28fa9581337b9c24f30054c, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 324faa7c5e637134fb62ab0e391b849a, type: 3}
+      cardNameOverride: "\u9999\u6599\u7096\u6C64"
     enemyRelics: []
   bossEnemyConfigs:
   - enemyCardInfos:
@@ -57,10 +73,14 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: 03f77c9319eb6485974ccad4466be9c5, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 3ba2c32ab9f2732df835a7409a5a4aed, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 98b4a1a61f460e949821d17d58ef134a, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 324faa7c5e637134fb62ab0e391b849a, type: 3}
+      cardNameOverride: "\u6D77\u6D0B\u6DF7\u6DF7\u6D53\u6C64"
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: e6c215eb196907eb474c968c9664a397, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 33f777d2dc7393c4c82fa3b941d44099, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
+      soupIconOverride: {fileID: 21300000, guid: 339047a41b60088489d0e1633d6e0b1f, type: 3}
+      cardNameOverride: "\u58EB\u5175\u7096\u6C64"
     enemyRelics: []

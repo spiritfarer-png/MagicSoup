@@ -137,11 +137,11 @@ MonoBehaviour:
   button: {fileID: 6084480591626687386}
   nodeText: {fileID: 7560616159460968789}
   nodeIcon: {fileID: 0}
-  normalBattleIcon: {fileID: 21300000, guid: 8c1435dabd2d2da4da7012ffabc39bdf, type: 3}
-  eliteBattleIcon: {fileID: 21300000, guid: 8c1435dabd2d2da4da7012ffabc39bdf, type: 3}
-  randomEventIcon: {fileID: 21300000, guid: 92f03188d47b37c41a545db6720213cd, type: 3}
-  treasureIcon: {fileID: 21300000, guid: f196ba17854d65f449afdb13ecc1003d, type: 3}
-  bossIcon: {fileID: 21300000, guid: 8c1435dabd2d2da4da7012ffabc39bdf, type: 3}
+  normalBattleIcon: {fileID: 21300000, guid: 4d7a4d68a05d1c84799400a55e053d9b, type: 3}
+  eliteBattleIcon: {fileID: 21300000, guid: 400b0ab4fc875bb45a135601266c24eb, type: 3}
+  randomEventIcon: {fileID: 21300000, guid: cd414630711e6e241bd9157f749a7518, type: 3}
+  treasureIcon: {fileID: 21300000, guid: 2cb30a348f675704cb62c119b6ea310e, type: 3}
+  bossIcon: {fileID: 21300000, guid: 82c04c797097bba408dc89b04533c1a9, type: 3}
 --- !u!1 &8061914206564484132
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,10 +207,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: aaa
+  m_text: "\u554A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6beee020a1ad5a44597a617f0c5abd5e, type: 2}
+  m_sharedMaterial: {fileID: -4388725854807477496, guid: 6beee020a1ad5a44597a617f0c5abd5e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
