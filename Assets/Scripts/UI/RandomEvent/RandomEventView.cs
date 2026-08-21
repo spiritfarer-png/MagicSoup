@@ -12,6 +12,8 @@ public sealed class RandomEventView : UIView
     private Image eventIcon;
     [SerializeField]
     private TMP_Text dialogueText;
+    [SerializeField]
+    private TMP_Text endDeclare;
     [Header("选项")]
     [SerializeField]
     private RectTransform optionRoot;
@@ -68,6 +70,8 @@ public sealed class RandomEventView : UIView
         dialogueText.gameObject.SetActive(true);
         optionRoot.gameObject.SetActive(true);
         rewardRoot.SetActive(false);
+        endDeclare.gameObject.SetActive(false);
+        endDeclare.text = null;
         cardRewardView.gameObject.SetActive(false);
         itemRewardView.gameObject.SetActive(false);
         leaveButton.gameObject.SetActive(true);
@@ -171,6 +175,8 @@ public sealed class RandomEventView : UIView
 
         cardRewardView.Bind(card);
         isShowingReward = true;
+        endDeclare.gameObject.SetActive(true);
+        endDeclare.text = $"{card.CardName}已升级！";
     }
 
     private void ShowItemReward(SoupMaterialData item)
@@ -181,6 +187,8 @@ public sealed class RandomEventView : UIView
         itemRewardView.Bind(item);
 
         isShowingReward = true;
+        endDeclare.gameObject.SetActive(true);
+        endDeclare.text = $"获得{item.materialName}！";
     }
 
     private void RaiseReward()
