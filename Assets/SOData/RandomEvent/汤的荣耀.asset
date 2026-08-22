@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db196534363b9c54493e55c574817a98, type: 3}
+  m_Name: "\u6C64\u7684\u8363\u8000"
+  m_EditorClassIdentifier: 
+  randomEvent: 1
+  eventTitle: "\u6C64\u7684\u8363\u8000"
+  eventIcon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  upgradeCardCount: 2
+  materialRewardCount: 2
+  dialogues:
+  - dialogueText: "\u4F60\u5728\u8DEF\u8FB9\u770B\u5230\u4E00\u4E2A\u5012\u5730\u7684\u74E6\u7F50<br>\u5B83\u597D\u50CF\u6709\u4E00\u70B9\u6B7B\u4E86 "
+    options:
+    - optionText: "\u7FFB\u4E00\u4E0B\u5B83\u7684\u8EAB\u4F53<br>\u6216\u8BB8\u6709\u5B9D\u8D1D\uFF01 "
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 1
+    - optionText: "\u4E00\u811A\u628A\u5B83\u8E22\u5F00<br>\u6EDA\u8FDC\u70B9\uFF01 "
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 3
+  - dialogueText: "\u4F60\u5F80\u5B83\u7684\u809A\u5B50\u91CC\u638F\u4E86\u638F\uFF0C<br>\u4F60\u7FFB\u51FA\u4E86\u4E00\u4E9B\u7D20\u6750\u3002 "
+    options:
+    - optionText: "\u83B7\u5F97\u4E24\u4E2A\u7D20\u6750"
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 2
+  - dialogueText: "\u4E34\u8D70\u65F6\uFF0C\u4E0D\u77E5\u662F\u4E0D\u662F\u5E7B\u89C9\uFF0C\u4F60\u542C\u5230\u4E86\u4E00\u4E2A\u58F0\u97F3\uFF1A
+      <br>\u201C\u62FF\u8D70\u6211\u7684\u7D20\u6750\u2026\u2026\u7EE7\u627F\u6C64\u7684\u8363\u8000\uFF01
+      \u201D"
+    options:
+    - optionText: "\u79BB\u5F00"
+      isFinalOption: 1
+      isGetReward: 1
+      nextDialogueIndex: 0
+  - dialogueText: "\u74E6\u7F50\u4E01\u4E01\u5F53\u5F53\u7684\u6EDA\u5F00\uFF0C\u6EDA\u5230\u4E00\u4E2A\u659C\u5761\u4E0B\uFF0C\u4E0D\u52A8\u4E86\uFF1B<br>\u4E0D\u77E5\u662F\u4E0D\u662F\u5E7B\u89C9\uFF0C\u4F60\u770B\u5230\u5B83\u597D\u50CF\u662F\u80CC\u624B\u6454\u5012\u5730\u7684\uFF0C\u8FD8\u542C\u5230\u4E86\u4E00\u4E2A\u58F0\u97F3\uFF1A<br>\u201C\u4FAE\u8FB1\u6C64\u4E4B\u610F\u5FD7\uFF0C\u6C64\u7684\u8363\u8000\u4F1A\u8BCB\u6BC1\u6C38\u4E0D\u9976\u6055\uFF01\u201D "
+    options:
+    - optionText: "\u518D\u8E39\u5B83\u4E00\u811A"
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 4
+  - dialogueText: "\u201C\u6C38\u4E0D\u2026\u554A\uFF01\u201D<br>\u5B83\u6CA1\u58F0\u4E86 "
+    options:
+    - optionText: "\u79BB\u5F00"
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 5
+  - dialogueText: "\u558B\u558B\u4E0D\u4F11\u7684\u8BDD\u4E00\u76F4\u5728\u8033\u8FB9\u8BF4\u4E2A\u4E0D\u505C\uFF0C\u771F\u70E6\u4EBA\uFF01"
+    options:
+    - optionText: "\u79BB\u5F00"
+      isFinalOption: 1
+      isGetReward: 0
+      nextDialogueIndex: 0

@@ -9,6 +9,11 @@ public class RandomEventSO : ScriptableObject
     public string eventTitle;
     public Sprite eventIcon;
 
+    [Min(1)]
+    public int upgradeCardCount = 2;
+    [Min(1)]
+    public int materialRewardCount = 2;
+
     [Header("事件对话")]
     public List<RandomEventDialogueData> dialogues = new List<RandomEventDialogueData>();
 }

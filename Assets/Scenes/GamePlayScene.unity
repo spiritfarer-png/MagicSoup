@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomEventSOs:
-  - {fileID: 11400000, guid: 9e0d0af9a3a458d499156a3a12968b88, type: 2}
-  - {fileID: 11400000, guid: e4c5a87e8ecca4b4cbd316820b526a3d, type: 2}
-  - {fileID: 11400000, guid: d394eaed7e0066e4bb5b8d2a25e75839, type: 2}
-  - {fileID: 11400000, guid: 534452f30a1be2d4f88f38cc22f024b2, type: 2}
+  - {fileID: 11400000, guid: 2f4655c02488f24488ec4f692c17bf10, type: 2}
+  - {fileID: 11400000, guid: 465f45af7854ebf48b12164fc6953f64, type: 2}
+  - {fileID: 11400000, guid: 199a847183cffe14c8a352517a439e3c, type: 2}
+  - {fileID: 11400000, guid: 3733dbbbcb37e9f49812097de182fffc, type: 2}
 --- !u!1 &336446129
 GameObject:
   m_ObjectHideFlags: 0
