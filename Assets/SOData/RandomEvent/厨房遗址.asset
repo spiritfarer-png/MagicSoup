@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db196534363b9c54493e55c574817a98, type: 3}
+  m_Name: "\u53A8\u623F\u9057\u5740"
+  m_EditorClassIdentifier: 
+  randomEvent: 3
+  eventTitle: "\u53A8\u623F\u9057\u5740"
+  eventIcon: {fileID: 21300000, guid: 6242cbae99e840d47906af1f1af49811, type: 3}
+  upgradeCardCount: 2
+  materialRewardCount: 2
+  dialogues:
+  - dialogueText: "\u4F60\u770B\u5230\u4E86\u4E00\u5904\u2026\u2026\u53A8\u623F\u9057\u5740\uFF1F\uFF01\u5185\u90E8\u5DF2\u7ECF\u7834\u8D25\u4E0D\u582A<br>\u4F46\u6216\u8BB8\u8FD8\u6709\u70B9\u4E1C\u897F"
+    options:
+    - optionText: "\u8FDB\u53BB\u770B\u770B<br>\u641C\u522E\u641C\u522E"
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 1
+    - optionText: "\u8D70\u4E86<br>\u591A\u4E00\u4E8B\u4E0D\u5982\u5C11\u4E00\u4E8B "
+      isFinalOption: 0
+      isGetReward: 0
+      nextDialogueIndex: 2
+  - dialogueText: "\u4F60\u5728\u5185\u90E8\u641C\u522E\u4E86\u534A\u5929<br>\u6700\u7EC8\u5728\u4E00\u51FA\u6807\u8BB0\u8FD9\u4E00\u5904\u5371\u9669\u54C1\u7684\xB7\u67DC\u5B50\u91CC\u627E\u5230\u4E86\u4E00\u74F6\u2026\u8C03\u6599\uFF1F\uFF01"
+    options:
+    - optionText: "\u83B7\u5F97\u4E00\u74F6\u836F\u6C34"
+      isFinalOption: 1
+      isGetReward: 1
+      nextDialogueIndex: 0
+  - dialogueText: "\u4F60\u79BB\u5F00\u4E86\u53A8\u623F\u9057\u5740"
+    options:
+    - optionText: "\u79BB\u5F00"
+      isFinalOption: 1
+      isGetReward: 0
+      nextDialogueIndex: 0

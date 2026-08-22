@@ -27,5 +27,6 @@ public class RandomEventOptionData
 {
     public string optionText;
     public bool isFinalOption;
+    public bool isGetReward;
     public int nextDialogueIndex;
 }
