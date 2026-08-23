@@ -18,6 +18,7 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public BattleCardState cardState;
     [SerializeField] private Image cardBase;
     [SerializeField] private Image soup;
+    [SerializeField] private Image soupHightLight;
     [SerializeField] private Image[] materialIcons;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
@@ -73,6 +74,8 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             soup.sprite = null;
             soup.color = Color.clear;
+            soupHightLight.sprite = null;
+            soupHightLight.color = Color.clear;
             cardBase.sprite = cardInfo.SoupIconOverride;
         }
 
