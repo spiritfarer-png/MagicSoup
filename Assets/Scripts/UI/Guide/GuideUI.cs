@@ -16,7 +16,6 @@ public class GuideUI : UIView
 
     private Tween currentTween;
     private int currentIndex = 0;
-    [HideInInspector]public bool isActive = false;
 
     private void Awake() { Instance = this; }
 
@@ -49,6 +48,7 @@ public class GuideUI : UIView
     //上一页
    private void OnLeftClick()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         if (currentIndex > 0)
         {
             SwitchPage(currentIndex - 1);
@@ -57,6 +57,7 @@ public class GuideUI : UIView
     //下一页
     private void OnRightClick()
     {
+        AudioManager.Instance.PlaySFX("点击音效");
         if (currentIndex < GuidePages.Count - 1)
         {
             SwitchPage(currentIndex + 1);
@@ -111,7 +112,7 @@ public class GuideUI : UIView
 
     private void OnQuitClick()
     {
-        isActive = false;
+        AudioManager.Instance.PlaySFX("点击音效");
         Close();
     }
 }
