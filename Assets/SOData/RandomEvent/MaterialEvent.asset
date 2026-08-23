@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEvent: 1
   eventTitle: "\u968F\u673A\u4E00\u4E2A\u7D20\u6750"
-  eventIcon: {fileID: 21300000, guid: 3ecd4a5ce72f67243b9caf60740e7ee0, type: 3}
+  eventIcon: {fileID: 21300000, guid: 92c07c75b05a44d4848d0b1eeaefe4eb, type: 3}
   dialogues:
   - dialogueText: "\u5BF9\u8BDD0"
     options:

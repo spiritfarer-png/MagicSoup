@@ -45,6 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d09887de5b2e46dd92f132d004160463, type: 2}
   - {fileID: 11400000, guid: 85d76f746c5b4d6cbddb722e667eaa9c, type: 2}
   - {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
+  - {fileID: 11400000, guid: 98b4a1a61f460e949821d17d58ef134a, type: 2}
   potionLoots:
   - {fileID: 11400000, guid: bc7339ceebd54050bfac035d49911339, type: 2}
   - {fileID: 11400000, guid: 03fc2793edbb4bf6b3b0f233fe91f901, type: 2}
