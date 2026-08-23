@@ -22,7 +22,6 @@ public sealed class MapManager : MonoBehaviour
     {
         StartNewMap((int)(Time.realtimeSinceStartup * 1000));
         UIManager.instance.Open<InventoryPanelUI>();
-        UIManager.instance.Open<GuideUI>();
     }
 
     private void OnDestroy()

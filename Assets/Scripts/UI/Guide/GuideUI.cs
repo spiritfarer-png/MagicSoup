@@ -28,6 +28,13 @@ public class GuideUI : UIView
         InitializePages();
     }
 
+    protected override void OnOpen(object param)
+    {
+        PlayOpenTween();
+    }
+
+
+
     //只显示第0页 其余隐藏
     private void InitializePages()
     {
@@ -63,7 +70,7 @@ public class GuideUI : UIView
             SwitchPage(currentIndex + 1);
         }
     }
-
+    private Sequence switchSequence;
     private void SwitchPage(int targetIndex)
     {
         if (targetIndex < 0 || targetIndex >= GuidePages.Count) return;
@@ -78,7 +85,7 @@ public class GuideUI : UIView
 
         // 准备新页面
         newPage.SetActive(true);
-        newCg.alpha = 1f;
+        newCg.alpha = 0f;
         oldCg.blocksRaycasts = false;
         newCg.blocksRaycasts = true;
 
@@ -113,6 +120,6 @@ public class GuideUI : UIView
     private void OnQuitClick()
     {
         AudioManager.Instance.PlaySFX("点击音效");
-        CloseSelf();
+        PlayCloseTween(() => { CloseSelf(); });
     }
 }
