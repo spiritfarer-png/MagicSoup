@@ -185,7 +185,7 @@ MonoBehaviour:
     cardNameOverride: 
   cardBase: {fileID: 6669069362095060393}
   soup: {fileID: 3573775250175915386}
-  soupHightLight: {fileID: 0}
+  soupHightLight: {fileID: 3397986056691659515}
   materialIcons:
   - {fileID: 5465918733318128861}
   - {fileID: 4849963348138132386}
