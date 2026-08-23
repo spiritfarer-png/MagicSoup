@@ -78,7 +78,7 @@ public class GuideUI : UIView
 
         // 准备新页面
         newPage.SetActive(true);
-        newCg.alpha = 0f;
+        newCg.alpha = 1f;
         oldCg.blocksRaycasts = false;
         newCg.blocksRaycasts = true;
 
