@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialID: 9
   materialName: 特级混合精碎肉
-  icon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
+  icon: {fileID: 21300000, guid: 4ae9467d4fe64e11ba2809a6f7f2a837, type: 3}
   color: {r: 0.96, g: 0.42, b: 0.31, a: 1}
   maxHealth: 3
   ascendedMaxHealth: 7

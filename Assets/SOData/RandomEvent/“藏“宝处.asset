@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEvent: 2
   eventTitle: "\u201C\u85CF\u201C\u5B9D\u5904"
-  eventIcon: {fileID: 21300000, guid: a3fc992c7958f23459a411ff8e25aa14, type: 3}
+  eventIcon: {fileID: 21300000, guid: 1e7fb882658d4427aee6562f048c3ad3, type: 3}
   upgradeCardCount: 2
   materialRewardCount: 2
   dialogues:
