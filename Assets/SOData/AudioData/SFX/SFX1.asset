@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SFX1
   m_EditorClassIdentifier: 
   soundID: "\u653B\u51FB\u97F3\u6548"
-  clip: {fileID: 8300000, guid: a564bbea8d2ff5844af9e5ee322f51d7, type: 3}
+  clip: {fileID: 8300000, guid: 14f7e230a80f5c64db17f841106d301a, type: 3}
   volume: 1
   randomizePitch: 1
   pitchRange: {x: 0.9, y: 1.1}
