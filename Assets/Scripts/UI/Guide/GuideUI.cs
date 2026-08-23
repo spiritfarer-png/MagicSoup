@@ -113,6 +113,6 @@ public class GuideUI : UIView
     private void OnQuitClick()
     {
         AudioManager.Instance.PlaySFX("µã»÷ÒôÐ§");
-        Close();
+        CloseSelf();
     }
 }
