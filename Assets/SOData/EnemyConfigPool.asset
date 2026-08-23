@@ -59,9 +59,9 @@ MonoBehaviour:
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
-      - cardMaterialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: f0cbb58bc28fa9581337b9c24f30054c, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: 85d76f746c5b4d6cbddb722e667eaa9c, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: df2bd2be9217442c901e4c23dcb33e71, type: 2}
+      - cardMaterialData: {fileID: 11400000, guid: e365d8c3c4e64bc688cfd18b9d7882a9, type: 2}
       soupIconOverride: {fileID: 21300000, guid: 839f768a575e5eb45969c9bd0ba8baa8, type: 3}
       cardNameOverride: "\u9999\u6599\u7096\u6C64"
     enemyRelics: []
