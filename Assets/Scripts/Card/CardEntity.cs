@@ -22,6 +22,7 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     [SerializeField] private Image[] materialIcons;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private TextMeshProUGUI nameText;
     public Vector2 iniLocalPosition { get; private set; }
     public Vector3 iniLocalScale { get; private set; }
     public Quaternion iniLocalRotation { get; private set; }
@@ -78,7 +79,7 @@ public class CardEntity : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             soupHightLight.color = Color.clear;
             cardBase.sprite = cardInfo.SoupIconOverride;
         }
-
+        nameText.text = cardInfo.CardName;
         UpdateVisual();
     }
 
