@@ -36,20 +36,18 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: 174f656bb6d65fec2fb6ccf320184107, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 7db5427e3738a4b42bd511d062f659ad, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: eded8facaec974a8cf909227f7f31858, type: 2}
-      soupIconOverride: {fileID: 0}
+      soupIconOverride: {fileID: 21300000, guid: 776627c7db2e9384eae271a1dea30e43, type: 3}
       cardNameOverride: "\u732A\u817F\u7172\u6C64"
     enemyRelics: []
   - enemyCardInfos:
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
       soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
       cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 8c44ea14b91e250edeb081f8c3f0397c, type: 2}
-      - cardMaterialData: {fileID: 11400000, guid: c8295baad1e18ded1674b94cf6317f00, type: 2}
       soupIconOverride: {fileID: 21300000, guid: 977e42698ea2289489e071adf1a76c8d, type: 3}
       cardNameOverride: "\u6E05\u6C64"
     - cardMaterialInfoArray:
@@ -64,7 +62,7 @@ MonoBehaviour:
       - cardMaterialData: {fileID: 11400000, guid: d5d6fcce63d6ddc1a509b114ef2b8dcd, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: f0cbb58bc28fa9581337b9c24f30054c, type: 2}
       - cardMaterialData: {fileID: 11400000, guid: 202db4c1e3dc4355fc3d7d40bdb50ac8, type: 2}
-      soupIconOverride: {fileID: 21300000, guid: 324faa7c5e637134fb62ab0e391b849a, type: 3}
+      soupIconOverride: {fileID: 21300000, guid: 839f768a575e5eb45969c9bd0ba8baa8, type: 3}
       cardNameOverride: "\u9999\u6599\u7096\u6C64"
     enemyRelics: []
   bossEnemyConfigs:
