@@ -265,8 +265,6 @@ MonoBehaviour:
   nodePrefab: {fileID: 2648455701723092741, guid: a789b30a710085a449209440a6c284a5, type: 3}
   edgeRoot: {fileID: 4656920576287320588}
   edgePrefab: {fileID: 143804595740063144, guid: 8b6d43bfb8977c942a27966326acd8dd, type: 3}
-  horizontalSpacing: 170
-  verticalSpacing: 60
   edgeThickness: 4
   inventoryButton: {fileID: 8132240827612808703}
 --- !u!1 &5316077031921208539

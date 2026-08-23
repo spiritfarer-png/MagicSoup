@@ -100,10 +100,10 @@ TextureImporter:
       name: "\u901A\u7528\u6309\u94AE\u56DB\u72B6\u6001\uFF0Ctooltip_0"
       rect:
         serializedVersion: 2
-        x: 454
-        y: 370
-        width: 1233
-        height: 1233
+        x: 473
+        y: 558
+        width: 1200
+        height: 800
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
