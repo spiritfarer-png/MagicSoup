@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -36,9 +37,8 @@ public class InventoryPanelUI : UIView
     private readonly List<CardSlotUI> cardSlotViews = new List<CardSlotUI>();
     private readonly List<CardSlotUI> deployedSlotViews = new List<CardSlotUI>();
     private bool initialized;
-
+    private bool firstOpen = true;
     private void Awake() { Instance = this; }
-
     protected override void OnOpen(object param)
     {
         if (!initialized)
@@ -54,7 +54,19 @@ public class InventoryPanelUI : UIView
             initialized = true;
         }
         RefreshAllUI();
-        PlayOpenTween();
+        PlayOpenTween().OnComplete(() =>
+        {
+            if (!firstOpen) return;
+            firstOpen = false;
+            Invoke(nameof(OpenGuideUI), 0.3f);
+        });
+    }
+
+
+
+    private void OpenGuideUI()
+    {
+        UIManager.instance.Open<GuideUI>();
     }
 
     private void OnDestroy() { if (Instance == this) Instance = null; }

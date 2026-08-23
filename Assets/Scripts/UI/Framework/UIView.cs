@@ -28,16 +28,17 @@ public abstract class UIView : MonoBehaviour
         Closed?.Invoke(this);
     }
 
-    public void PlayOpenTween()
+    public Tween PlayOpenTween()
     {
+        transform.DOKill();
         transform.localScale = Vector3.zero;
-        transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+        return transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
-    public void PlayCloseTween(Action onComplete)
+    public Tween PlayCloseTween(Action onComplete)
     {
         AudioManager.Instance.PlaySFX("µã»÷ÒôÐ§");
-        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InCubic).OnComplete(() => onComplete());
+        return transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InCubic).OnComplete(() => onComplete());
     }
 
     protected void CloseSelf()
